@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.vcanpay" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.vcanpay.activity.StartActivity"
+            android:label="@string/title_activity_start"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.TabhostActivity"
+            android:label="@string/title_activity_tabhost" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.PicsShowAcitivity"
+            android:label="@string/title_activity_show_acitivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.ActionBarTabsActivity"
+            android:label="@string/title_activity_action_bar_tabs" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.SignInActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.TransferringHistoryActivity"
+            android:label="@string/title_activity_transferring_history" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.TransferMoneyActivity"
+            android:label="@string/title_activity_transfer_money"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.settings.SecurityManagementActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.AddBankCardActivity"
+            android:label="@string/title_activity_add_bank_card" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.bill.BillDetailsActivity"
+            android:label="@string/title_activity_bill_details" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.settings.SecurityManagementActivity"
+            android:label="@string/title_activity_security_management"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.TabhostActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.settings.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password"
+            android:parentActivityName="com.vcanpay.activity.settings.SecurityManagementActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.settings.SecurityManagementActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.settings.ChangePaymentPasswordActivity"
+            android:label="@string/title_activity_change_payment_password"
+            android:parentActivityName="com.vcanpay.activity.settings.SecurityManagementActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.settings.SecurityManagementActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.settings.FindPaymentPasswordActivity"
+            android:label="@string/title_activity_find_payment_password"
+            android:parentActivityName="com.vcanpay.activity.settings.SecurityManagementActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.settings.SecurityManagementActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.help.HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.TabhostActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.help.FeedBackActivity"
+            android:label="@string/title_activity_feed_back"
+            android:parentActivityName="com.vcanpay.activity.help.HelpActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.help.HelpActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.profile.UserProfileActivity"
+            android:label="@string/title_activity_user_profile"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.TabhostActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.recharge.RechargeActivity"
+            android:label="@string/title_activity_recharge"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.TabhostActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.TransferPaymentActivity"
+            android:label="@string/title_activity_transfer_payment"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.TabhostActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.WithdrawActivity"
+            android:label="@string/title_activity_withdraw"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.TabhostActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.help.TutorialActivity"
+            android:label="@string/title_activity_tutorial"
+            android:parentActivityName="com.vcanpay.activity.TabhostActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.TabhostActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

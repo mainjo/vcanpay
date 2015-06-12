@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Vcanpay</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">设置</string>
+    <string name="account_name">Account Name</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register">Register</string>
+    <string name="title_activity_register">Register</string>
+    <string name="register_submit">Submit</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_transferring_history">TransferringHistoryActivity</string>
+    <string name="title_activity_transfer_money">转账</string>
+    <string name="title_activity_add_bank_card">添加银行卡</string>
+    <string name="title_activity_bill_details">账单</string>
+    <string name="title_activity_tabhost">主页</string>
+    <string name="title_activity_action_bar_tabs">ActionBarTabsActivity</string>
+    <string name="menu_refresh">刷新</string>
+    <string name="menu_location">位置</string>
+    <string name="menu_settings">设置</string>
+    <string name="list_item_text_example">list item</string>
+    <string name="title_activity_security_management">安全</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_change_password">修改登录密码</string>
+    <string name="title_activity_change_payment_password">修改支付密码</string>
+    <string name="title_activity_find_payment_password">找回支付密码</string>
+    <string name="title_activity_help">帮助</string>
+    <string name="title_activity_feed_back">反馈</string>
+    <string name="title_activity_user_profile">个人资料</string>
+    <string name="title_activity_recharge">RechargeActivity</string>
+    <string name="title_activity_transfer_payment">TransferPaymentActivity</string>
+    <string name="title_activity_withdraw">提现</string>
+    <string name="title_activity_tutorial">使用指南</string>
+    <string name="enable_notification_push">开启通知推送</string>
+    <string name="title_activity_show_acitivity">Pic Show</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recent_records">最近记录</string>
+    <string name="balance_demo_string">余额￥5,0000.00</string>
+    <string name="often_used_func">常用的功能</string>
+    <string name="bill_details">Bill Details</string>
+    <string name="all_bills">全部账单</string>
+    <string name="recharge_bills">充值</string>
+    <string name="payment_bills">付款</string>
+    <string name="title_activity_start">Start</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>
