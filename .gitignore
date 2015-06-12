@@ -5,3 +5,5 @@
 .DS_Store
 /build
 /com.android.volley
+.idea
+Vcanpay.iml
