@@ -25,15 +25,15 @@ public class DummyContent {
     public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
     static {
-        addItem(new DummyItem("1", R.drawable.ic_launcher, "\u5145\u503c"));
-        addItem(new DummyItem("2", R.drawable.ic_launcher, "\u4ed8\u6b3e"));
-        addItem(new DummyItem("3", R.drawable.ic_launcher, "\u8f6c\u8d26"));
-        addItem(new DummyItem("4", R.drawable.ic_launcher, "\u624b\u673a\u5145\u503c"));
-        addItem(new DummyItem("5", R.drawable.ic_launcher, "\u5546\u57ce"));
-        addItem(new DummyItem("6", R.drawable.ic_launcher, "\u7ea2\u5305"));
-        addItem(new DummyItem("7", R.drawable.ic_launcher, "\u63d0\u73b0"));
-        addItem(new DummyItem("8", R.drawable.ic_launcher, "\u6307\u5357"));
-        addItem(new DummyItem("9", R.drawable.ic_launcher, "\u5c0f\u60ca\u559c"));
+        addItem(new DummyItem("1", R.mipmap.ic_launcher, "\u5145\u503c"));
+        addItem(new DummyItem("2", R.mipmap.ic_launcher, "\u4ed8\u6b3e"));
+        addItem(new DummyItem("3", R.mipmap.ic_launcher, "\u8f6c\u8d26"));
+        addItem(new DummyItem("4", R.mipmap.ic_launcher, "\u624b\u673a\u5145\u503c"));
+        addItem(new DummyItem("5", R.mipmap.ic_launcher, "\u5546\u57ce"));
+        addItem(new DummyItem("6", R.mipmap.ic_launcher, "\u7ea2\u5305"));
+        addItem(new DummyItem("7", R.mipmap.ic_launcher, "\u63d0\u73b0"));
+        addItem(new DummyItem("8", R.mipmap.ic_launcher, "\u6307\u5357"));
+        addItem(new DummyItem("9", R.mipmap.ic_launcher, "\u5c0f\u60ca\u559c"));
     }
 
     private static void addItem(DummyItem item) {

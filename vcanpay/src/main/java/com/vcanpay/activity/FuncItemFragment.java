@@ -1,6 +1,7 @@
 package com.vcanpay.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,11 +10,17 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.vcanpay.R;
 import com.vcanpay.activity.dummy.DummyContent;
+import com.vcanpay.view.GridViewItemLayout;
+
+import java.util.List;
+
+import static com.example.vcanpay.R.id.text1;
 
 /**
  * A fragment representing a list of Items.
@@ -74,8 +81,8 @@ public class FuncItemFragment extends Fragment implements AbsListView.OnItemClic
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                R.layout.grid_item, R.id.text1, DummyContent.ITEMS);
+        mAdapter = new CustomAdapter(getActivity(),
+                R.layout.grid_item, text1, DummyContent.ITEMS);
     }
 
     @Override
@@ -131,6 +138,72 @@ public class FuncItemFragment extends Fragment implements AbsListView.OnItemClic
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
         }
+    }
+
+    public static class CustomAdapter extends ArrayAdapter<DummyContent.DummyItem> {
+
+        LayoutInflater mInflater;
+        Context mContext;
+        int mResource;
+        List<DummyContent.DummyItem> mItems;
+
+        public CustomAdapter(Context context, int resource, int textViewResourceId, List<DummyContent.DummyItem> objects) {
+            super(context, resource, textViewResourceId, objects);
+            mContext = context;
+            mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mResource = resource;
+            mItems = objects;
+        }
+
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View view;
+
+            if (convertView == null) {
+                view = mInflater.inflate(mResource, parent, false);
+            } else {
+                view = convertView;
+            }
+
+            ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+            TextView textView = (TextView) view.findViewById(R.id.text1);
+
+            DummyContent.DummyItem item = getItem(position);
+
+            imageView.setImageResource(item.drawable);
+            textView.setText(item.content);
+
+            return view;
+        }
+
+
+        public void measureItems(int columnWidth) {
+            // Obtain system inflater
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            // Inflate temp layout object for measuring
+            GridViewItemLayout itemView = (GridViewItemLayout)inflater.inflate(R.layout.grid_item, null);
+
+            // Create measuring specs
+            int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(columnWidth, View.MeasureSpec.EXACTLY);
+            int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+
+            // Loop through each data object
+            for(int index = 0; index < mItems.size(); index++) {
+                DummyContent.DummyItem item = mItems.get(index);
+
+                // Set position and data
+                itemView.setPosition(index);
+//                itemView.updateItemDisplay(item, mLanguage);
+
+                // Force measuring
+                itemView.requestLayout();
+                itemView.measure(widthMeasureSpec, heightMeasureSpec);
+            }
+        }
+
+
     }
 
 }

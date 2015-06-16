@@ -1,16 +1,26 @@
 package com.vcanpay.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.TextView;
 
 import com.example.vcanpay.R;
 import com.vcanpay.activity.bill.BillFragment;
+
 /**
  * Created by patrick wai on 2015/6/5.
  */
@@ -22,10 +32,10 @@ public class TabhostActivity extends ActionBarActivity implements OnFragmentInte
     TabHost.OnTabChangeListener listener = new TabHost.OnTabChangeListener() {
         @Override
         public void onTabChanged(String tabId) {
-            // TODO : 对象没有释放
+            // TODO : 使spinner只显示在账单tab中
             if (!"Tab3".equals(tabId)) {
                 ActionBar actionBar = getSupportActionBar();
-                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             }
         }
     };
@@ -43,40 +53,72 @@ public class TabhostActivity extends ActionBarActivity implements OnFragmentInte
 //        View tabIndicator = ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.tab_indicator, )
         // TODO why doesn't the tab icons display?
 
-        mTabHost.addTab(
-                mTabHost.newTabSpec("Tab1")
-                        .setIndicator("首页", getResources().getDrawable(R.drawable.icon)),
-                FinalFragmentIThink.class,
-                null);
-
-        mTabHost.addTab(
-                mTabHost.newTabSpec("Tab2")
-                        .setIndicator("功能", getResources().getDrawable(R.drawable.icon)),
-                FuncItemFragment.class,
-                null);
-
-        mTabHost.addTab(
-                mTabHost.newTabSpec("Tab3")
-                        .setIndicator("账单", getResources().getDrawable(R.drawable.icon)),
-                BillFragment.class,
-                null);
-
-        mTabHost.addTab(
-                mTabHost.newTabSpec("Tab4")
-                        .setIndicator("账户", getResources().getDrawable(R.drawable.icon)),
-                AccountFragment.class,
-                null);
-
-        mTabHost.addTab(
-                mTabHost.newTabSpec("Tab5")
-                        .setIndicator("设置", getResources().getDrawable(R.drawable.icon)),
-                SettingsFragment.class,
-                null);
-
-        mTabWidget.setStripEnabled(false);
+        addTab("首页", R.drawable.icon, FinalFragmentIThink.class);
+        addTab("服务", R.drawable.icon, FuncItemFragment.class);
+        addTab("账单", R.drawable.icon, BillFragment.class);
+        addTab("账户", R.drawable.icon, AccountFragment.class);
+        addTab("设置", R.drawable.icon, SettingsFragment.class);
 
 
+        mTabWidget.setDividerDrawable(null);
         mTabHost.setOnTabChangedListener(listener);
+    }
+
+    public FragmentTabHost getTabHost() {
+        return mTabHost;
+    }
+
+    public TabWidget getTabWidget() {
+        return mTabWidget;
+    }
+
+    private void addTab(String text, int drawableId, Class<? extends Fragment> clazz) {
+        addTab(text, drawableId, clazz, null);
+    }
+
+    private void addTab(String text, int drawableId, Class<? extends Fragment> clazz, Bundle bundle) {
+        FragmentTabHost tabHost = getTabHost();
+        FragmentTabHost.TabSpec spec = tabHost.newTabSpec(text);
+
+        View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
+        TextView title = (TextView) tabIndicator.findViewById(R.id.title);
+        title.setText(text);
+        ImageView icon = (ImageView) tabIndicator.findViewById(R.id.icon);
+        icon.setImageResource(drawableId);
+
+        spec.setIndicator(tabIndicator);
+        tabHost.addTab(spec, clazz, bundle);
+    }
+
+    public View createIndicatorView(CharSequence string, Drawable drawable) {
+        TextView text;
+        ImageView icon;
+        LinearLayout linearLayout;
+
+        linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setLayoutParams(
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+        linearLayout.setGravity(Gravity.CENTER);
+
+        icon = new ImageView(this);
+        icon.setLayoutParams(new ViewGroup.LayoutParams(80, 80));
+        icon.setImageResource(R.mipmap.ic_launcher);
+
+        text = new TextView(this);
+        text.setLayoutParams(
+                new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+        text.setTextSize(12);
+
+        text.setText(string);
+
+        linearLayout.addView(icon);
+        linearLayout.addView(text);
+
+        return linearLayout;
     }
 
 
