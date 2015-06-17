@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.vcanpay.R;
+import com.vcanpay.activity.register.RegisterActivity;
+
 /**
  * Created by patrick wai on 2015/6/5.
  */
