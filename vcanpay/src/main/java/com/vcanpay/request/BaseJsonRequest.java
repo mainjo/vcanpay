@@ -7,6 +7,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonRequest;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import java.util.Map;
  */
 public class BaseJsonRequest<T> extends JsonRequest<T> {
 
+    public static final String baseUrl = "http://123.1.189.38:8080/vcanpayNew456/ws/";
+
     public static final String TAG = "BaseJsonRequest";
 
     private Map<String, String> headers = new HashMap<>();
@@ -22,10 +25,12 @@ public class BaseJsonRequest<T> extends JsonRequest<T> {
 
     public BaseJsonRequest(int method, String url, String requestBody, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
+        Log.i("TEST", "method: " + method + "url: " + url);
     }
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
+
 
         return null;
     }
@@ -57,5 +62,17 @@ public class BaseJsonRequest<T> extends JsonRequest<T> {
             sb.append(String.format("\n%s: %s", header.getKey(), header.getValue()));
         }
         Log.d(TAG, sb.toString());
+    }
+
+    @Override
+    public byte[] getBody() {
+        byte[] body = super.getBody();
+
+        try {
+            Log.i("TEST", "Request body: " + new String(body, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return body;
     }
 }

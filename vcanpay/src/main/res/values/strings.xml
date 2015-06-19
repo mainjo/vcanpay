@@ -58,5 +58,59 @@
     <string name="notify">通知</string>
     <string name="account_or_password_not_empty">用户名密码不能为空</string>
     <string name="sign_in_success">登陆成功！</string>
+    <string name="title_activity_activity_with_fragment">ActivityWithFragment</string>
+    <string name="next">Next</string>
+    <string name="passport">Passport</string>
+    <string name="id_card">Id Card</string>
+    <string name="identification_type">Identification Type</string>
+    <string name="email">Email</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="city">City</string>
+    <string name="province">Province</string>
+    <string name="country">Country</string>
+    <string name="submit">Submit</string>
+    <string name="email_not_empty">邮箱不能为空！</string>
+    <string name="title_activity_register_activity_next">RegisterActivityNext</string>
+    <string name="network_error">网络错误！</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password_not_empty">密码不能为空！</string>
+    <string name="confirm_password_not_empty">确认密码不能为空！</string>
+    <string name="first_name_not_empty">姓氏不为空！</string>
+    <string name="last_name_not_emtpy">名字不能为空！</string>
+    <string name="city_not_empty">城市不为空！</string>
+    <string name="province_not_empty">省份不为空！</string>
+    <string name="country_not_empty">国家不为空！</string>
+    <string name="title_activity_request_confirm_email">RequestConfirmEmailActivity</string>
+    <string name="activate_account_hint">请检查邮箱，输入收到的激活代码来激活您的帐户：</string>
+    <string name="not_empty">输入不能为空！</string>
+    <string name="activation_code_incorrect">激活码错误！\\n请重新输入激活码。</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="password_not_samne">密码不一致，请检查输入。</string>
+    <string name="my_bank_card">我的银行卡</string>
+    <string name="title_activity_manage_bank_card">我的银行卡</string>
+    <string name="credit_card">信用卡</string>
+    <string name="bank_card">银行卡</string>
+    <string name="add_bank_card">添加银行卡</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="other">其他</string>
+    <string name="account_no">帐户号</string>
+    <string name="full_name">姓名</string>
+    <string name="account_type">帐户类型</string>
+    <string name="bank_name">银行名称</string>
+    <string name="bank_branch">银行分行</string>
+    <string name="cell_phone">手机</string>
+    <string name="birthday">出生日期</string>
+    <string name="sex">性别</string>
+    <string name="choose_a_country">选择国家</string>
+    <string name="choose_a_province">选择省份</string>
+    <string name="choose_a_city">选择城市</string>
+    <string name="choose_an_account_type">选择帐户类型</string>
 
+    <string-array name="account_type">
+        <item>信用卡</item>
+        <item>银行卡</item>
+    </string-array>
 </resources>

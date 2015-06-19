@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vcanpay" >
 
-     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
         <activity
             android:name="com.vcanpay.activity.StartActivity"
             android:label="@string/title_activity_start"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -183,6 +183,26 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.register.ActivityWithFragment"
+            android:label="@string/title_activity_activity_with_fragment" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.register.RegisterActivityNext"
+            android:label="@string/title_activity_register_activity_next"
+            android:parentActivityName="com.vcanpay.activity.register.RegisterActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vcanpay.activity.register.RegisterActivity" />
+        </activity>
+        <activity
+            android:name="com.vcanpay.activity.register.RequestConfirmEmailActivity"
+            android:label="@string/title_activity_request_confirm_email" >
+        </activity>
+        <activity
+            android:name="com.vcanpay.bankcard.ManageBankCardActivity"
+            android:label="@string/title_activity_manage_bank_card" >
         </activity>
     </application>
 

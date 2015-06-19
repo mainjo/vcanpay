@@ -16,16 +16,17 @@ import org.vcanpay.eo.CustomInfo;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.Map;
 
 
 /**
  * Created by patrick wai on 2015/6/11.
  */
 public class SignInRequest extends BaseJsonRequest<SignInResponse>{
-    String endpoint = "RegisterDAO/insertCAccount";
+    private static final String endPoint = "PersonalLoginDAO/Login";
 
-    public SignInRequest(String url, String requestBody, Response.Listener<SignInResponse> listener, Response.ErrorListener errorListener) {
-        super(Method.POST, url, requestBody, listener, errorListener);
+    public SignInRequest(String requestBody, Response.Listener<SignInResponse> listener, Response.ErrorListener errorListener) {
+        super(Method.POST, baseUrl + endPoint, requestBody, listener, errorListener);
     }
 
 
@@ -39,7 +40,9 @@ public class SignInRequest extends BaseJsonRequest<SignInResponse>{
         gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
         Gson gson = gsonBuilder.create();
 
-        printHeaders(response.headers, "==========Http Response Headers==========");
+        Map<String, String> headers = response.headers;
+
+        printHeaders(headers, "==========Http Response Headers==========");
 
 
         int statusCode = response.statusCode;
@@ -52,7 +55,7 @@ public class SignInRequest extends BaseJsonRequest<SignInResponse>{
         if (statusCode == 200) {
             try {
                 String jsonString = new String(response.data,
-                        HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
+                        HttpHeaderParser.parseCharset(headers, PROTOCOL_CHARSET));
                 Log.i("TEST", jsonString);
                 CustomInfo customInfo = gson.fromJson(jsonString, CustomInfo.class);
 

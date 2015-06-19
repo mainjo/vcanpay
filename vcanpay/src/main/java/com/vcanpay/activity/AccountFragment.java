@@ -1,6 +1,8 @@
 package com.vcanpay.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +15,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.vcanpay.R;
-import com.vcanpay.activity.dummy.DummyContent;
+import com.vcanpay.bankcard.ManageBankCardActivity;
 
 /**
  * Created by patrick wai on 2015/6/5.
@@ -69,8 +71,11 @@ public class AccountFragment extends Fragment implements AbsListView.OnItemClick
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+
+        String[] items = new String[]{getString(R.string.my_bank_card)};
+
+        mAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, items);
     }
 
     @Override
@@ -108,11 +113,11 @@ public class AccountFragment extends Fragment implements AbsListView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+        if (position == 0) {
+            startActivity(getActivity(), ManageBankCardActivity.class);
         }
+
+
     }
 
     /**
@@ -129,4 +134,8 @@ public class AccountFragment extends Fragment implements AbsListView.OnItemClick
     }
 
 
+    public void startActivity(Context context, Class<? extends Activity> clazz) {
+        Intent intent = new Intent(context, clazz);
+        startActivity(intent);
+    }
 }

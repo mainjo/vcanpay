@@ -20,7 +20,7 @@ public class CustomInfo
     private Date createTime;
 
     private Date loginTime;
-    private String credType;
+    private char credType;
     private String customGrade;
     private String customName;
     private int customScore;
@@ -131,11 +131,11 @@ public class CustomInfo
         this.createTime = createTime;
     }
 
-    public String getCredType() {
-        return this.credType;
+    public char getCredType() {
+        return credType;
     }
 
-    public void setCredType(String credType) {
+    public void setCredType(char credType) {
         this.credType = credType;
     }
 

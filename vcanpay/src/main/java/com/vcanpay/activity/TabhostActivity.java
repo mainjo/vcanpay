@@ -53,11 +53,11 @@ public class TabhostActivity extends ActionBarActivity implements OnFragmentInte
 //        View tabIndicator = ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.tab_indicator, )
         // TODO why doesn't the tab icons display?
 
-        addTab("首页", R.drawable.icon, FinalFragmentIThink.class);
-        addTab("服务", R.drawable.icon, FuncItemFragment.class);
-        addTab("账单", R.drawable.icon, BillFragment.class);
-        addTab("账户", R.drawable.icon, AccountFragment.class);
-        addTab("设置", R.drawable.icon, SettingsFragment.class);
+        addTab("首页", R.mipmap.ic_launcher, FinalFragmentIThink.class);
+        addTab("服务", R.mipmap.ic_launcher, FuncItemFragment.class);
+        addTab("账单", R.mipmap.ic_launcher, BillFragment.class);
+        addTab("账户", R.mipmap.ic_launcher, AccountFragment.class);
+        addTab("设置", R.mipmap.ic_launcher, SettingsFragment.class);
 
 
         mTabWidget.setDividerDrawable(null);

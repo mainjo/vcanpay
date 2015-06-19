@@ -1,34 +1,39 @@
-package com.vcanpay.activity.register;
+package com.vcanpay.bankcard;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.vcanpay.R;
-/**
- * Created by patrick wai on 2015/6/5.
- */
-public class RegisterActivity extends ActionBarActivity implements RegisterFragment.OnFragmentInteractionListener{
+import com.vcanpay.activity.AddBankCardActivity;
+import com.vcanpay.activity.BaseActivity;
+
+public class ManageBankCardActivity extends BaseActivity {
+
+    Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_manage_bank_card);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, RegisterFragment.newInstance("",""))
-            .commit();
 
+        mButton = (Button) findViewById(R.id.add_card);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ManageBankCardActivity.this, AddBankCardActivity.class);
+            }
+        });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register, menu);
+        getMenuInflater().inflate(R.menu.menu_manage_bank_card, menu);
         return true;
     }
 
@@ -45,10 +50,5 @@ public class RegisterActivity extends ActionBarActivity implements RegisterFragm
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

@@ -94,9 +94,7 @@ public class SignInActivity extends ActionBarActivity {
         Log.i(TAG, "User: " + email + " is signing in.");
         Log.i(TAG, "Post content body: " + json);
 
-        String url = "http://192.168.1.177:8080/vcanpayNew/ws/PersonalLoginDAO/Login";
         SignInRequest request = new SignInRequest(
-                url,
                 json,
                 new Response.Listener<SignInResponse>() {
                     @Override
