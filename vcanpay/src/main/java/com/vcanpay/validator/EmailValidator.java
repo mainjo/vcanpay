@@ -12,17 +12,9 @@ public class EmailValidator implements Validator {
             "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$";
 
     @Override
-    public boolean validate(String content) {
-
-        String str="ceponline@yahoo.com.cn";
+    public boolean validate(CharSequence content) {
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
-        Matcher matcher = pattern.matcher(str);
+        Matcher matcher = pattern.matcher(content);
         return matcher.matches();
-    }
-
-    public static void main(String[] args) {
-        EmailValidator validator = new EmailValidator();
-
-        System.out.println(validator.validate(""));
     }
 }

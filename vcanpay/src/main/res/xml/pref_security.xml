@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <Preference
+            android:title="@string/title_activity_change_password">
+            <intent
+                android:targetPackage="com.example.vcanpay"
+                android:targetClass="com.vcanpay.activity.security.ChangePasswordActivity" />
+        </Preference>
+
+        <!--<Preference-->
+            <!--android:title="@string/title_activity_change_payment_password">-->
+            <!--<intent-->
+                <!--android:targetPackage="com.example.vcanpay"-->
+                <!--android:targetClass="com.vcanpay.activity.security.ChangePaymentPasswordActivity" />-->
+        <!--</Preference>-->
+        <!--<Preference-->
+            <!--android:title="@string/title_activity_find_payment_password">-->
+            <!--<intent-->
+                <!--android:targetPackage="com.example.vcanpay"-->
+                <!--android:targetClass="com.vcanpay.activity.security.FindPaymentPasswordActivity" />-->
+        <!--</Preference>-->
+</PreferenceScreen>

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,7 +90,6 @@ public class RequestConfirmEmailActivity extends ActionBarActivity implements Vi
                     @Override
                     public void onResponse(ConfirmEmailResponse response) {
 
-                        Log.i("TEST", "status code: " + response.getStatusCode());
                         if (response.getStatusCode() == 204) {
                             Intent intent = new Intent(RequestConfirmEmailActivity.this, TabhostActivity.class);
                             startActivity(intent);
@@ -107,6 +105,8 @@ public class RequestConfirmEmailActivity extends ActionBarActivity implements Vi
                     }
                 }
         );
+
+
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);

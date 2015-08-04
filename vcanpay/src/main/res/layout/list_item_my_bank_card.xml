@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/bank_logo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/bank_01" />
+
+    <TextView
+        android:id="@+id/bank_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中国银行"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/bank_logo"
+        android:layout_toEndOf="@+id/bank_logo"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp" />
+
+    <TextView
+        android:id="@+id/card_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2349 0394 0935 9835"
+        android:layout_below="@+id/bank_name"
+        android:layout_alignLeft="@+id/bank_name"
+        android:layout_alignStart="@+id/bank_name" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/money"-->
+        <!--android:text="@string/bank_card_verified"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/card_type"-->
+        <!--android:layout_alignLeft="@+id/card_type"-->
+        <!--android:layout_alignStart="@+id/card_type" />-->
+    <TextView
+        android:id="@+id/card_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="银行卡"
+        android:layout_below="@+id/card_num"
+        android:layout_alignLeft="@+id/card_num"
+        android:layout_alignStart="@+id/card_num" />
+
+    <ImageView
+        android:id="@+id/action_indicator"
+        android:layout_width="56dp"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/ic_action_overflow"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>
+

@@ -7,7 +7,7 @@ import com.android.volley.Response;
  */
 public class BillDetailsRequest extends BaseJsonRequest {
 
-    public BillDetailsRequest(int method, String url, String requestBody, Response.Listener listener, Response.ErrorListener errorListener) {
-        super(method, url, requestBody, listener, errorListener);
+    public BillDetailsRequest(int method, String url, String requestBody, String signBody, Response.Listener listener, Response.ErrorListener errorListener) {
+        super(method, url, requestBody, signBody, listener, errorListener);
     }
 }

@@ -11,39 +11,17 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.vcanpay.R;
-import com.vcanpay.activity.help.FeedBackActivity;
-import com.vcanpay.activity.help.HelpActivity;
-import com.vcanpay.activity.profile.UserProfileActivity;
-import com.vcanpay.activity.settings.DummyContent;
-import com.vcanpay.activity.settings.SecurityManagementActivity;
+import com.vcanpay.activity.security.DummyContent;
 
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Large screen devices (such as tablets) are supported by replacing the ListView
- * with a GridView.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
 public class SettingsFragment extends Fragment implements AbsListView.OnItemClickListener {
 
-    Class[] childrenActivities = new Class[]{
-            UserProfileActivity.class,
-            SecurityManagementActivity.class,
-            FeedBackActivity.class,
-            HelpActivity.class
-    };
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -53,16 +31,11 @@ public class SettingsFragment extends Fragment implements AbsListView.OnItemClic
 
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * The fragment's ListView/GridView.
-     */
     private AbsListView mListView;
 
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
     private ListAdapter mAdapter;
+
+    Button mSignOut;
 
     // TODO: Rename and change types of parameters
     public static SettingsFragment newInstance(String param1, String param2) {
@@ -109,7 +82,28 @@ public class SettingsFragment extends Fragment implements AbsListView.OnItemClic
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
+        mSignOut = (Button) view.findViewById(R.id.sign_out);
+        mSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().setTitle(getString(R.string.me));
+    }
+
+    private void signOut() {
+        getActivity().getSharedPreferences(BaseActivity.CUSTOMER_INFO, Context.MODE_PRIVATE)
+                .edit()
+                .remove(SignInActivity.IS_FIRST_SIGN_IN)
+                .apply();
     }
 
     @Override
@@ -139,6 +133,7 @@ public class SettingsFragment extends Fragment implements AbsListView.OnItemClic
 //        }
 
         Class clazz = ((DummyContent.DummyItem) mAdapter.getItem(position)).clazz;
+
         startActivity(getActivity(), clazz);
     }
 

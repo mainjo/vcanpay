@@ -105,13 +105,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Id Card / Passport" />
+            android:text="@string/id_card_or_passport" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
+            android:maxLength="@integer/id_card_len_limit"
             android:id="@+id/id_card" />
 
         <TextView
@@ -131,10 +132,10 @@
             android:text="@string/province"
             android:id="@+id/textView26" />
 
-        <EditText
+        <Spinner
+            android:id="@+id/spinner_province"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/province" />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -142,17 +143,19 @@
             android:text="@string/country"
             android:id="@+id/textView27" />
 
-        <EditText
+        <Spinner
+            android:id="@+id/spinner_country"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/country" />
+            android:layout_height="wrap_content" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/submit"
             android:id="@+id/submit"
-            android:layout_gravity="end" />
+            android:layout_gravity="end"
+            android:background="@drawable/button_selector"
+            android:textColor="@drawable/button_font"/>
 
     </LinearLayout>
 </ScrollView>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bank_names">
+        <item>BANGKOK BANK PUBLIC COMPANY LIMITED</item>
+        <item>The Siam Commercial Bank Public Company Limited</item>
+        <item>Kasikorn Bank Public Company Limited</item>
+        <item>Krung Thai Bank Public Company Limited</item>
+    </string-array>
+
+    <string-array name="account_type">
+        <item>Credit Card</item>
+        <item>Debit Card</item>
+        <item>Other</item>
+    </string-array>
+    
+    <string-array name="sex">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+</resources>

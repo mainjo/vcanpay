@@ -23,6 +23,51 @@ public class CustomTrade implements Serializable {
     private int tradeTime;
     private short tradeType;
     private int tradeYear;
+    private long createTime;
+    private int delayTime;
+    private String orderId;
+    private String entryUserName;
+    private String outUserName;
+
+    public String getEntryUserName() {
+        return entryUserName;
+    }
+
+    public void setEntryUserName(String entryUserName) {
+        this.entryUserName = entryUserName;
+    }
+
+    public String getOutUserName() {
+        return outUserName;
+    }
+
+    public void setOutUserName(String outUserName) {
+        this.outUserName = outUserName;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getDelayTime() {
+        return delayTime;
+    }
+
+    public void setDelayTime(int delayTime) {
+        this.delayTime = delayTime;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
 
     public String getTradeId() {
         return this.tradeId;

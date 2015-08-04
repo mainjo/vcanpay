@@ -1,0 +1,102 @@
+package com.vcanpay.activity.register;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.Response;
+import com.example.vcanpay.R;
+import com.vcanpay.activity.BaseActivity;
+import com.vcanpay.activity.NoticeDialogFragment;
+import com.vcanpay.activity.SignInActivity;
+import com.vcanpay.activity.VolleyErrorListener;
+import com.vcanpay.activity.bill.AppRequestQueue;
+
+public class ActivateAccountActivity extends BaseActivity implements TextWatcher, NoticeDialogFragment.NoticeDialogListener {
+
+    EditText mEtActivateCode;
+    Button mBtnActivate;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_activate_account);
+
+        mEtActivateCode = (EditText) findViewById(R.id.activate_code);
+        mEtActivateCode.addTextChangedListener(this);
+        mBtnActivate = (Button) findViewById(R.id.btn_activate);
+        mBtnActivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = getIntent().getStringExtra("EMAIL");
+
+                if (TextUtils.isEmpty(email)) {
+                    email = "223153516@qq.com";
+                }
+                String activateCode = mEtActivateCode.getText().toString();
+                makeRequest(email, activateCode);
+            }
+        });
+    }
+
+    private void makeRequest(String email, String activateCode) {
+
+        showProgressDialog(this);
+        ActivateAccountRequest request = new ActivateAccountRequest(this, email, activateCode,
+                new Response.Listener<ActivateAccountResponse>() {
+                    @Override
+                    public void onResponse(ActivateAccountResponse response) {
+                        closeProgressDialog();
+                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.account_activated_hint, 0, 0);
+                        dialog.setNoticeDialogListener(ActivateAccountActivity.this);
+                        dialog.show(getSupportFragmentManager(), "activate_account");
+
+                        Toast.makeText(ActivateAccountActivity.this, R.string.activated_success, Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                },
+                new VolleyErrorListener(this));
+
+        AppRequestQueue queue = AppRequestQueue.getInstance(this);
+        queue.addToRequestQueue(request);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (!TextUtils.isEmpty(mEtActivateCode.getText().toString())) {
+            mBtnActivate.setEnabled(true);
+        } else {
+            mBtnActivate.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Intent intent = new Intent(this, SignInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
+}

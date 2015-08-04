@@ -2,16 +2,21 @@ package com.vcanpay.activity.register;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import com.example.vcanpay.R;
+import com.vcanpay.activity.BaseActivity;
+
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class RegisterActivity extends ActionBarActivity implements RegisterFragment.OnFragmentInteractionListener{
+public class RegisterActivity extends BaseActivity implements RegisterFragment.OnFragmentInteractionListener,
+        TextWatcher{
+
+    public static final String FRAGMENT_TAG = "register";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,36 +24,33 @@ public class RegisterActivity extends ActionBarActivity implements RegisterFragm
         setContentView(R.layout.activity_register);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, RegisterFragment.newInstance("",""))
-            .commit();
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Fragment fragment = fragmentManager.findFragmentByTag(FRAGMENT_TAG);
+        if (fragment == null) {
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.container, RegisterFragment.newInstance("", FRAGMENT_TAG))
+                    .commit();
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
 }

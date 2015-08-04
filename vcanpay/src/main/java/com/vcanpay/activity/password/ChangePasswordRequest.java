@@ -14,14 +14,14 @@ import java.io.UnsupportedEncodingException;
  */
 public class ChangePasswordRequest extends BaseJsonRequest<ChangePasswordResponse> {
 
-    private static final String endPoint = "FindPassword/updateByProperty";
+    private static final String endPoint = "FindPassword/updateBypassWord";
 
-    public ChangePasswordRequest(int method, String url, String requestBody, Response.Listener<ChangePasswordResponse> listener, Response.ErrorListener errorListener) {
-        super(method, url, requestBody, listener, errorListener);
+    public ChangePasswordRequest(int method, String url, String requestBody, String signBody, Response.Listener<ChangePasswordResponse> listener, Response.ErrorListener errorListener) {
+        super(method, url, requestBody, signBody, listener, errorListener);
     }
 
-    public ChangePasswordRequest(String requestBody, Response.Listener<ChangePasswordResponse> listener, Response.ErrorListener errorListener) {
-        super(Method.PUT, baseUrl + endPoint, requestBody, listener, errorListener);
+    public ChangePasswordRequest(String requestBody, String signBody, Response.Listener<ChangePasswordResponse> listener, Response.ErrorListener errorListener) {
+        super(Method.PUT, endPoint, requestBody, signBody, listener, errorListener);
     }
 
 
@@ -29,27 +29,19 @@ public class ChangePasswordRequest extends BaseJsonRequest<ChangePasswordRespons
     protected Response<ChangePasswordResponse> parseNetworkResponse(NetworkResponse response) {
 
         Cache.Entry entry = HttpHeaderParser.parseCacheHeaders(response);
-
-        String json = "nothing";
-        try {
-            json = new String(response.data, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
         int statusCode = response.statusCode;
 
-        if (response.statusCode == 200) {
-            return Response.success(new ChangePasswordResponse(statusCode, json), entry);
-        }
-
+        String message = null;
         try {
-            String message = new String(response.data, "UTF-8");
-            return Response.error(new VolleyError(message));
+            message = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        return null;
+        if (statusCode == 200) {
+            return Response.success(new ChangePasswordResponse(statusCode, message), entry);
+        }
+
+        return Response.error(new VolleyError(message));
     }
 }

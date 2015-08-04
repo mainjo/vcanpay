@@ -6,27 +6,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.vcanpay.activity.register.RequestConfirmEmailActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activate_account_hint"
-        android:gravity="center"/>
+        android:text="@string/activate_account_hint" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_text"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/edit_text" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="激活帐户"
+        android:text="@string/activate_account"
         android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+        android:background="@drawable/button_selector"
+        android:textColor="@drawable/button_font"/>
 
 </LinearLayout>

@@ -5,24 +5,28 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
-import com.google.gson.Gson;
+import com.vcanpay.activity.BaseActivity;
+import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
+import com.vcanpay.activity.profile.UpdateMobileActivity;
+import com.vcanpay.activity.recharge.AreaContentProvider2;
+import com.vcanpay.activity.recharge.ChooseRegionActivity;
 
 import org.vcanpay.eo.CustomInfo;
 
-public class RegisterActivityNext extends ActionBarActivity {
+public class RegisterActivityNext extends BaseActivity implements TextWatcher {
 
     EditText mEtEmail;
     EditText mEtPassword;
@@ -31,10 +35,14 @@ public class RegisterActivityNext extends ActionBarActivity {
     EditText mEtLastName;
     EditText mEtIdCard;
     EditText mEtCity;
-    EditText mEtProvince;
-    EditText mEtCountry;
+//    EditText mEtProvince;
+//    EditText mEtCountry;
+
+    Spinner mSpProvince;
+    Spinner mSpCountry;
 
     RadioGroup mIdentificationType;
+//    Spinner mIdentityType;
 
     Button mSubmit;
 
@@ -49,6 +57,8 @@ public class RegisterActivityNext extends ActionBarActivity {
     char identificationType;
     String idCard;
 
+    static AreaContentProvider2 mDb;
+
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -59,53 +69,32 @@ public class RegisterActivityNext extends ActionBarActivity {
             firstName = mEtFirstName.getText().toString();
             lastName = mEtLastName.getText().toString();
             city = mEtCity.getText().toString();
-            province = mEtProvince.getText().toString();
-            country = mEtCountry.getText().toString();
+//            province = mEtProvince.getText().toString();
+//            country = mEtCountry.getText().toString();
+
+            province = String.valueOf(((ChooseRegionActivity.Area) mSpProvince.getSelectedItem()).areaId);
+            country = String.valueOf(((UpdateMobileActivity.Country) mSpCountry.getSelectedItem()).id);
+
             idCard = mEtIdCard.getText().toString();
 
             int selectId = mIdentificationType.getCheckedRadioButtonId();
             if (selectId == R.id.radio_id_card) {
                 identificationType = '1';
-            } else if (selectId == R.id.radio_passport){
+            } else if (selectId == R.id.radio_passport) {
                 identificationType = '2';
             }
 
-            if (email.equals("")) {
-                mEtEmail.setError(getString(R.string.email_not_empty));
+            if (!confirm_password.equals(password)) {
+                showAlertDialog(RegisterActivityNext.this, getString(R.string.notify), getString(R.string.password_not_consistent));
+                return;
             }
 
-            if (password.equals("")) {
-                mEtPassword.setError(getString(R.string.password_not_empty));
-            }
-
-            if (confirm_password.equals("")) {
-                mEtConfirmPassword.setError(getString(R.string.confirm_password_not_empty));
-            }
-
-            if (firstName.equals("")) {
-                mEtFirstName.setError(getString(R.string.first_name_not_empty));
-            }
-
-            if (lastName.equals("")) {
-                mEtLastName.setError(getString(R.string.last_name_not_emtpy));
-            }
-
-            if (city.equals("")) {
-                mEtCity.setError(getString(R.string.city_not_empty));
-            }
-
-            if (province.equals("")) {
-                mEtProvince.setError(getString(R.string.province_not_empty));
-            }
-
-            if (country.equals("")) {
-                mEtCountry.setError(getString(R.string.country_not_empty));
-            }
             makeRegisterRequest();
         }
     };
 
     private void makeRegisterRequest() {
+        showProgressDialog(this);
 
         CustomInfo customInfo = new CustomInfo();
         customInfo.setEmail(email);
@@ -118,63 +107,56 @@ public class RegisterActivityNext extends ActionBarActivity {
         customInfo.setProvince(province);
         customInfo.setCountry(country);
 
-        Gson gson = new Gson();
-        String json = gson.toJson(customInfo);
+//        Gson gson = new Gson();
+//        String json1 = gson.toJson(customInfo);
 
-        Log.i("Test", "requestBody: " + json);
+        String json1 = String.format(
+                "{\"customId\":0," +
+                        "\"city\":\"%s\"," +
+                        "\"country\":\"%s\"," +
+                        "\"credType\":\"%s\"," +
+                        "\"customScore\":0," +
+                        "\"email\":\"%s\"," +
+                        "\"firstName\":\"%s\"," +
+                        "\"ICardId\":\"%s\"," +
+                        "\"lastName\":\"%s\"," +
+                        "\"loginPwd\":\"%s\"," +
+                        "\"province\":\"%s\"," +
+                        "\"loginErrTimes\":0}",
+                customInfo.getCity(),
+                customInfo.getCountry(),
+                customInfo.getCredType(),
+                customInfo.getEmail(),
+                customInfo.getFirstName(),
+                customInfo.getICardId(),
+                customInfo.getLastName(),
+                customInfo.getLoginPwd(),
+                customInfo.getProvince());
 
-        json = "{customInfo:" + json + "}";
+        Log.i("json", json1);
+
+
+        String json2 = "{customInfo:" + json1 + "}";
 
         RegisterRequest request = new RegisterRequest(
-                json,
+                json2,
+                json1,
                 new Response.Listener<RegisterResponse>() {
                     @Override
                     public void onResponse(RegisterResponse response) {
-                        if (response.getStatusCode() == 201) {
-                            requestSendEmail(email);
-                        } else {
-                            showAlertDialog(RegisterActivityNext.this, getString(R.string.notify), response.getMessage());
-                        }
+                        closeProgressDialog();
+                        Intent intent = new Intent(RegisterActivityNext.this, ActivateAccountActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        intent.putExtra("EMAIL", email);
+//                        Intent intent = new Intent(RegisterActivityNext.this, SignInActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        showAlertDialog(RegisterActivityNext.this, getString(R.string.notify), error.getMessage());
-                    }
-                });
+                new VolleyErrorListener(this));
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
-    }
-
-    private void requestSendEmail(final String email) {
-        SendEmailRequest request = new SendEmailRequest(
-                email,
-                new Response.Listener<SendEmailResponse>() {
-                    @Override
-                    public void onResponse(SendEmailResponse response) {
-                        if (response.getStatusCode() == 200) {
-                            Intent intent = new Intent(RegisterActivityNext.this, RequestConfirmEmailActivity.class);
-                            intent.putExtra("activation_code", response.getMessage());
-                            intent.putExtra("email", email);
-                            startActivity(intent);
-                        } else {
-                            showAlertDialog(RegisterActivityNext.this, getString(R.string.notify), response.getMessage());
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        showAlertDialog(RegisterActivityNext.this, getString(R.string.notify), error.getMessage());
-                    }
-                }
-        );
-
-        AppRequestQueue requestQueue = AppRequestQueue.getInstance(this);
-        requestQueue.addToRequestQueue(request);
-
     }
 
     @Override
@@ -186,15 +168,29 @@ public class RegisterActivityNext extends ActionBarActivity {
     }
 
     private void init() {
+
+        if (mDb == null) {
+            mDb = new AreaContentProvider2(this);
+        }
+
         mEtEmail = (EditText) findViewById(R.id.email);
         mEtPassword = (EditText) findViewById(R.id.password);
         mEtConfirmPassword = (EditText) findViewById(R.id.confirm_password);
         mEtFirstName = (EditText) findViewById(R.id.first_name);
         mEtLastName = (EditText) findViewById(R.id.last_name);
         mEtCity = (EditText) findViewById(R.id.city);
-        mEtProvince = (EditText) findViewById(R.id.province);
-        mEtCountry = (EditText) findViewById(R.id.country);
+//        mEtProvince = (EditText) findViewById(R.id.province);
+//        mEtCountry = (EditText) findViewById(R.id.country);
+        mSpProvince = (Spinner) findViewById(R.id.spinner_province);
+        mSpCountry = (Spinner) findViewById(R.id.spinner_country);
 
+
+        mSpProvince.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getAreaList(1, mDb)));
+        mSpCountry.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, UpdateMobileActivity.Country.countries));
+
+
+//        mIdentityType = (Spinner) findViewById(R.id.identityType);
+//        mIdentityType.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new String[]));
         mIdentificationType = (RadioGroup) findViewById(R.id.identification_type);
         mEtIdCard = (EditText) findViewById(R.id.id_card);
 
@@ -203,28 +199,6 @@ public class RegisterActivityNext extends ActionBarActivity {
 
         mSubmit = (Button) findViewById(R.id.submit);
         mSubmit.setOnClickListener(listener);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register_activity_next, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     protected void showAlertDialog(Context context, String title, String message) {
@@ -239,5 +213,41 @@ public class RegisterActivityNext extends ActionBarActivity {
                 })
                 .create()
                 .show();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+
+    public static class IdentityType {
+        public int id;
+        public String text;
+
+        public IdentityType(int id, String text) {
+            this.id = id;
+            this.text = text;
+
+        }
+    }
+
+    public static class IdentityTypeDummp {
+        public static final IdentityType[] items = new IdentityType[2];
+
+        static {
+            items[0] = new IdentityType(1, "\u8eab\u4efd\u8bc1");
+            items[1] = new IdentityType(2, "\u62a4\u7167");
+        }
     }
 }

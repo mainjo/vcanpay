@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bank_names">
+        <item>曼谷银行</item>
+        <item>汇商银行</item>
+        <item>华泰农业银行</item>
+        <item>泰京银行</item>
+    </string-array>
+
+    <string-array name="account_type">
+        <item>信用卡</item>
+        <item>借记卡</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="recharge_type" >
+        <item>充值卡充值</item>
+        <item>充值记账</item>
+    </string-array>
+
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="carriers">
+        <item>AIS</item>
+        <item>DTAC</item>
+        <item>TrueMove</item>
+        <item>CAT</item>
+        <item>TOT</item>
+    </string-array>
+
+    <string-array name="recharge_amount_list">
+        <item>30</item>
+        <item>50</item>
+        <item>100</item>
+    </string-array>
+    <string-array name="bank_card_options" />
+    <string-array name="countries">
+        <item>Thailand</item>
+        <item>China</item>
+    </string-array>
+</resources>

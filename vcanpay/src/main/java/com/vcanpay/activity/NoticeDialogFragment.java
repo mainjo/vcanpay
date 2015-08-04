@@ -1,13 +1,12 @@
 package com.vcanpay.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 
 import com.example.vcanpay.R;
@@ -19,26 +18,87 @@ public class NoticeDialogFragment extends DialogFragment {
 
     public interface NoticeDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
+
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
     NoticeDialogListener mListener;
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    String mMessage2;
 
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    int mTitle;
+    int mMessage;
+    int mPositiveButtonText;
+    int mNegativeButtonText;
 
+    public void setMessage(String message) {
+        mMessage2 = message;
+    }
+
+    public static NoticeDialogFragment getInstance(int title, int message, int positiveButtonText, int negativeButtonText) {
+        NoticeDialogFragment dialog = new NoticeDialogFragment();
+        dialog.mTitle = title;
+        dialog.mMessage = message;
+        dialog.mPositiveButtonText = positiveButtonText;
+        dialog.mNegativeButtonText = negativeButtonText;
         return dialog;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public static NoticeDialogFragment getInstance(int title, String message, int positiveButtonText, int negativeButtonText) {
+        NoticeDialogFragment dialog = new NoticeDialogFragment();
+        dialog.mTitle = title;
+        dialog.mMessage2 = message;
+        dialog.mPositiveButtonText = positiveButtonText;
+        dialog.mNegativeButtonText = negativeButtonText;
+        return dialog;
+    }
 
-        return inflater.inflate(R.layout.fragment_dialog_notice, container, false);
+
+    public static NoticeDialogFragment getInstance(String message) {
+        NoticeDialogFragment dialog = new NoticeDialogFragment();
+        dialog.setMessage(message);
+        return dialog;
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        if (mMessage == 0) {
+            builder.setMessage(mMessage2);
+        } else {
+
+            builder.setMessage(mMessage);
+        }
+        builder.setPositiveButton(mPositiveButtonText == 0 ? R.string.ok : mPositiveButtonText, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (mListener != null) {
+                    mListener.onDialogPositiveClick(NoticeDialogFragment.this);
+                }
+            }
+        })
+                .setNegativeButton(mNegativeButtonText == 0 ? R.string.cancel : mNegativeButtonText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (mListener != null) {
+                            mListener.onDialogNegativeClick(NoticeDialogFragment.this);
+                        }
+                    }
+                })
+                .setTitle(mTitle == 0 ? R.string.notify : mTitle);
+        // Create the AlertDialog object and return it
+        return builder.create();
+    }
+
+    public void setNoticeDialogListener(NoticeDialogListener listener) {
+        mListener = listener;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
     }
 
     @Override

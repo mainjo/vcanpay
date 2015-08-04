@@ -3,9 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.vcanpay.activity.register.RegisterFragment"
-    android:gravity="center">
+    tools:context="com.vcanpay.activity.register.RegisterFragment" >
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/input_your_email"
+        android:id="@+id/textView14" />
 
     <EditText
         android:layout_width="match_parent"
@@ -13,13 +18,15 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/email"
-        android:hint="@string/email"
         android:layout_gravity="center_horizontal" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/next"
         android:id="@+id/next"
-        android:layout_gravity="end" />
+        android:enabled="false"
+        android:layout_gravity="end"
+        android:background="@drawable/button_selector"
+        android:textColor="@drawable/button_font"/>
 </LinearLayout>

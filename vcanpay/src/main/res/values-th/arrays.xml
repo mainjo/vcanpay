@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bank_names">
+        <item>ธนาคารกรุงเทพ</item>
+        <item>ธนาคารไทยพาณิชย์</item>
+        <item>ธนาคารกสิกรไทย</item>
+        <item>ธนาคารกรุงไทย</item>
+    </string-array>
+</resources>

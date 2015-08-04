@@ -3,4 +3,24 @@
     <color name="blue">#ff6444ff</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="tab_color_default">#FF62AAFC</color>
+    <color name="tab_color_pressed">#fffdc528</color>
+    <color name="tab_color_selected">#ff4e95e6</color>
+
+    <color name="white">#ffffffff</color>
+
+    <color name="button_pressed">#ff177dff</color>
+    <color name="button_normal">#ff1896ff</color>
+    <color name="button_disabled">#ff14d3ff</color>
+
+    <color name="color_primary">#2196F3</color>
+    <color name="color_primary_dark">#1565C0</color>
+    <color name="color_accent">#E91E63</color>
+    
+    <!-- bank card action bar color-->
+    <color name="bank_card_action_pressed">#ff2626ff</color>
+    <color name="bank_card_normal">#ff4c89ff</color>
+    <color name="bank_card_disabled">#ff818181</color>
+
+    <color name="topeka_primary">#00bad2</color>
 </resources>

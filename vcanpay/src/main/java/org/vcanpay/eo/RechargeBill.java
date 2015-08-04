@@ -50,7 +50,7 @@ public class RechargeBill implements Serializable {
 
 	private String rechargeSn;
 
-	private String rechargeType;
+	private int rechargeType;
 	
 	private String remittanceNo;
 
@@ -68,6 +68,8 @@ public class RechargeBill implements Serializable {
 
 	public RechargeBill() {
 	}
+
+
 	public int getCustRechargeId() {
 		return this.custRechargeId;
 	}
@@ -220,12 +222,16 @@ public class RechargeBill implements Serializable {
 		this.rechargeSn = rechargeSn;
 	}
 
-	public String getRechargeType() {
-		return this.rechargeType;
+	public int getRechargeType() {
+		return rechargeType;
 	}
 
-	public void setRechargeType(String rechargeType) {
+	public void setRechargeType(int rechargeType) {
 		this.rechargeType = rechargeType;
+	}
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 	public String getResultNote() {

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,23 +18,26 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
+import com.android.volley.Response;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.OnFragmentInteractionListener;
+import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.VolleyErrorListener;
+import com.vcanpay.activity.pay.BillsToBePaidActivity;
 
+import org.vcanpay.eo.CustomInfo;
 import org.vcanpay.eo.CustomTrade;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.android.volley.Response.ErrorListener;
-import static com.android.volley.Response.Listener;
 
 /**
  * Created by patrick wai on 2015/6/5.
  */
 public class BillFragment extends Fragment implements ActionBar.OnNavigationListener {
 
+    public static final String TAG = "BillFragment";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,10 +59,6 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public BillFragment() {
     }
 
@@ -71,30 +70,14 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        final ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks(
-                new ArrayAdapter<String>(
-                        actionBar.getThemedContext(),
-                        android.R.layout.simple_list_item_1,
-                        android.R.id.text1,
-                        new String[]{
-                                getString(R.string.all_bills),
-                                getString(R.string.recharge_bills),
-                                getString(R.string.payment_bills)
-                        }),
-                this
-        );
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bill, container, false);
 
+        View view = inflater.inflate(R.layout.fragment_bill, container, false);
         return view;
     }
 
@@ -110,6 +93,32 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        FragmentManager fragmentManager = getChildFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag("DEMO");
+
+        if (fragment == null) {
+            getChildFragmentManager().beginTransaction()
+                    .add(R.id.content, PlaceholderFragment.newInstance(1), "DEMO")
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().setTitle(getString(R.string.bill));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -117,7 +126,6 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
 
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.content, PlaceholderFragment.newInstance(itemPosition))
                 .commit();
@@ -130,16 +138,11 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
 
         private static String ARG_SECTION_NUMBER = "section_number";
 
-        /**
-         * The fragment's ListView/GridView.
-         */
         private AbsListView mListView;
 
-        /**
-         * The Adapter which will be used to populate the ListView/GridView with
-         * Views.
-         */
         private ListAdapter mAdapter;
+
+        private TextView mTvEmpty;
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -158,27 +161,34 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_demo, container, false);
-
             mListView = (AbsListView) view.findViewById(android.R.id.list);
+            mTvEmpty = (TextView) view.findViewById(android.R.id.empty);
+            return view;
+        }
 
+        @Override
+        public void onStart() {
+            super.onStart();
+            makeRequest();
+        }
 
-            // fetch json data
-
-            String url = "http://123.1.189.38:8080/vcanpay123/ws/MgrCustomTradeStatic/queryData?_type=json";
-
+        private void makeRequest() {
+            ((TabhostActivity) getActivity()).showProgressDialog(getActivity());
+            CustomInfo currentCutomer = ((TabhostActivity) getActivity()).getCurrentCustomer();
             BillRequest request = new BillRequest(
-                    url,
-                    new Listener<CustomTrade[]>() {
+                    currentCutomer.getCustomId(),
+                    new Response.Listener<CustomTrade[]>() {
                         @Override
                         public void onResponse(CustomTrade[] response) {
-                            // TODO: Change Adapter to display your content
-
+                            ((TabhostActivity) getActivity()).closeProgressDialog();
+                            // TODO:
                             if (response == null || response.length == 0) {
-                                setEmptyText("There are no records.");
+                                setEmptyText(R.string.no_data);
                                 return;
                             }
 
-                            mAdapter = new MyAdapter(getActivity(), R.layout.list_item_trade, response);
+                            mAdapter = new MyAdapter(getActivity(), R.layout.list_item_bill, response);
+
                             // Set the adapter
                             ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
@@ -186,44 +196,41 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
                             mListView.setOnItemClickListener(PlaceholderFragment.this);
                         }
                     },
-                    new ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("BillFragment", error.toString());
-                        }
-                    }
+                    new VolleyErrorListener(((TabhostActivity) getActivity()))
             );
 
             AppRequestQueue queue = AppRequestQueue.getInstance(getActivity());
             queue.addToRequestQueue(request);
-
-            return view;
         }
 
-        /**
-         * The default content for this Fragment has a TextView that is shown when
-         * the list is empty. If you would like to change the text, call this method
-         * to supply the text it should use.
-         */
-        public void setEmptyText(CharSequence emptyText) {
-            View emptyView = mListView.getEmptyView();
+        public void setEmptyText(int string) {
+            setEmptyText(getString(string));
+        }
 
-            if (emptyView instanceof TextView) {
-                ((TextView) emptyView).setText(emptyText);
-            }
+        public void setEmptyText(CharSequence emptyText) {
+
+            mTvEmpty.setText(emptyText);
+//            View emptyView = mListView.getEmptyView();
+//
+//            if (emptyView instanceof TextView) {
+//                ((TextView) emptyView).setText(emptyText);
+//            }
         }
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            showBillDetails();
+            showBillDetails(parent, view, position, id);
         }
 
-        void showBillDetails() {
+        void showBillDetails(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getActivity(), BillDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(BillsToBePaidActivity.BILL_KEY, (CustomTrade) mAdapter.getItem(position));
+            intent.putExtras(bundle);
             startActivity(intent);
         }
 
-        public class MyAdapter extends ArrayAdapter<CustomTrade> {
+        public static class MyAdapter extends ArrayAdapter<CustomTrade> {
             LayoutInflater mInflater;
             int mResource;
 
@@ -243,14 +250,19 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
                 }
 
                 CustomTrade customTrade = getItem(position);
+
+                TextView tvTitle = (TextView) view.findViewById(R.id.title);
                 TextView tvDate = (TextView) view.findViewById(R.id.date);
                 TextView tvAmount = (TextView) view.findViewById(R.id.amount);
-                TextView tvType = (TextView) view.findViewById(R.id.tradeType);
+                TextView tvStatus = (TextView) view.findViewById(R.id.status);
+//                TextView tvType = (TextView) view.findViewById(R.id.tradeType);
 
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                tvTitle.setText(getTradeType(getContext(), customTrade.getTradeType()));
                 tvDate.setText(format.format(new Date()));
                 tvAmount.setText(customTrade.getTradeMoney().toString());
-                setText(tvType, String.valueOf(customTrade.getTradeType()), "");
+                tvStatus.setText(getTradeState(getContext(), (int)customTrade.getTradeState()));
+//                tvType.setText(tvType, String.valueOf(customTrade.getTradeType()), "");
 
                 return view;
             }
@@ -262,6 +274,78 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
                 }
                 textView.setText(defaultValue);
             }
+
+
+            public String getFeeType(Context context, int code) {
+                switch (code) {
+                    case 1:
+                        return context.getString(R.string.cellphone_recharge);
+                    case 2:
+                        return context.getString(R.string.shopping);
+                    case 3:
+                        return context.getString(R.string.water_eletric);
+                }
+
+                return context.getString(R.string.unknow_fee);
+            }
+
+            public String getTradeType(Context context, int code) {
+                switch (code) {
+                    case 1:
+                        return context.getString(R.string.add_fund);
+                    case 2:
+                        return context.getString(R.string.withdraw);
+                    case 3:
+                        return context.getString(R.string.send_money);
+                    case 4:
+                        return context.getString(R.string.chase_money);
+                    case 5:
+                        return context.getString(R.string.cellphone_recharge);
+                    case 6:
+                        return context.getString(R.string.water_and_electronice_fee);
+                    case 7:
+                        return context.getString(R.string.pay_for_others);
+                    case 8:
+                        return context.getString(R.string.loan);
+                    case 9:
+                        return context.getString(R.string.send_envelop);
+                }
+
+                return context.getString(R.string.unknown_bill_title);
+            }
+
+            public String getTradeState(Context context, int code) {
+                switch (code) {
+                    case 1:
+                        return context.getString(R.string.initial_value);
+                    case 2:
+                        return context.getString(R.string.trade_not_verified);
+                    case 3:
+                        return context.getString(R.string.trade_verified_success);
+                    case 4:
+                        return context.getString(R.string.trade_verified_fail);
+                }
+
+                return context.getString(R.string.unknow_trade_state);
+            }
         }
+
+
+        @Override
+        public void onSaveInstanceState(Bundle outState) {
+            super.onSaveInstanceState(outState);
+
+//            outState.putParcelable();
+
+        }
+
+        @Override
+        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+
+        }
+
+
     }
 }

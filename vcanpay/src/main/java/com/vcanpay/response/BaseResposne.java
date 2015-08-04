@@ -7,6 +7,14 @@ public class BaseResposne {
     protected int statusCode;
     protected String message;
 
+    public BaseResposne() {
+    }
+
+    public BaseResposne(int statusCode, String message) {
+        this.statusCode = statusCode;
+        this.message = message;
+    }
+
     public String getMessage() {
         return message;
     }

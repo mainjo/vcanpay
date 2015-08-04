@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +18,8 @@ import com.vcanpay.activity.register.RegisterActivity;
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class StartActivity extends ActionBarActivity {
-    private static String TAG = "StartActivity";
+public class StartActivity extends BaseActivity {
+    private static final String TAG = "StartActivity";
 
     Button mSignIn;
     Button mRegister;
@@ -31,7 +30,7 @@ public class StartActivity extends ActionBarActivity {
             int id = v.getId();
             switch (id) {
                 case R.id.sing_in:
-                    startActivity(StartActivity.this, SignInActivity.class);
+                    startSignInActivity(StartActivity.this, SignInActivity.class);
                     break;
                 case R.id.register:
                     startActivity(StartActivity.this, RegisterActivity.class);
@@ -39,6 +38,11 @@ public class StartActivity extends ActionBarActivity {
             }
         }
     };
+
+    private void startSignInActivity(Context context, Class<? extends Activity> clazz ) {
+        Intent intent = new Intent(context, clazz);
+        startActivity(intent);
+    }
 
 
     @Override

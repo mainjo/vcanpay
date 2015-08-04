@@ -5,69 +5,84 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.google.gson.Gson;
+import com.vcanpay.Application;
 import com.vcanpay.activity.bill.AppRequestQueue;
+import com.vcanpay.activity.password.ResetPasswordActivity;
 import com.vcanpay.activity.register.RegisterActivity;
 import com.vcanpay.request.SignInRequest;
 import com.vcanpay.response.SignInResponse;
+import com.vcanpay.validator.EmailValidator;
+import com.vcanpay.validator.NotEmptyValidator;
 
+import org.vcanpay.eo.CustomInfo;
 import org.vcanpay.eo.Login;
 
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class SignInActivity extends ActionBarActivity {
+public class SignInActivity extends BaseActivity implements TextWatcher {
     public static final String TAG = "SignInActivity";
+
+    public static final String IS_FIRST_SIGN_IN = "is_first_sign_in";
+    public static final boolean isFirstSignIn = true;
 
     private static final String EMAIL_REGEX = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$";
     private static final String PASSWORD_REGEX = "^[0-9a-zA-Z@*$#%^&?!.]{6,16}$";
 
-    TextView mTvAccount;
-    TextView mTvPassword;
+    TextView mEtAccount;
+    TextView mEtPassword;
+    TextView mTvRegister;
+    TextView mTvForgetPassword;
 
     Button mSignIn;
-    Button mRegister;
+//    Button mRegister;
 
     String mAccount;
     String mPassword;
+
+//    Button mBtnForgetPassword;
+
+
+    private SharedPreferences sharedPreferences;
 
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int id = v.getId();
 
-            mAccount = mTvAccount.getText().toString();
-            mPassword = mTvPassword.getText().toString();
+            mAccount = mEtAccount.getText().toString();
+            mPassword = mEtPassword.getText().toString();
 
             switch (id) {
                 case R.id.btn_sign_in:
                     signIn(mAccount, mPassword);
                     break;
-                case R.id.btn_register:
-                    startRegisterActivity(SignInActivity.this, RegisterActivity.class);
-                    break;
+//                case R.id.btn_register:
+//                    startRegisterActivity(SignInActivity.this, RegisterActivity.class);
+//                    break;
             }
         }
     };
 
     private void signIn(String email, String password) {
-
-        if (email == null || email.equals("") || password == null || password.equals("")) {
-            showAlertDialog(this, getString(R.string.notify), getString(R.string.account_or_password_not_empty));
-            return;
-        }
 
         makeLoginRequest(email, password);
     }
@@ -77,45 +92,36 @@ public class SignInActivity extends ActionBarActivity {
         startActivity(context, clazz);
     }
 
-    private void startActivity(Context context, Class<? extends Activity> clazz) {
-        Intent intent = new Intent(context, clazz);
-        startActivity(intent);
-    }
 
     private void makeLoginRequest(final String email, final String password) {
-
+        showProgressDialog(this);
         Login login = new Login(email, password);
-
         Gson gson = new Gson();
-        String json = gson.toJson(login);
+        String json1 = gson.toJson(login);
 
-        json = "{login:" + json + "}";
-
-        Log.i(TAG, "User: " + email + " is signing in.");
-        Log.i(TAG, "Post content body: " + json);
-
+        Log.i("TEST", "begin login");
+        String json2 = "{\"login\":" + json1 + "}";
         SignInRequest request = new SignInRequest(
-                json,
+                json2,
+                json1,
                 new Response.Listener<SignInResponse>() {
                     @Override
                     public void onResponse(SignInResponse response) {
-                        if (response.getStatusCode() == 200) {
-                            startActivity(SignInActivity.this, TabhostActivity.class);
-                        } else {
-                            showAlertDialog(SignInActivity.this, getString(R.string.notify), response.getMessage());
-                        }
+                        closeProgressDialog();
+                        CustomInfo customInfo = response.getCustomInfo();
+                        Application.customInfo = customInfo;
+                        saveSignInStatus(false);
+                        saveCustomer(mEtAccount.getText().toString(), mEtPassword.getText().toString());
+//                        saveCustomer(customInfo);
+                        Intent intent = new Intent(SignInActivity.this, TabhostActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        showAlertDialog(SignInActivity.this, getString(R.string.notify), error.getMessage());
-                    }
-                });
+                new VolleyErrorListener(this));
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
-
     }
 
     @Override
@@ -143,35 +149,101 @@ public class SignInActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        mTvAccount = (TextView) findViewById(R.id.account);
-        mTvPassword = (TextView) findViewById(R.id.password);
+        mEtAccount = (TextView) findViewById(R.id.account);
+        mEtPassword = (TextView) findViewById(R.id.password);
+
+        mEtAccount.addTextChangedListener(this);
+        mEtPassword.addTextChangedListener(this);
+
 
         mSignIn = (Button) findViewById(R.id.btn_sign_in);
-        mRegister = (Button) findViewById(R.id.btn_register);
+//        mRegister = (Button) findViewById(R.id.btn_register);
         mSignIn.setOnClickListener(listener);
-        mRegister.setOnClickListener(listener);
+//        mRegister.setOnClickListener(listener);
+
+        mTvRegister = (TextView) findViewById(R.id.tv_register);
+        mTvForgetPassword = (TextView) findViewById(R.id.tv_forget_password);
+
+
+//        mBtnForgetPassword = (Button) findViewById(R.id.forget_password);
+//        mBtnForgetPassword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(SignInActivity.this, ResetPasswordActivity.class);
+//            }
+//        });
+
+        String registerString = getResources().getString(R.string.register);
+        String forgetPasswordString = getResources().getString(R.string.forget_password);
+
+        SpannableString registerLink = new SpannableString(registerString);
+        SpannableString forgetPasswordLink = new SpannableString(forgetPasswordString);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                int id = widget.getId();
+                Context context = SignInActivity.this;
+                switch (id) {
+                    case R.id.tv_register:
+                        startRegisterActivity(SignInActivity.this, RegisterActivity.class);
+                        break;
+                    case R.id.tv_forget_password:
+                        startActivity(SignInActivity.this, ResetPasswordActivity.class);
+                }
+
+            }
+        };
+
+        registerLink.setSpan(clickableSpan, 0, registerString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        forgetPasswordLink.setSpan(clickableSpan, 0, forgetPasswordString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        mTvRegister.setText(registerLink);
+        mTvForgetPassword.setText(forgetPasswordLink);
+
+        mTvRegister.setMovementMethod(MyLinkMovementMethod.getInstance());
+        mTvForgetPassword.setMovementMethod(MyLinkMovementMethod.getInstance());
+
+        sharedPreferences = getSharedPreferences(CUSTOMER_INFO, Context.MODE_PRIVATE);
     }
 
+    public void saveSignInStatus(boolean firstSignIn) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(IS_FIRST_SIGN_IN, firstSignIn).apply();
+    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void saveCustomer(String email, String password) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(CUSTOMER_EMAIL, email);
+        editor.putString(CUSTOMER_PASSWORD, password);
+        editor.apply();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (validate(mEtAccount, new EmailValidator()) && validate(mEtPassword, new NotEmptyValidator())) {
+            mSignIn.setEnabled(true);
+        } else {
+            mSignIn.setEnabled(false);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    public class MyLinkMovementMethod extends LinkMovementMethod {
+        @Override
+        public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
+            Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            return super.onTouchEvent(widget, buffer, event);
+        }
     }
 }

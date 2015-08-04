@@ -21,4 +21,13 @@
         android:layout_height="match_parent"
         android:gravity="center" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"
+        android:id="@+id/sign_out"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_selector"
+        android:textColor="@drawable/button_font"/>
+
 </FrameLayout>

@@ -2,22 +2,29 @@ package com.vcanpay.activity.register;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.bill.AppRequestQueue;
+import com.vcanpay.validator.EmailValidator;
+import com.vcanpay.validator.Validator;
+import com.vcanpay.view.CustomProgressBarDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +34,7 @@ import com.vcanpay.activity.bill.AppRequestQueue;
  * Use the {@link RegisterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements TextWatcher {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,40 +86,45 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         mButton = (Button) view.findViewById(R.id.next);
         mEtEmail = (EditText) view.findViewById(R.id.email);
+
+        mEtEmail.addTextChangedListener(this);
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mEtEmail.getText().toString();
-                if (email != null && (!email.equals(""))) {
-                    validEmail(email);
-                } else {
-                    showAlertDialog(getActivity(), getString(R.string.notify), getString(R.string.email_not_empty));
-                }
+                requestValidateEmail(email);
             }
         });
 
         return view;
     }
 
-    public void validEmail(final String email) {
+    public void requestValidateEmail(final String email) {
+        showProgressDialog(getActivity());
 
         ValidEmailRequest request = new ValidEmailRequest(
                 email,
                 new Response.Listener<ValidEmailResponse>() {
                     @Override
                     public void onResponse(ValidEmailResponse response) {
-                        if (response.getStatusCode() == 200) {
+                        closeProgressDialog();
+
+                        String message = response.getMessage();
+                        if ("true".equals(message)) {
                             Intent intent = new Intent(getActivity(), RegisterActivityNext.class);
                             intent.putExtra("email", email);
                             startActivity(intent);
                         } else {
-                            showAlertDialog(getActivity(), getString(R.string.notify), getString(R.string.network_error));
+                            showAlertDialog(getActivity(), getString(R.string.notify), response.getMessage());
                         }
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
                         showAlertDialog(getActivity(), getString(R.string.notify), getString(R.string.network_error));
                     }
                 });
@@ -145,6 +157,29 @@ public class RegisterFragment extends Fragment {
         mListener = null;
     }
 
+    boolean validate(TextView textView, Validator validator) {
+        return validator.validate(textView.getText());
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (validate(mEtEmail, new EmailValidator())) {
+            mButton.setEnabled(true);
+        } else {
+            mButton.setEnabled(false);
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -172,5 +207,20 @@ public class RegisterFragment extends Fragment {
                 })
                 .create()
                 .show();
+    }
+
+    Dialog mDialog;
+
+    protected void showProgressDialog(Context context) {
+        mDialog = CustomProgressBarDialog.createDialog(context);
+        mDialog.setCancelable(false);
+        mDialog.show();
+    }
+
+    protected void closeProgressDialog() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
     }
 }

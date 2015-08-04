@@ -67,6 +67,17 @@ public class CustomInfo
 
     private List<WithdrawBill> withdrawBills;
 
+
+    public CustomerAccount customAccounts;
+
+    public CustomerAccount getCustomAccounts() {
+        return customAccounts;
+    }
+
+    public void setCustomAccounts(CustomerAccount customAccounts) {
+        this.customAccounts = customAccounts;
+    }
+
     public int getCustomId() {
         return this.customId;
     }
@@ -316,7 +327,7 @@ public class CustomInfo
     }
 
     public String getSex() {
-        return this.sex;
+        return sex;
     }
 
     public void setSex(String sex) {

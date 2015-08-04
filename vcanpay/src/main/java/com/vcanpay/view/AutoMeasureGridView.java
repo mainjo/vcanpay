@@ -32,6 +32,14 @@ public class AutoMeasureGridView extends GridView {
     }
 
     @Override
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        int expandSpec = MeasureSpec.makeMeasureSpec(
+                Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+        super.onMeasure(widthMeasureSpec, expandSpec);
+    }
+
+    @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if(changed) {
             FuncItemFragment.CustomAdapter adapter = (FuncItemFragment.CustomAdapter)getAdapter();

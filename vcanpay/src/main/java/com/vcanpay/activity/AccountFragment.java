@@ -94,6 +94,12 @@ public class AccountFragment extends Fragment implements AbsListView.OnItemClick
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().setTitle(getString(R.string.account));
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {

@@ -1,15 +1,14 @@
 package com.vcanpay.activity;
 
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,7 +23,7 @@ import com.vcanpay.activity.bill.BillFragment;
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class TabhostActivity extends ActionBarActivity implements OnFragmentInteractionListener, ActionBar.OnNavigationListener {
+public class TabhostActivity extends BaseActivity implements OnFragmentInteractionListener, ActionBar.OnNavigationListener {
 
     FragmentTabHost mTabHost;
     TabWidget mTabWidget;
@@ -50,18 +49,25 @@ public class TabhostActivity extends ActionBarActivity implements OnFragmentInte
         mTabWidget = (TabWidget) findViewById(android.R.id.tabs);
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
+
 //        View tabIndicator = ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.tab_indicator, )
-        // TODO why doesn't the tab icons display?
 
-        addTab("首页", R.mipmap.ic_launcher, FinalFragmentIThink.class);
-        addTab("服务", R.mipmap.ic_launcher, FuncItemFragment.class);
-        addTab("账单", R.mipmap.ic_launcher, BillFragment.class);
-        addTab("账户", R.mipmap.ic_launcher, AccountFragment.class);
-        addTab("设置", R.mipmap.ic_launcher, SettingsFragment.class);
-
+//        addTab("首页", R.mipmap.icon, FinalFragmentIThink.class);
+        addTab(getString(R.string.home), R.drawable.tab_1_1, FuncItemFragment.class);
+        addTab(getString(R.string.bill), R.drawable.tab_2_1, BillFragment.class);
+        addTab(getString(R.string.account), R.drawable.tab_3_1, AccountFragment.class);
+        addTab(getString(R.string.me), R.drawable.tab_4_1, com.vcanpay.activity.settings.ProfileFragment.class);
 
         mTabWidget.setDividerDrawable(null);
         mTabHost.setOnTabChangedListener(listener);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Log.i("TabhostActivity", newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? "Landscape" : "Portrait");
+        newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        super.onConfigurationChanged(newConfig);
+
     }
 
     public FragmentTabHost getTabHost() {
@@ -121,28 +127,6 @@ public class TabhostActivity extends ActionBarActivity implements OnFragmentInte
         return linearLayout;
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tabhost, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onFragmentInteraction(String id) {

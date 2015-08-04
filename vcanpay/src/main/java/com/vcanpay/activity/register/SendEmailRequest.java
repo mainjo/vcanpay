@@ -18,7 +18,7 @@ public class SendEmailRequest extends BaseJsonRequest<SendEmailResponse> {
     private static final String endPoint = "RegisterDAO/sendEmail";
 
     public SendEmailRequest(String email, Response.Listener<SendEmailResponse> listener, Response.ErrorListener errorListener) {
-        super(Method.GET, baseUrl + endPoint + "?email=" + email, null, listener, errorListener);
+        super(Method.GET, endPoint + "?email=" + email, null, null, listener, errorListener);
     }
 
     @Override

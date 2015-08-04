@@ -8,16 +8,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:id="@+id/container"
     tools:context="com.vcanpay.activity.SettingsFragment">
 
-
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/enable_notification_push"
-        android:id="@+id/switch1"
-        android:showText="false"
-        android:minHeight="?android:attr/listPreferredItemHeight"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/photo"
+        android:src="@drawable/icon"
+        android:layout_gravity="center_horizontal" />
 
     <View
         android:layout_width="match_parent"
@@ -27,12 +26,15 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"
+        android:id="@+id/sign_out"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_selector"
+        android:textColor="@drawable/button_font"/>
 
 </LinearLayout>

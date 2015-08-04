@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account_name">Account Name</string>
+    <string name="action_ok">Ok</string>
+    <string name="thai">ประเทศไทย</string>
+    <string name="bank0">ธนาคารกรุงเทพ</string>
+    <string name="bank1">ธนาคารไทยพาณิชย์</string>
+    <string name="bank2">ธนาคารกสิกรไทย</string>
+    <string name="bank3">ธนาคารกรุงไทย</string>
+</resources>
