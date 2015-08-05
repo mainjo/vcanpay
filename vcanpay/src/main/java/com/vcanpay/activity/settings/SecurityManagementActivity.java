@@ -3,7 +3,6 @@ package com.vcanpay.activity.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,13 +15,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.vcanpay.R;
+import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.security.DummyContent;
 
 import java.util.List;
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class SecurityManagementActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class SecurityManagementActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     ListView mListView;
     ListAdapter mAdapter;
@@ -36,7 +36,7 @@ public class SecurityManagementActivity extends ActionBarActivity implements Ada
 
         mAdapter = new MyAdapter(
                 this,
-                R.layout.simple_list_item,
+                android.R.layout.simple_list_item_1,
                 DummyContent.SECURITY_ITEMS
         );
 
@@ -94,7 +94,7 @@ public class SecurityManagementActivity extends ActionBarActivity implements Ada
             }
 
             DummyContent.DummyItem item = getItem(position);
-            TextView tv = (TextView) view.findViewById(R.id.text1);
+            TextView tv = (TextView) view.findViewById(android.R.id.text1);
             tv.setText(item.title);
 
             return view;

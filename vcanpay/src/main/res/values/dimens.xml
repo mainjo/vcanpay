@@ -14,4 +14,6 @@
     <dimen name="nav_header_text_margin_left">16dp</dimen>
 
     <dimen name="stroke_width_avatar">4dp</dimen>
+    <dimen name="home_grid_size">90dp</dimen>
+    <dimen name="spacing_double">1dp</dimen>
 </resources>

@@ -40,18 +40,6 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
             String newPassword = mEtNewPassword.getText().toString();
             String confirmPassword = mEtConfirmPassword.getText().toString();
 
-            if (TextUtils.isEmpty(oldPassword)) {
-                mEtOldPassword.setError(getString(R.string.password_not_empty));
-            }
-
-            if (TextUtils.isEmpty(newPassword)) {
-                mEtNewPassword.setError(getString(R.string.password_not_empty));
-            }
-
-            if (TextUtils.isEmpty(confirmPassword)) {
-                mEtConfirmPassword.setError(getString(R.string.password_not_empty));
-            }
-
             if (!newPassword.equals(confirmPassword)) {
                 showAlertDialog(ChangePasswordActivity.this, getString(R.string.notify), getString(R.string.password_not_samne));
                 return;
@@ -142,7 +130,7 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
 
 
     private void makeRequest(String email, String oldPassword, String newPassword) {
-
+        showProgressDialog(this);
         MyObject object = new MyObject(email, oldPassword, newPassword);
 
 //        Gson gson = new Gson();
@@ -166,6 +154,7 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
                 new Response.Listener<ChangePasswordResponse>() {
                     @Override
                     public void onResponse(ChangePasswordResponse response) {
+                        closeProgressDialog();
                         NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.change_password_success, 0, 0);
                         dialog.setNoticeDialogListener(ChangePasswordActivity.this);
                         dialog.show(getSupportFragmentManager(), "change_password_dialog");
@@ -189,6 +178,10 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
         mEtConfirmPassword = (EditText) findViewById(R.id.confirm_password);
         mBtnSubmit = (Button) findViewById(R.id.button_confirm);
         mBtnSubmit.setOnClickListener(listener);
+
+        mEtOldPassword.addTextChangedListener(this);
+        mEtNewPassword.addTextChangedListener(this);
+        mEtConfirmPassword.addTextChangedListener(this);
     }
 
     @Override

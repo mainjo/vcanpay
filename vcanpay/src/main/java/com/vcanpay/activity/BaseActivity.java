@@ -11,7 +11,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
@@ -32,7 +32,7 @@ import java.util.Locale;
 /**
  * Created by patrick wai on 2015/6/19.
  */
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends AppCompatActivity {
 
     public static final String CUSTOMER_INFO = "custom_info";
     public static final String CUSTOMER_ID = "customer_id";

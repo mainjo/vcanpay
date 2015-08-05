@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="#f17761"
-        android:text="Sign Out"
+        android:background="@color/red"
+        android:text="@string/sign_out"
         android:textColor="@color/white" />
 </LinearLayout>

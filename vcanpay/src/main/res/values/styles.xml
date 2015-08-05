@@ -11,8 +11,8 @@
         <!-- Panel attributes -->
         <!--<item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_dark</item>-->
 
-        <item name="colorPrimary">#1565C0</item>
-        <item name="colorPrimaryDark">#1565C0</item>
+        <item name="colorPrimary">#2196F3</item>
+        <item name="colorPrimaryDark">#2196F3</item>
         <!--<item name="colorAccent">#E91E63</item>-->
     </style>
 
@@ -36,7 +36,7 @@
     <style name="ButtonBarButton" />
 
 
-    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+    <style name="CustomDialog" parent="AppTheme">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
