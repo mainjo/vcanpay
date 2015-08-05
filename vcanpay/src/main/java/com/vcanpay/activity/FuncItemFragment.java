@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -101,14 +102,15 @@ public class FuncItemFragment extends BaseFragment implements AbsListView.OnItem
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_func_items, container, false);
 
-        // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        mAdapter = new CustomAdapter(getActivity(), R.layout.grid_item, text1, DummyContent.ITEMS);
+        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                v.removeOnLayoutChangeListener(this);
+                setupGridView(getView());
+            }
+        });
 
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
-        // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
 
         mTvTotalAmount = (TextView) view.findViewById(R.id.totalAmount);
         mTvBalance = (TextView) view.findViewById(R.id.balance);
@@ -119,6 +121,26 @@ public class FuncItemFragment extends BaseFragment implements AbsListView.OnItem
         mLocation = (TextView) view.findViewById(R.id.location);
 
         return view;
+    }
+
+    private void setupGridView(View view) {
+        // Set the adapter
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mAdapter = new CustomAdapter(getActivity(), R.layout.grid_item, text1, DummyContent.ITEMS);
+
+        mListView.setAdapter(mAdapter);
+
+        // Set OnItemClickListener so we can be notified on item clicks
+        mListView.setOnItemClickListener(this);
+        if (mListView instanceof GridView) {
+            ((GridView) mListView).setNumColumns(3);
+        }
+    }
+
+    private int calculateSpanCount() {
+        int avatarSize = getResources().getDimensionPixelSize(R.dimen.home_grid_size);
+        int avatarPadding = getResources().getDimensionPixelSize(R.dimen.spacing_double);
+        return mListView.getWidth() / (avatarSize + avatarPadding);
     }
 
     @Override
