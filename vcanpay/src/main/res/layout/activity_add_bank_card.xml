@@ -147,6 +147,7 @@
             android:layout_height="wrap_content"
             android:text="@string/submit"
             android:id="@+id/submit"
+            android:enabled="false"
             android:background="@drawable/button_selector"
             android:textColor="@drawable/button_font"/>
 

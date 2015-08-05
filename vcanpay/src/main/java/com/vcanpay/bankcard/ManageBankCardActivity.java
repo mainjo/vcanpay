@@ -64,7 +64,8 @@ public class ManageBankCardActivity extends BaseActivity implements AdapterView.
                         closeProgressDialog();
 
                         ArrayList<CustBankCard> bankCards = new ArrayList<>(Arrays.asList(response));
-                        if (response != null) {
+                        
+                        if (response != null && response.length > 0) {
                             mAdapter = new MyAdapter(ManageBankCardActivity.this,
                                     R.layout.list_item_my_bank_card,
                                     bankCards);

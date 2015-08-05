@@ -181,19 +181,13 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
                         @Override
                         public void onResponse(CustomTrade[] response) {
                             ((TabhostActivity) getActivity()).closeProgressDialog();
-                            // TODO:
-                            if (response == null || response.length == 0) {
-                                setEmptyText(R.string.no_data);
+                            if (response != null && response.length > 0) {
+                                mAdapter = new MyAdapter(getActivity(), R.layout.list_item_bill, response);
+                                mListView.setAdapter(mAdapter);
+                                mListView.setOnItemClickListener(PlaceholderFragment.this);
                                 return;
                             }
-
-                            mAdapter = new MyAdapter(getActivity(), R.layout.list_item_bill, response);
-
-                            // Set the adapter
-                            ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
-                            // Set OnItemClickListener so we can be notified on item clicks
-                            mListView.setOnItemClickListener(PlaceholderFragment.this);
+                            setEmptyText(R.string.no_data);
                         }
                     },
                     new VolleyErrorListener(((TabhostActivity) getActivity()))

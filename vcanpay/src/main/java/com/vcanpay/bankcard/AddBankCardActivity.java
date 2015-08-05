@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -89,6 +90,12 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
         mEtCellPhone = (EditText) findViewById(R.id.cell_phone);
         mEtBirthday = (EditText) findViewById(R.id.birthday);
 
+        mEtCardNum.addTextChangedListener(this);
+        mEtAccountName.addTextChangedListener(this);
+        mEtBankBranch.addTextChangedListener(this);
+        mEtCellPhone.addTextChangedListener(this);
+        mEtBirthday.addTextChangedListener(this);
+
         mSpinnerCountry = (Spinner) findViewById(R.id.spinner_country);
         mSpinnerRegion = (Spinner) findViewById(R.id.spinner_region);
         mSpinnerProvince = (Spinner) findViewById(R.id.spinner_province);
@@ -133,7 +140,7 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
                 bankCard.setUserName(mEtAccountName.getText().toString());
                 bankCard.setUserSex((String.valueOf(mSpinnerSex.getSelectedItemPosition())));
                 bankCard.setCustomInfo(getCurrentCustomer());
-                bankCard.setUserBirth((Date)mEtBirthday.getTag());
+                bankCard.setUserBirth((Date) mEtBirthday.getTag());
 
                 makeRequest(bankCard);
             }
@@ -227,7 +234,8 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
 
         String json2 = "{custBankCard:" + json1 + "}";
 
-        String birthday = new SimpleDateFormat("yyyy-MM-dd'+'HH:mm:ss").format(custBankCard.getUserBirth());
+        String birthday = new SimpleDateFormat("yyyy-MM-dd'+'HH:mm:ss")
+                .format(custBankCard.getUserBirth() == null ? new Date(0) : custBankCard.getUserBirth());
 
         BindBankCardRequest request = new BindBankCardRequest(
                 this,
@@ -324,6 +332,15 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
 
     @Override
     public void afterTextChanged(Editable s) {
+
+        if (!TextUtils.isEmpty(mEtCardNum.getText()) &&
+                !TextUtils.isEmpty(mEtAccountName.getText()) &&
+                !TextUtils.isEmpty(mEtCellPhone.getText()) &&
+                !TextUtils.isEmpty(mEtBirthday.getText())) {
+            mButton.setEnabled(true);
+        } else {
+            mButton.setEnabled(false);
+        }
 
     }
 
