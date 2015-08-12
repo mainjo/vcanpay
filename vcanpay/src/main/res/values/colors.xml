@@ -13,6 +13,7 @@
     <color name="button_pressed">#0d76e1</color>
     <color name="button_normal">#3399ff</color>
     <color name="button_disabled">#00ffffff</color>
+    <!--<color name="button_disabled">#f17761</color>-->
 
     <color name="color_primary">#2196F3</color>
     <color name="color_primary_dark">#1565C0</color>
@@ -24,4 +25,8 @@
     <color name="bank_card_disabled">#ff818181</color>
 
     <color name="topeka_primary">#00bad2</color>
+    <color name="sign_out_button_normal">@color/red</color>
+    <color name="sign_out_button_pressed">#b22222</color>
+
+    <color name="grey">#808080</color>
 </resources>

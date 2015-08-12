@@ -95,9 +95,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         Log.i("SettingFragment", "begin restarting....");
         Intent intent = getActivity().getPackageManager()
                 .getLaunchIntentForPackage(getActivity().getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        getActivity().finish();
+
+        Log.i("Vcanpay", "app is restarting...");
     }
 
     @Override

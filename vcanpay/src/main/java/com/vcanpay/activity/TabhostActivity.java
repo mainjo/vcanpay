@@ -53,10 +53,10 @@ public class TabhostActivity extends BaseActivity implements OnFragmentInteracti
 //        View tabIndicator = ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.tab_indicator, )
 
 //        addTab("首页", R.mipmap.icon, FinalFragmentIThink.class);
-        addTab(getString(R.string.home), R.drawable.tab_1_1, FuncItemFragment.class);
-        addTab(getString(R.string.bill), R.drawable.tab_2_1, BillFragment.class);
-        addTab(getString(R.string.account), R.drawable.tab_3_1, AccountFragment.class);
-        addTab(getString(R.string.me), R.drawable.tab_4_1, com.vcanpay.activity.settings.ProfileFragment.class);
+        addTab(getString(R.string.home), R.drawable.tab_one, FuncItemFragment.class);
+        addTab(getString(R.string.bill), R.drawable.tab_two, BillFragment.class);
+        addTab(getString(R.string.account), R.drawable.tab_three, AccountFragment.class);
+        addTab(getString(R.string.me), R.drawable.tab_four, com.vcanpay.activity.settings.ProfileFragment.class);
 
         mTabWidget.setDividerDrawable(null);
         mTabHost.setOnTabChangedListener(listener);

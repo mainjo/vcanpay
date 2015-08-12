@@ -302,5 +302,11 @@
     <string name="go_to_verify">去激活</string>
     <string name="action_remove">删除</string>
     <string name="action_activate">激活</string>
+    <string name="title_activity_user_guide">帮助</string>
+    <string name="agreement">《用户协议》</string>
+    <string name="and">和</string>
+    <string name="privacy">《用户隐私》</string>
+    <string name="agree_to">同意</string>
+    <string name="user_guide">使用说明</string>
 
 </resources>

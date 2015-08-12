@@ -4,8 +4,8 @@
     android:layout_height="100dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    android:paddingStart="100dp"
-    android:paddingEnd="100dp"
+    android:paddingStart="50dp"
+    android:paddingEnd="50dp"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/red"
+        android:background="@drawable/sign_out_button_selector"
         android:text="@string/sign_out"
         android:textColor="@color/white" />
 </LinearLayout>

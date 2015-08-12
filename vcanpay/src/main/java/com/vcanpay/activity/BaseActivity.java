@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.example.vcanpay.R;
@@ -40,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
     public static final String CUSTOMER_EMAIL = "customer_email";
     public static final String CUSTOMER_PASSWORD = "customer_password";
 
-    public static final String DEFAULT = "default_lang";
+    public static final String DEFAULT_LANG = "default_lang";
     public static final String ZH = "zh";
     public static final String EN = "en";
     public static final String TH = "th";
@@ -53,14 +52,17 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void initConfig() {
+
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        String language = sp.getString("language_list", DEFAULT);
+        String language = sp.getString("language_list", DEFAULT_LANG);
 
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
         DisplayMetrics dm = resources.getDisplayMetrics();
 
-        if (language.equals(DEFAULT)) {
+        if (language.equals(DEFAULT_LANG)) {
 
             config.locale = Locale.getDefault();
         }
@@ -143,7 +145,6 @@ public class BaseActivity extends AppCompatActivity {
     protected boolean validate(TextView textView, Validator validator) {
         boolean result = validator.validate(textView.getText().toString());
 
-        Log.i("BaseActivity", textView.getText() + ": " + result);
         return result;
     }
 

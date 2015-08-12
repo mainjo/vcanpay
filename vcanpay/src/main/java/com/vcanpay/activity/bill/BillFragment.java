@@ -72,7 +72,6 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -204,11 +203,6 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
         public void setEmptyText(CharSequence emptyText) {
 
             mTvEmpty.setText(emptyText);
-//            View emptyView = mListView.getEmptyView();
-//
-//            if (emptyView instanceof TextView) {
-//                ((TextView) emptyView).setText(emptyText);
-//            }
         }
 
         @Override

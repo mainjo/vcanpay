@@ -27,7 +27,7 @@ public class SignInRequest extends BaseJsonRequest<SignInResponse> {
     private static final String endPoint = "PersonalLoginDAO/Login";
 
     public SignInRequest(String requestBody, String signBody, Response.Listener<SignInResponse> listener, Response.ErrorListener errorListener) {
-        super(Method.POST, endPoint, requestBody, signBody, listener, errorListener);
+        super(Method.PUT, endPoint, requestBody, signBody, listener, errorListener);
     }
 
 

@@ -210,4 +210,10 @@
     <string name="bank3">Krung Thai Bank Public Company Limited</string>
     <string name="action_remove">Remove</string>
     <string name="action_activate">Activate</string>
+    <string name="title_activity_user_guide">Tutorial</string>
+    <string name="agreement">《User Agreement》</string>
+    <string name="privacy">《User Privacy》</string>
+    <string name="agree_to">Agree to</string>
+    <string name="and">and</string>
+    <string name="user_guide">User Guide</string>
 </resources>

@@ -4,6 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Project Name:Vcanpay
+ * Date:2015/6/18
+ *
  * Created by patrick wai on 2015/6/18.
  */
 public class EmailValidator implements Validator {

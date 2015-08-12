@@ -10,6 +10,4 @@ public class Config {
     public static final String DATE_FORMAT_2 = "yyyy-MM-dd'T'HH:mm:ssZ";
     public static final String DATE_FORMAT_3 = "yyyy-MM-dd'+'hh:mm:ss";
 
-
-
 }
