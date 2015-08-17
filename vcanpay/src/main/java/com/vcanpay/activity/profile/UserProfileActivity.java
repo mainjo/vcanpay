@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.example.vcanpay.R;
-import com.vcanpay.Application;
 import com.vcanpay.Config;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.VolleyErrorListener;
@@ -53,16 +52,16 @@ public class UserProfileActivity extends BaseActivity {
         mSpSex = (Spinner) findViewById(R.id.sex);
         mEtBirthday = (EditText) findViewById(R.id.birthday);
 
-        mFirstName.setText(Application.customInfo.getFirstName());
-        mLastName.setText(Application.customInfo.getLastName());
+        mFirstName.setText(getCurrentCustomer().getFirstName());
+        mLastName.setText(getCurrentCustomer().getLastName());
         mSpIdentificationType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IdentificationTypeDump.ITEMS));
         mSpIdentificationType.setSelection(0);
         mEtIdCard.setText(getCurrentCustomer().getICardId());
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sex, android.R.layout.simple_spinner_dropdown_item);
         mSpSex.setAdapter(adapter);
-        if (!TextUtils.isEmpty(Application.customInfo.getSex())) {
-            mSpSex.setSelection(Integer.valueOf(Application.customInfo.getSex()));
+        if (!TextUtils.isEmpty(getCurrentCustomer().getSex())) {
+            mSpSex.setSelection(Integer.valueOf(getCurrentCustomer().getSex()));
         }
         mEtBirthday.setText(getCurrentCustomer().getBirthDate() == null ? "" : new SimpleDateFormat(Config.DATE_FORMAT_1).format(getCurrentCustomer().getBirthDate()));
         mEtBirthday.setTag(getCurrentCustomer().getBirthDate());

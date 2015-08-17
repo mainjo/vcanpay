@@ -16,7 +16,7 @@ import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import com.example.vcanpay.R;
-import com.vcanpay.Application;
+import com.vcanpay.MyApplication;
 import com.vcanpay.activity.recharge.AreaContentProvider2;
 import com.vcanpay.activity.recharge.ChooseRegionActivity;
 import com.vcanpay.validator.Validator;
@@ -90,8 +90,6 @@ public class BaseActivity extends AppCompatActivity {
 
     private CustomProgressBarDialog mDialog;
 
-    private static CustomInfo currentCustomer = null;
-
     protected void showAlertDialog(Context context, String title, String message) {
         new AlertDialog.Builder(context)
                 .setTitle(title)
@@ -125,20 +123,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public CustomInfo getCurrentCustomer() {
-//        if (currentCustomer == null) {
-//            SharedPreferences sp = getSharedPreferences(CUSTOMER_INFO, Context.MODE_PRIVATE);
-//
-//            int customerId = sp.getInt(CUSTOMER_ID, -1);
-//            String customerName = sp.getString(CUSTOMER_NAME, null);
-//            if (customerId != -1 && !TextUtils.isEmpty(customerName)) {
-//                currentCustomer = new CustomInfo();
-//                currentCustomer.setCustomId(customerId);
-//                currentCustomer.setCustomName(customerName);
-//            }
-//        }
-//
-//        return currentCustomer;
-        return Application.customInfo;
+
+        return ((MyApplication)getApplication()).getCustomInfo();
     }
 
 

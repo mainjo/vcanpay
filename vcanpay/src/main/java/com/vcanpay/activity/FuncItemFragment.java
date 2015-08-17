@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.example.vcanpay.R;
 import com.google.gson.Gson;
-import com.vcanpay.Application;
+import com.vcanpay.MyApplication;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.activity.dummy.DummyContent;
 import com.vcanpay.request.SignInRequest;
@@ -211,8 +211,7 @@ public class FuncItemFragment extends BaseFragment implements AbsListView.OnItem
                     public void onResponse(SignInResponse response) {
                         closeProgressDialog();
                         CustomInfo customInfo = response.getCustomInfo();
-                        Application.customInfo = customInfo;
-
+                        ((MyApplication)getActivity().getApplication()).setCustomInfo(customInfo);
                         NumberFormat format = NumberFormat.getCurrencyInstance();
                         mTvTotalAmount.setText(format.format(customInfo.getCustomAccounts().getAmount()));
                         mTvBalance.setText(format.format(customInfo.getCustomAccounts().getCashAmount()));

@@ -67,7 +67,6 @@ public class TabhostActivity extends BaseActivity implements OnFragmentInteracti
         Log.i("TabhostActivity", newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? "Landscape" : "Portrait");
         newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
         super.onConfigurationChanged(newConfig);
-
     }
 
     public FragmentTabHost getTabHost() {

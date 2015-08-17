@@ -28,7 +28,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.example.vcanpay.R;
 import com.google.gson.Gson;
-import com.vcanpay.Application;
+import com.vcanpay.MyApplication;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.activity.help.UserGuideActivity;
 import com.vcanpay.activity.password.ResetPasswordActivity;
@@ -127,7 +127,10 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                     public void onResponse(SignInResponse response) {
                         closeProgressDialog();
                         CustomInfo customInfo = response.getCustomInfo();
-                        Application.customInfo = customInfo;
+
+                        // 保存当前登录的用户
+                        ((MyApplication)getApplication()).setCustomInfo(customInfo);
+
                         saveSignInStatus(false);
                         saveCustomer(mEtAccount.getText().toString(), mEtPassword.getText().toString());
 //                        saveCustomer(customInfo);

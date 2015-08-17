@@ -71,6 +71,9 @@ public class ManageBankCardActivity extends BaseActivity implements AdapterView.
                                     bankCards);
                             mBankCards.setAdapter(mAdapter);
                             mBankCards.setOnItemClickListener(ManageBankCardActivity.this);
+
+                            setEmptyText("");
+
                             return;
                         }
                         setEmptyText(R.string.no_data);
