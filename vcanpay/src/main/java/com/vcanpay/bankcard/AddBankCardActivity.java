@@ -1,8 +1,5 @@
 package com.vcanpay.bankcard;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -41,8 +38,6 @@ import java.util.List;
  * Created by patrick wai on 2015/6/5.
  */
 public class AddBankCardActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, NoticeDialogFragment.NoticeDialogListener, TextWatcher {
-
-    static final int DATE_DIALOG_ID = 1;
 
 
     EditText mEtCardNum;
@@ -164,30 +159,16 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
 
     }
 
-
     @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                // set date picker as current date
-                Calendar calendar = Calendar.getInstance();
-                return new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, datePickerListener,
-                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        }
-        return null;
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        super.onDateSet(view, year, monthOfYear, dayOfMonth);
+
+        Calendar c = Calendar.getInstance();
+        c.set(year, monthOfYear, dayOfMonth);
+
+        mEtBirthday.setText(new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()));
+        mEtBirthday.setTag(c.getTime());
     }
-
-
-    DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            Calendar c = Calendar.getInstance();
-            c.set(year, monthOfYear, dayOfMonth);
-
-            mEtBirthday.setText(new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()));
-            mEtBirthday.setTag(c.getTime());
-        }
-    };
 
     private void makeRequest(CustBankCard custBankCard) {
         showProgressDialog(this);

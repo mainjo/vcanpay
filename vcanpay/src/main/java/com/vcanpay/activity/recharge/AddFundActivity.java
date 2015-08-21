@@ -1,7 +1,5 @@
 package com.vcanpay.activity.recharge;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
@@ -76,9 +75,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
 
 
     public static final int REQUEST_CODE = 1000;
-
-    static final int DATE_DIALOG_ID = 999;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,34 +190,35 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                // set date picker as current date
-                Calendar calendar = Calendar.getInstance();
-                return new DatePickerDialog(this, datePickerListener,
-                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        }
-        return null;
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        super.onDateSet(view, year, monthOfYear, dayOfMonth);
+
+        Calendar c = Calendar.getInstance();
+        c.set(year, monthOfYear, dayOfMonth);
+
+        setTempCalendar(c);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CALENDAR_KEY, c);
+        showDialog(TIME_DIALOG_ID, bundle);
     }
 
-    DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            Calendar c = Calendar.getInstance();
-            c.set(year, monthOfYear, dayOfMonth);
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        super.onTimeSet(view, hourOfDay, minute);
+        Calendar c = getTempCalendar();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
 
-            mEtDate.setText(new SimpleDateFormat("yyyy-MM-dd' 'hh:mm").format(c.getTime()));
-            mEtDate.setTag(c.getTime());
-        }
-    };
+        mEtDate.setText(new SimpleDateFormat("yyyy-MM-dd' 'hh:mm").format(c.getTime()));
+        mEtDate.setTag(c.getTime());
+    }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
 
         if (id == R.id.date) {
-                showDialog(DATE_DIALOG_ID);
+            showDialog(DATE_DIALOG_ID, null);
         }
 
         if (id == R.id.get_vcp) {
@@ -393,6 +390,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
 
     public static class TransferTypeDummp {
         public static TransferType[] items = new TransferType[2];
+
         static {
             items[0] = new TransferType(0, "Over the counter/ATM");
             items[1] = new TransferType(1, "Online bank");
