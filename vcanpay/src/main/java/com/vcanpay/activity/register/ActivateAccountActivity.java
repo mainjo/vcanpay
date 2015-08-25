@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.vcanpay.R;
+import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.NoticeDialogFragment;
 import com.vcanpay.activity.SignInActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;

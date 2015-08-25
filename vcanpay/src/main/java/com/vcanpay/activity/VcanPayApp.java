@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.vcanpay.R;
 
 public class VcanPayApp extends BaseActivity {
@@ -54,7 +55,8 @@ public class VcanPayApp extends BaseActivity {
         setContentView(R.layout.activity_vcan_pay_app);
 
         mImageView = (ImageView) findViewById(R.id.start_image);
-        mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        Glide.with(this).fromResource().load(R.drawable.start_image).into(mImageView);
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -73,6 +75,6 @@ public class VcanPayApp extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
+//        mHandler.removeCallbacksAndMessages(null);
     }
 }

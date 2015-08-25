@@ -11,6 +11,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        setTitle(R.string.title_activity_settings);
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.container, new com.vcanpay.activity.settings.SettingsFragment(), "settings").
                 commit();

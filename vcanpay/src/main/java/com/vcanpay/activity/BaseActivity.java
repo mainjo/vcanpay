@@ -165,6 +165,7 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     protected Dialog onCreateDialog(int id, Bundle args) {
+        super.onCreateDialog(id, args);
         Calendar c = null;
         if (args != null) {
             c = (Calendar) args.getSerializable(CALENDAR_KEY);
@@ -180,11 +181,12 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
-                return new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, this, year, month, day);
+//                return new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, this, year, month, day);
+                return new DatePickerDialog(this, R.style.DatePickerDialog, this, year, month, day);
             case TIME_DIALOG_ID:
                 int hour = c.get(Calendar.HOUR_OF_DAY);
                 int minute = c.get(Calendar.MINUTE);
-                return new TimePickerDialog(this, this, hour, minute, android.text.format.DateFormat.is24HourFormat(this));
+                return new TimePickerDialog(this, R.style.TimePickerDialog, this, hour, minute, android.text.format.DateFormat.is24HourFormat(this));
         }
         return null;
     }

@@ -386,6 +386,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vcanpay.activity.SignInActivity" />
         </activity>
+        <meta-data android:name="com.vcanpay.glide.GlideConfiguration"
+            android:value="GlideModule"/>
     </application>
 
 </manifest>

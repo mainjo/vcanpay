@@ -102,7 +102,7 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
         customInfo.setFirstName(firstName);
         customInfo.setLastName(lastName);
         customInfo.setICardId(idCard);
-        customInfo.setCredType('1');
+        customInfo.setCredType("1");
         customInfo.setCity(city);
         customInfo.setProvince(province);
         customInfo.setCountry(country);

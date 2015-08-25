@@ -62,8 +62,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
     Button mSignIn;
 //    Button mRegister;
 
-    View mAgreement;
-    View mPrivacy;
+
     View mUserGuide;
 
     String mAccount;
@@ -207,12 +206,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
         mIvThailand.setOnClickListener(this);
 
 
-        mAgreement = findViewById(R.id.agreement);
-        mPrivacy = findViewById(R.id.privacy);
         mUserGuide = findViewById(R.id.user_guide);
-
-        mAgreement.setOnClickListener(this);
-        mPrivacy.setOnClickListener(this);
         mUserGuide.setOnClickListener(this);
 
         String registerString = getResources().getString(R.string.register);
@@ -241,10 +235,10 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
 
 
         registerLink.setSpan(clickableSpan, 0, registerString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        registerLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, 24, colorStateList, colorStateList), 0, registerLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        registerLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), colorStateList, colorStateList), 0, registerLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         forgetPasswordLink.setSpan(clickableSpan, 0, forgetPasswordString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        forgetPasswordLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, 24, colorStateList, colorStateList), 0, forgetPasswordLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        forgetPasswordLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), colorStateList, colorStateList), 0, forgetPasswordLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         mTvRegister.setText(registerLink);
         mTvForgetPassword.setText(forgetPasswordLink);
@@ -271,8 +265,6 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
         if (selectedLang.equals(TH)) {
             mIvThailand.setChecked(true);
         }
-
-
     }
 
 

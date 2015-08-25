@@ -19,8 +19,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.vcanpay.R;
+import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.NoticeDialogFragment;
 import com.vcanpay.activity.TabhostActivity;
 import com.vcanpay.activity.bill.AppRequestQueue;
 

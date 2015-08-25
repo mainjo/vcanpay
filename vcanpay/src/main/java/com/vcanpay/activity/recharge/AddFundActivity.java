@@ -33,8 +33,8 @@ import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.NoticeDialogFragment;
 import com.vcanpay.activity.TabhostActivity;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.validator.NotEmptyValidator;
@@ -199,6 +199,8 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         setTempCalendar(c);
         Bundle bundle = new Bundle();
         bundle.putSerializable(CALENDAR_KEY, c);
+
+        dismissDialog(DATE_DIALOG_ID);
         showDialog(TIME_DIALOG_ID, bundle);
     }
 
@@ -209,8 +211,9 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
 
-        mEtDate.setText(new SimpleDateFormat("yyyy-MM-dd' 'hh:mm").format(c.getTime()));
+        mEtDate.setText(new SimpleDateFormat("yyyy-MM-dd' 'HH:mm").format(c.getTime()));
         mEtDate.setTag(c.getTime());
+        dismissDialog(TIME_DIALOG_ID);
     }
 
     @Override
@@ -256,11 +259,11 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
 
         Gson gson = new GsonBuilder()
 //                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .setDateFormat("yyyy-MM-dd'+'hh:mm:ss")
+                .setDateFormat("yyyy-MM-dd'+'HH:mm:ss")
                 .create();
 
         String endPoint = "MgrAddFundTransDAO/selectedRow" + "?Date=" +
-                new SimpleDateFormat("yyyy-MM-dd'+'hh:mm:ss").format((Date) mEtDate.getTag());
+                new SimpleDateFormat("yyyy-MM-dd'+'HH:mm:ss").format((Date) mEtDate.getTag());
 //        String json1 = gson.toJson(bill);
 
 

@@ -16,4 +16,5 @@
     <dimen name="stroke_width_avatar">4dp</dimen>
     <dimen name="home_grid_size">90dp</dimen>
     <dimen name="spacing_double">1dp</dimen>
+    <dimen name="link_font_size">14dp</dimen>
 </resources>

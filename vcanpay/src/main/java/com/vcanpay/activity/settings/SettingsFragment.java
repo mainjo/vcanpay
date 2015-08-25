@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vcanpay.R;
-import com.vcanpay.activity.NoticeDialogFragment;
+import com.vcanpay.NoticeDialogFragment;
 
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, NoticeDialogFragment.NoticeDialogListener {
@@ -105,5 +105,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
 
+//        getActivity().recreate();
+        refreshLocale();
+    }
+
+    private void refreshLocale() {
+        Intent intent = getActivity().getIntent();
+        getActivity().overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        getActivity().finish();
+
+        getActivity().overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 }

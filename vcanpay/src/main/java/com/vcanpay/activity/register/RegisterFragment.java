@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
+import com.vcanpay.activity.AgreementAndPrivacyActivity;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.validator.EmailValidator;
 import com.vcanpay.validator.Validator;
@@ -34,7 +35,7 @@ import com.vcanpay.view.CustomProgressBarDialog;
  * Use the {@link RegisterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegisterFragment extends Fragment implements TextWatcher {
+public class RegisterFragment extends Fragment implements TextWatcher, View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,6 +47,9 @@ public class RegisterFragment extends Fragment implements TextWatcher {
 
     EditText mEtEmail;
     Button mButton;
+
+    View mAgreement;
+    View mPrivacy;
 
     private OnFragmentInteractionListener mListener;
 
@@ -96,6 +100,12 @@ public class RegisterFragment extends Fragment implements TextWatcher {
                 requestValidateEmail(email);
             }
         });
+
+        mAgreement = view.findViewById(R.id.agreement);
+        mPrivacy = view.findViewById(R.id.privacy);
+
+        mAgreement.setOnClickListener(this);
+        mPrivacy.setOnClickListener(this);
 
         return view;
     }
@@ -178,6 +188,31 @@ public class RegisterFragment extends Fragment implements TextWatcher {
         } else {
             mButton.setEnabled(false);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.agreement:
+                openAgreement(AgreementAndPrivacyActivity.USER_AGREEMENT);
+                break;
+
+            case R.id.privacy:
+                openAgreement(AgreementAndPrivacyActivity.USER_PRIVACY);
+                break;
+        }
+    }
+
+    public void openAgreement(String field) {
+
+        if (field == null) {
+            field = AgreementAndPrivacyActivity.USER_AGREEMENT;
+        }
+
+        Intent intent = new Intent(getActivity(), AgreementAndPrivacyActivity.class);
+        intent.putExtra(Intent.EXTRA_TEXT, field);
+        startActivity(intent);
     }
 
     /**
