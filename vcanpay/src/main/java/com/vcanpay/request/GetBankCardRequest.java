@@ -78,6 +78,10 @@ public class GetBankCardRequest extends BaseJsonRequest<CustBankCard[]> {
                     if (object.has("haveMoneyCheck")) {
                         cards[i].setHaveMoneyCheck(object.getString("haveMoneyCheck"));
                     }
+
+                    if (object.has("userName")) {
+                        cards[i].setUserName(object.getString("userName"));
+                    }
                 }
             } catch (UnsupportedEncodingException | JSONException e) {
                 e.printStackTrace();

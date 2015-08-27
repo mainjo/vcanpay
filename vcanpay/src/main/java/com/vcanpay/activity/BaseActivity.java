@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -60,9 +61,15 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
 
     private Calendar tempCalendar;  // hold the calendar which is set by the previous DatePickerDialog
 
+
+
+    Toolbar mToolBar;
+
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
+
+
 
         initConfig();
     }

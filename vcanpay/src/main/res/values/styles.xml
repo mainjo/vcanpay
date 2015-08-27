@@ -1,22 +1,24 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
 
-        <!--<item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>-->
-        <!--<item name="actionBarWidgetTheme">@null</item>-->
-        <!--<item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>-->
 
-        <!-- Panel attributes -->
-        <!--<item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_dark</item>-->
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
         <item name="colorPrimary">#2196F3</item>
-        <item name="colorPrimaryDark">#2196F3</item>
-        <!--<item name="colorAccent">#E91E63</item>-->
+        <item name="colorPrimaryDark">#6444ff</item>
 
+        <item name="colorAccent">#6444ff</item>
         <item name="android:datePickerStyle">@style/DatePicker</item>
+        <item name="android:textViewStyle">@style/TextView</item>
     </style>
+
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
@@ -38,7 +40,7 @@
     <style name="ButtonBarButton" />
 
 
-    <style name="CustomDialog" parent="AppTheme">
+    <style name="CustomDialog" parent="AppTheme.Base">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -49,6 +51,20 @@
     <style name="CustomProgressDialog" parent="@style/CustomDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="TextView" parent="android:TextAppearance.Widget.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="SettingsActivity" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowBackground">@drawable/settings_background</item>
+        <item name="android:focusable">false</item>
+        <item name="android:textColor">#ff000000</item>
+        <item name="android:cacheColorHint">#ffffffff</item>
+
     </style>
 
 </resources>

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.AccountFragment;
 import com.vcanpay.activity.FinalFragmentIThink;
-import com.vcanpay.activity.FuncItemFragment;
+import com.vcanpay.activity.HomeFragment;
 import com.vcanpay.activity.bill.BillFragment;
 
 /**
@@ -83,7 +83,7 @@ public class TutorialActivity extends ActionBarActivity implements TabLayout.OnT
 
     private class TabsAdapter extends FragmentPagerAdapter {
 
-        Fragment[] fragments = {new FinalFragmentIThink(), new FuncItemFragment(), new BillFragment(), new AccountFragment()};
+        Fragment[] fragments = {new FinalFragmentIThink(), new HomeFragment(), new BillFragment(), new AccountFragment()};
 
         public TabsAdapter(FragmentManager fm) {
             super(fm);

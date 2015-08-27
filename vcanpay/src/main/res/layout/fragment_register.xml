@@ -3,32 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.vcanpay.activity.register.RegisterFragment" >
+    tools:context="com.vcanpay.activity.register.RegisterFragment">
 
 
     <TextView
+        android:id="@+id/textView14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/input_your_email"
-        android:id="@+id/textView14" />
+        android:text="@string/input_your_email" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
         android:id="@+id/email"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/next"
-        android:id="@+id/next"
-        android:enabled="false"
-        android:layout_gravity="end"
-        android:background="@drawable/button_selector"
-        android:textColor="@drawable/button_font"/>
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
 
 
     <LinearLayout
@@ -45,34 +35,43 @@
             android:checked="false" />
 
         <TextView
+            android:id="@+id/textView69"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/agree_to"
-            android:textSize="12sp"
-            android:id="@+id/textView69" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/agreement"
-            android:textSize="12sp"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/blue"
+            android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/textView68"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/and"
-            android:textSize="12sp"
-            android:id="@+id/textView68" />
+            android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/privacy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/privacy"
             android:textColor="@color/blue"
-            android:textSize="12sp"
-            android:id="@+id/privacy" />
+            android:textSize="12sp" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/button_selector"
+        android:enabled="false"
+        android:text="@string/next"
+        android:textColor="@drawable/button_font" />
 </LinearLayout>

@@ -7,27 +7,10 @@
     android:weightSum="1"
     tools:context="com.vcanpay.activity.settings.ProfileFragment">
 
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="0.30"-->
-            <!--android:background="@drawable/profile_background"-->
-            <!--android:gravity="center"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="80dp"-->
-                <!--android:layout_height="80dp"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:src="@drawable/profile_photo" />-->
-
-        <!--</LinearLayout>-->
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@android:id/empty"

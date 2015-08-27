@@ -65,7 +65,7 @@ public class ManageBankCardActivity extends BaseActivity implements AdapterView.
 
                         ArrayList<CustBankCard> bankCards = new ArrayList<>(Arrays.asList(response));
                         
-                        if (response != null && response.length > 0) {
+                        if (bankCards.size() > 0) {
                             mAdapter = new MyAdapter(ManageBankCardActivity.this,
                                     R.layout.list_item_my_bank_card,
                                     bankCards);

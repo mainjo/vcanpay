@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ public class TabhostActivity extends BaseActivity implements OnFragmentInteracti
 
     FragmentTabHost mTabHost;
     TabWidget mTabWidget;
+
+    Toolbar mToolbar;
 
     TabHost.OnTabChangeListener listener = new TabHost.OnTabChangeListener() {
         @Override
@@ -53,10 +56,11 @@ public class TabhostActivity extends BaseActivity implements OnFragmentInteracti
 //        View tabIndicator = ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.tab_indicator, )
 
 //        addTab("首页", R.mipmap.icon, FinalFragmentIThink.class);
-        addTab(getString(R.string.home), R.drawable.tab_one, FuncItemFragment.class);
+        addTab(getString(R.string.home), R.drawable.tab_one, HomeFragment.class);
         addTab(getString(R.string.bill), R.drawable.tab_two, BillFragment.class);
         addTab(getString(R.string.account), R.drawable.tab_three, AccountFragment.class);
-        addTab(getString(R.string.me), R.drawable.tab_four, com.vcanpay.activity.settings.ProfileFragment.class);
+//        addTab(getString(R.string.me), R.drawable.tab_four, com.vcanpay.activity.settings.ProfileFragment.class);
+        addTab(getString(R.string.me), R.drawable.tab_four, com.vcanpay.activity.profile.ProfileFragment2.class);
 
         mTabWidget.setDividerDrawable(null);
         mTabHost.setOnTabChangedListener(listener);

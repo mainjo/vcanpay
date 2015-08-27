@@ -109,7 +109,7 @@
     <string name="title_activity_recharge_input">充值登记</string>
     <string name="title_activity_prepaid_card_recharge">充值卡充值</string>
     <string name="email_format_err">邮箱格式错误！</string>
-    <string name="get_vcp">(获取账号)</string>
+    <string name="get_vcp">（获取账号）</string>
     <string name="title_activity_choose_region">选择区域</string>
     <string name="choose_a_region">选择区域</string>
     <string name="next_step">下一步</string>
@@ -242,7 +242,7 @@
     <string name="now_go_to_add_bank_card">现在去绑定银行卡账号</string>
     <string name="activated_success">激活成功</string>
     <string name="title_activity_activate_bank_card">激活</string>
-    <string name="input_activation_code">输入激活码</string>
+    <string name="input_verification_code">输入验证码</string>
     <string name="activated">Activated</string>
     <string name="add_bank_card_success">添加银行卡成功</string>
     <string name="now_to_activate">现在去激活</string>
@@ -308,5 +308,13 @@
     <string name="privacy">《用户隐私》</string>
     <string name="agree_to">同意</string>
     <string name="user_guide">使用说明</string>
+    <string name="feedback_hint">Would you like an email response?</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="feedback_title">Enter feedback details to send to us:</string>
+    <string name="your_name">Your Name</string>
+    <string name="your_email">Your Email</string>
+    <string name="your_content">Problem Description</string>
+    <string name="create_account">创建账户</string>
+    <string name="resend_verification_code">重新发送验证码</string>
 
 </resources>

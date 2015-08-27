@@ -189,7 +189,7 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
                         "\"bankName\":\"%s\"," +
                         "\"bankProvince\":\"%s\"," +
                         "\"branchName\":\"%s\"," +
-                        "\"haveMobileCheck\":\"1\"," +
+                        "\"haveMobileCheck\":\"0\"," +
                         "\"mobilePhone\":\"%s\"," +
                         "\"userName\":\"%s\"," +
                         "\"userSex\":\"%s\"," +

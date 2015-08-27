@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.widget.GridView;
 
 import com.example.vcanpay.R;
-import com.vcanpay.activity.FuncItemFragment;
+import com.vcanpay.activity.HomeFragment;
 
 /**
  * Created by patrick wai on 2015/6/15.
@@ -42,7 +42,7 @@ public class AutoMeasureGridView extends GridView {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if(changed) {
-            FuncItemFragment.CustomAdapter adapter = (FuncItemFragment.CustomAdapter)getAdapter();
+            HomeFragment.CustomAdapter adapter = (HomeFragment.CustomAdapter)getAdapter();
 
             int numColumns = getContext().getResources().getInteger(R.integer.list_num_columns);
             GridViewItemLayout.initItemLayout(numColumns, adapter.getCount());

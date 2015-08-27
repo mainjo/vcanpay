@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/input_activation_code" />
+        android:text="@string/input_verification_code" />
 
     <EditText
         android:id="@+id/activation_code"
@@ -21,6 +21,10 @@
         android:ems="10"
         android:inputType="number" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/resend_verification_code"/>
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -60,16 +61,11 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
     TextView mTvForgetPassword;
 
     Button mSignIn;
-//    Button mRegister;
-
-
+    Button mRegister;
     View mUserGuide;
 
     String mAccount;
     String mPassword;
-
-//    Button mBtnForgetPassword;
-
 
     // 语言切换
     LangFlagView mIvChinese;
@@ -89,12 +85,12 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
             mPassword = mEtPassword.getText().toString();
 
             switch (id) {
-                case R.id.btn_sign_in:
+                case R.id.action_sign_in:
                     signIn(mAccount, mPassword);
                     break;
-//                case R.id.btn_register:
-//                    startRegisterActivity(SignInActivity.this, RegisterActivity.class);
-//                    break;
+                case R.id.action_register:
+                    startRegisterActivity(SignInActivity.this, RegisterActivity.class);
+                    break;
             }
         }
     };
@@ -174,27 +170,23 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
     }
 
     private void initView() {
+
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
+        setTitle(R.string.sign_in);
+
         mEtAccount = (TextView) findViewById(R.id.account);
         mEtPassword = (TextView) findViewById(R.id.password);
         mEtAccount.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
 
-        mSignIn = (Button) findViewById(R.id.btn_sign_in);
-//        mRegister = (Button) findViewById(R.id.btn_register);
+        mSignIn = (Button) findViewById(R.id.action_sign_in);
+        mRegister = (Button) findViewById(R.id.action_register);
         mSignIn.setOnClickListener(listener);
-//        mRegister.setOnClickListener(listener);
+        mRegister.setOnClickListener(listener);
 
-        mTvRegister = (TextView) findViewById(R.id.tv_register);
+//        mTvRegister = (TextView) findViewById(R.id.tv_register);
         mTvForgetPassword = (TextView) findViewById(R.id.tv_forget_password);
-
-//        mBtnForgetPassword = (Button) findViewById(R.id.forget_password);
-//        mBtnForgetPassword.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(SignInActivity.this, ResetPasswordActivity.class);
-//            }
-//        });
-
 
         //语言选择
         mIvChinese = (LangFlagView) findViewById(R.id.ivChinese);
@@ -221,9 +213,9 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                 int id = widget.getId();
                 Context context = SignInActivity.this;
                 switch (id) {
-                    case R.id.tv_register:
-                        startRegisterActivity(SignInActivity.this, RegisterActivity.class);
-                        break;
+//                    case R.id.tv_register:
+//                        startRegisterActivity(SignInActivity.this, RegisterActivity.class);
+//                        break;
                     case R.id.tv_forget_password:
                         startActivity(SignInActivity.this, ResetPasswordActivity.class);
                 }
@@ -231,22 +223,21 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
         };
 
 
-        ColorStateList colorStateList = getResources().getColorStateList(R.color.link_color);
+        ColorStateList textColorStateList = getResources().getColorStateList(R.color.text_color);
+        ColorStateList linkTextColorStateList = getResources().getColorStateList(R.color.link_text_color);
 
 
         registerLink.setSpan(clickableSpan, 0, registerString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        registerLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), colorStateList, colorStateList), 0, registerLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        registerLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), textColorStateList, textColorStateList), 0, registerLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         forgetPasswordLink.setSpan(clickableSpan, 0, forgetPasswordString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        forgetPasswordLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), colorStateList, colorStateList), 0, forgetPasswordLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        forgetPasswordLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), textColorStateList, linkTextColorStateList), 0, forgetPasswordLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        mTvRegister.setText(registerLink);
+//        mTvRegister.setText(registerLink);
         mTvForgetPassword.setText(forgetPasswordLink);
 
-        mTvRegister.setMovementMethod(MyLinkMovementMethod.getInstance());
+//        mTvRegister.setMovementMethod(MyLinkMovementMethod.getInstance());
         mTvForgetPassword.setMovementMethod(MyLinkMovementMethod.getInstance());
-
-        setTitle(R.string.sign_in);
 
         // 设置选中的语言
         String selectedLang = getIntent().getStringExtra(Intent.EXTRA_TEXT);

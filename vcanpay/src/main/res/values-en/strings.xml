@@ -92,7 +92,7 @@
     <string name="forget_password">Forgot your password?</string>
     <string name="full_name">Full Name</string>
     <string name="get_account_failure">Fail to get vcp accounts. Please retry.</string>
-    <string name="get_vcp">Get an account</string>
+    <string name="get_vcp"> ( Get VCP account ) </string>
     <string name="identification_type">Identification Type</string>
     <string name="input_your_email">Input your email</string>
     <string name="last_name">Last Name</string>
@@ -183,7 +183,7 @@
     <string name="title_activity_security_manage">Change Password</string>
     <string name="withdraw">Withdraw</string>
     <string name="switch_language">switch language</string>
-    <string name="total_amount">Total Amount</string>
+    <string name="total_amount">Total</string>
     <string name="trade_type">Transaction Type</string>
     <string name="transaction_ref_no">Transaction No.</string>
     <string name="send_money">Send Money</string>
@@ -193,7 +193,7 @@
     <string name="account_activated_hint">Your account has been activated. Forward to login page now.</string>
     <string name="home">Home</string>
     <string name="guide">Guide</string>
-    <string name="frozen_amount">Frozen Account</string>
+    <string name="frozen_amount">Frozen</string>
     <string name="input_activate_code">Input the activate code</string>
     <string name="mall">Mall</string>
     <string name="pay">Pay</string>
@@ -216,4 +216,6 @@
     <string name="agree_to">Agree to</string>
     <string name="and">and</string>
     <string name="user_guide">User Guide</string>
+    <string name="input_verification_code">Input the Verification Code</string>
+    <string name="create_account">Join Us</string>
 </resources>

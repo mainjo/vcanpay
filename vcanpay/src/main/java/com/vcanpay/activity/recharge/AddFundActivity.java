@@ -2,8 +2,10 @@ package com.vcanpay.activity.recharge;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -13,6 +15,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,7 +123,11 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
             }
         };
 
-        getVcpAccountLink.setSpan(clickableSpan, 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ColorStateList textColorStateList = getResources().getColorStateList(R.color.text_color);
+        ColorStateList linkTextColorStateList = getResources().getColorStateList(R.color.link_text_color);
+
+        getVcpAccountLink.setSpan(clickableSpan, 1, s.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getVcpAccountLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), textColorStateList, linkTextColorStateList), 1, s.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         mTvGetVcpAccount.setText(getVcpAccountLink);
         mTvGetVcpAccount.setTextColor(Color.BLUE);
         mTvGetVcpAccount.setMovementMethod(MyLinkMovementMethod.getInstance());

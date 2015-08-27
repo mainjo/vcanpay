@@ -30,7 +30,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onCreate(savedInstanceState);
         Log.i("TEST", "onCreate");
         addPreferencesFromResource(R.xml.pref_general);
-
     }
 
     @Override

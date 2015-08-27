@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +22,6 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.example.vcanpay.R;
-import com.vcanpay.activity.OnFragmentInteractionListener;
 import com.vcanpay.activity.TabhostActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.pay.BillsToBePaidActivity;
@@ -38,26 +39,6 @@ import java.util.Date;
 public class BillFragment extends Fragment implements ActionBar.OnNavigationListener {
 
     public static final String TAG = "BillFragment";
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    // TODO: Rename and change types of parameters
-    public static BillFragment newInstance(String param1, String param2) {
-        BillFragment fragment = new BillFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public BillFragment() {
     }
@@ -65,26 +46,19 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_bill, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_bill, container, false);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -120,7 +94,6 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -132,8 +105,7 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
     }
 
 
-    public static class PlaceholderFragment extends Fragment implements AbsListView.OnItemClickListener {
-
+    public static class PlaceholderFragment extends Fragment implements AbsListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
         private static String ARG_SECTION_NUMBER = "section_number";
 
@@ -142,6 +114,9 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
         private ListAdapter mAdapter;
 
         private TextView mTvEmpty;
+        private SwipeRefreshLayout mSwipRefreshLayout;
+
+        private static Handler mHandler = new Handler();
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -162,6 +137,14 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
             View view = inflater.inflate(R.layout.fragment_demo, container, false);
             mListView = (AbsListView) view.findViewById(android.R.id.list);
             mTvEmpty = (TextView) view.findViewById(android.R.id.empty);
+            mSwipRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+            mSwipRefreshLayout.setOnRefreshListener(this);
+
+            mSwipRefreshLayout.setColorScheme(
+                    android.R.color.holo_blue_bright,
+                    android.R.color.holo_green_light,
+                    android.R.color.holo_orange_light,
+                    android.R.color.holo_red_light);
             return view;
         }
 
@@ -218,6 +201,16 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
             startActivity(intent);
         }
 
+        @Override
+        public void onRefresh() {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipRefreshLayout.setRefreshing(false);
+                }
+            }, 5000);
+        }
+
         public static class MyAdapter extends ArrayAdapter<CustomTrade> {
             LayoutInflater mInflater;
             int mResource;
@@ -249,7 +242,7 @@ public class BillFragment extends Fragment implements ActionBar.OnNavigationList
                 tvTitle.setText(getTradeType(getContext(), customTrade.getTradeType()));
                 tvDate.setText(format.format(new Date()));
                 tvAmount.setText(customTrade.getTradeMoney().toString());
-                tvStatus.setText(getTradeState(getContext(), (int)customTrade.getTradeState()));
+                tvStatus.setText(getTradeState(getContext(), (int) customTrade.getTradeState()));
 //                tvType.setText(tvType, String.valueOf(customTrade.getTradeType()), "");
 
                 return view;
