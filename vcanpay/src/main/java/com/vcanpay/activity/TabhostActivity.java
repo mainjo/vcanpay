@@ -1,19 +1,15 @@
 package com.vcanpay.activity;
 
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
@@ -24,7 +20,7 @@ import com.vcanpay.activity.bill.BillFragment;
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class TabhostActivity extends BaseActivity implements OnFragmentInteractionListener, ActionBar.OnNavigationListener {
+public class TabhostActivity extends BaseActivity implements OnFragmentInteractionListener {
 
     FragmentTabHost mTabHost;
     TabWidget mTabWidget;
@@ -51,7 +47,6 @@ public class TabhostActivity extends BaseActivity implements OnFragmentInteracti
         mTabHost = (FragmentTabHost) findViewById(R.id.tabHost2);
         mTabWidget = (TabWidget) findViewById(android.R.id.tabs);
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
-
 
 //        View tabIndicator = ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.tab_indicator, )
 
@@ -99,45 +94,8 @@ public class TabhostActivity extends BaseActivity implements OnFragmentInteracti
         tabHost.addTab(spec, clazz, bundle);
     }
 
-    public View createIndicatorView(CharSequence string, Drawable drawable) {
-        TextView text;
-        ImageView icon;
-        LinearLayout linearLayout;
-
-        linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setLayoutParams(
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
-        linearLayout.setGravity(Gravity.CENTER);
-
-        icon = new ImageView(this);
-        icon.setLayoutParams(new ViewGroup.LayoutParams(80, 80));
-        icon.setImageResource(R.mipmap.ic_launcher);
-
-        text = new TextView(this);
-        text.setLayoutParams(
-                new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-        text.setTextSize(12);
-
-        text.setText(string);
-
-        linearLayout.addView(icon);
-        linearLayout.addView(text);
-
-        return linearLayout;
-    }
-
-
     @Override
     public void onFragmentInteraction(String id) {
 
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        return false;
     }
 }

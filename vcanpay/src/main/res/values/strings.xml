@@ -316,5 +316,7 @@
     <string name="your_content">Problem Description</string>
     <string name="create_account">创建账户</string>
     <string name="resend_verification_code">重新发送验证码</string>
-
+    <string name="load_more">加载更多</string>
+    <string name="change_avatar_hint">点击更换头像</string>
+    <string name="profile_avatar">Avatar</string>
 </resources>

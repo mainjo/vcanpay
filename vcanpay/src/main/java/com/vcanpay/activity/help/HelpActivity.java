@@ -1,40 +1,55 @@
 package com.vcanpay.activity.help;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.view.Window;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.example.vcanpay.R;
-/**
- * Created by patrick wai on 2015/6/5.
- */
-public class HelpActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
-    ListView mListViewHelp;
-    ListAdapter mAdapter;
+
+public class HelpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_PROGRESS);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
+
+        WebView webView = new WebView(this);
+//        setContentView(R.layout.activity_user_guide);
+        setContentView(webView);
 
 
-        mListViewHelp = (ListView) findViewById(R.id.help_list);
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new String[]{"User Guide"});
-        mListViewHelp.setAdapter(mAdapter);
-        mListViewHelp.setOnItemClickListener(this);
+        webView.getSettings().setJavaScriptEnabled(true);
+        final Activity activity = this;
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                activity.setProgress(newProgress * 1000);
+            }
+        });
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                Toast.makeText(activity, "Oh no! " + description, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        webView.loadUrl("http://192.168.1.251/help-150828/");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_help, menu);
+        getMenuInflater().inflate(R.menu.menu_user_guide, menu);
         return true;
     }
 
@@ -51,17 +66,5 @@ public class HelpActivity extends ActionBarActivity implements AdapterView.OnIte
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public String toString() {
-        return getResources().getString(R.string.title_activity_help);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Intent intent = new Intent(this, TutorialActivity.class);
-        startActivity(intent);
     }
 }

@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.example.vcanpay.R;
 import com.vcanpay.activity.SettingsActivity;
-import com.vcanpay.activity.help.FeedBackActivity;
+import com.vcanpay.activity.help.FeedbackActivity;
 import com.vcanpay.activity.help.HelpActivity;
 import com.vcanpay.activity.profile.UpdateAddressActivity;
 import com.vcanpay.activity.profile.UpdateMobileActivity;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class DummyContent {
 
-    public static List<DummyItem> SECURITY_ITEMS = new ArrayList<DummyItem>();
+    public static List<DummyItem> SECURITY_ITEMS = new ArrayList<>();
 
     static {
         SECURITY_ITEMS.add(new DummyItem("1", R.string.title_activity_change_password, ChangePasswordActivity.class));
@@ -32,7 +32,7 @@ public class DummyContent {
     static {
         SETTINGS_ITEMS.add(new DummyItem("1", R.string.title_activity_user_profile, UserProfileActivity.class));
         SETTINGS_ITEMS.add(new DummyItem("2", R.string.title_activity_security_management, SecurityManagementActivity.class));
-        SETTINGS_ITEMS.add(new DummyItem("3", R.string.title_activity_feed_back, FeedBackActivity.class));
+        SETTINGS_ITEMS.add(new DummyItem("3", R.string.title_activity_feed_back, FeedbackActivity.class));
         SETTINGS_ITEMS.add(new DummyItem("4", R.string.title_activity_help, HelpActivity.class));
         SETTINGS_ITEMS.add(new DummyItem("5", R.string.title_activity_settings, SettingsActivity.class));
         SETTINGS_ITEMS.add(new DummyItem("6", R.string.title_activity_update_address_request, UpdateAddressActivity.class));

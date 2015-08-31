@@ -276,6 +276,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
 
         String json1 = String.format(
                 "{\"custRechargeId\":0," +
+                        "\"adminId\":0," +
                         "\"amount\":%s," +
                         "\"bankCardNo\":\"%s\"," +
                         "\"note\":\"%s\"," +

@@ -71,7 +71,7 @@ public class HomeFragment extends BaseFragment implements AbsListView.OnItemClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        view.setBackgroundResource(R.drawable.background);
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
@@ -88,8 +88,6 @@ public class HomeFragment extends BaseFragment implements AbsListView.OnItemClic
 
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((TabhostActivity)getActivity()).setSupportActionBar(mToolbar);
-
-        ((TabhostActivity)getActivity()).getWindow().setBackgroundDrawableResource(R.drawable.background);
 
         return view;
     }

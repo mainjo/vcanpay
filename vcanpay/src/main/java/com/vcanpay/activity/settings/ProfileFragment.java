@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 import com.example.vcanpay.R;
 import com.vcanpay.activity.SettingsActivity;
-import com.vcanpay.activity.help.FeedBackActivity;
-import com.vcanpay.activity.help.UserGuideActivity;
+import com.vcanpay.activity.help.FeedbackActivity;
+import com.vcanpay.activity.help.HelpActivity;
 import com.vcanpay.activity.profile.UpdateAddressActivity;
 import com.vcanpay.activity.profile.UpdateMobileActivity;
 import com.vcanpay.activity.profile.UserProfileActivity;
@@ -134,8 +134,8 @@ public class ProfileFragment extends ListFragment implements View.OnClickListene
         PROFILE_ITEMS.add(new DummyItem("4", R.string.title_activity_security_management, SecurityManagementActivity.class));
         PROFILE_ITEMS.add(new DummyItem("5", R.string.title_activity_settings, SettingsActivity.class));
 //        PROFILE_ITEMS.add(new DummyItem("4", R.string.title_activity_help, HelpActivity.class));
-        PROFILE_ITEMS.add(new DummyItem("4", R.string.title_activity_help, UserGuideActivity.class));
-        PROFILE_ITEMS.add(new DummyItem("3", R.string.title_activity_feed_back, FeedBackActivity.class));
+        PROFILE_ITEMS.add(new DummyItem("4", R.string.title_activity_help, HelpActivity.class));
+        PROFILE_ITEMS.add(new DummyItem("3", R.string.title_activity_feed_back, FeedbackActivity.class));
     }
 
 //    class DummyContent {

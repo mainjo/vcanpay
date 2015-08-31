@@ -1,31 +1,46 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.vcanpay.activity.profile.ProfileFragment2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="5"
-    android:background="@drawable/profile_background"
-    tools:context="com.vcanpay.activity.profile.ProfileFragment2">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:gravity="center">
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/profile_photo" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/profile_background"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/profile_photo"
+                android:contentDescription="@string/profile_avatar" />
+
+            <TextView
+                android:id="@+id/change_avatar_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_avatar_hint" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/item_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+        </LinearLayout>
     </LinearLayout>
+</ScrollView>
 
 
-    <LinearLayout
-        android:id="@+id/item_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:orientation="vertical">
-
-    </LinearLayout>
-</LinearLayout>

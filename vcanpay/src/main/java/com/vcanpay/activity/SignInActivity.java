@@ -31,7 +31,7 @@ import com.example.vcanpay.R;
 import com.google.gson.Gson;
 import com.vcanpay.MyApplication;
 import com.vcanpay.activity.bill.AppRequestQueue;
-import com.vcanpay.activity.help.UserGuideActivity;
+import com.vcanpay.activity.help.HelpActivity;
 import com.vcanpay.activity.password.ResetPasswordActivity;
 import com.vcanpay.activity.register.RegisterActivity;
 import com.vcanpay.request.SignInRequest;
@@ -375,7 +375,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
     }
 
     private void openUserGuide() {
-        Intent intent = new Intent(this, UserGuideActivity.class);
+        Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
     }
 

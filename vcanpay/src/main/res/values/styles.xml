@@ -59,12 +59,10 @@
     </style>
 
     <style name="SettingsActivity" parent="Theme.AppCompat.Light.NoActionBar">
-
         <item name="android:windowBackground">@drawable/settings_background</item>
         <item name="android:focusable">false</item>
         <item name="android:textColor">#ff000000</item>
         <item name="android:cacheColorHint">#ffffffff</item>
-
     </style>
 
 </resources>

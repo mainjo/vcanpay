@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -76,9 +77,27 @@ public class ProfileFragment2 extends Fragment {
         // Settings
         intent = new Intent(getActivity(), SettingsActivity.class);
         addProfileItem(context, R.string.action_settings, R.drawable.icon_item_settings, intent);
-        addItemDivider();
+        addCategoryDivider();
+
+        // Sign out button
+
+        addSignOutButton(inflater, container, savedInstanceState);
 
         return root;
+    }
+
+    private void addSignOutButton(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.sign_out_button, container, false);
+        mContainer.addView(view);
+
+        Button button = (Button) view.findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
     }
 
 
@@ -123,5 +142,10 @@ public class ProfileFragment2 extends Fragment {
 
     public void addCategoryDivider() {
         mContainer.addView(createDivider(), ViewGroup.LayoutParams.MATCH_PARENT, mCategoryDividerHeight);
+    }
+
+
+    private void signOut() {
+        getActivity().finish();
     }
 }

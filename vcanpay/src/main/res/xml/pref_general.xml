@@ -21,4 +21,16 @@
             android:switchTextOn="On"
             android:switchTextOff="Off"/>
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/other">
+        <PreferenceScreen android:title="@string/title_activity_help">
+            <intent android:action="com.vcanpay.activity.HELP_ACTIVITY" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/title_activity_feed_back">
+            <intent
+                android:targetPackage="com.example.vcanpay"
+                android:targetClass="com.vcanpay.activity.help.FeedbackActivity"/>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
 </PreferenceScreen>

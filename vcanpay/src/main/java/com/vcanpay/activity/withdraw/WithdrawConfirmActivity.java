@@ -105,6 +105,7 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
                 "\"custWithdrawId\":0," +
                 "\"amount\":%s," +
                 "\"bankCardNo\":\"%s\","+
+                "\"adminId\":0," +
                 "\"customInfo\":{" +
                 "\"customId\":%d," +
                 "\"customScore\":0," +
