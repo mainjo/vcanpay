@@ -48,27 +48,6 @@ public class UpdateMobileActivity extends BaseActivity {
         mHomeTel.setText(customer.getTeleOfHome());
     }
 
-    public static class Country{
-        public static Country[] countries = new Country[2];
-        static {
-            countries[0] = new Country("0", "Thailand");
-            countries[1] = new Country("1", "China");
-        }
-
-        public String id;
-        public String name;
-
-        public Country(String id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_update_mobile_request, menu);
@@ -93,7 +72,7 @@ public class UpdateMobileActivity extends BaseActivity {
         CustomInfo customInfo = new CustomInfo();
         customInfo.setCustomId(getCurrentCustomer().getCustomId());
         customInfo.setMobiePhone(mCellPhone.getText().toString());
-        customInfo.setMobileOfCountry(mCountry.getSelectedItemPosition()+"");
+        customInfo.setMobileOfCountry(mCountry.getSelectedItemPosition() + "");
         customInfo.setTeleOfHome(mHomeTel.getText().toString());
         customInfo.setTeleOfOffice(mOfficeTel.getText().toString());
 
@@ -107,13 +86,14 @@ public class UpdateMobileActivity extends BaseActivity {
                         "\"mobileOfCountry\":\"%s\"," +
                         "\"loginErrTimes\":0," +
                         "\"teleOfHome\":\"%s\"," +
-                        "\"teleOfOffice\":\"%s\"}",
+                        "\"teleOfOffice\":\"%s\"," +
+                        "\"registerFlag\":0}",
                 customInfo.getCustomId(),
                 customInfo.getMobiePhone(),
                 customInfo.getMobileOfCountry(),
                 customInfo.getTeleOfHome(),
                 customInfo.getTeleOfOffice()
-                );
+        );
 
 
         String json2 = "{\"customInfo\": " + json1 + "}";
@@ -125,17 +105,16 @@ public class UpdateMobileActivity extends BaseActivity {
                     @Override
                     public void onResponse(NetworkResponse response) {
                         getCurrentCustomer().setMobiePhone(mCellPhone.getText().toString());
-                        getCurrentCustomer().setMobileOfCountry(mCountry.getSelectedItemPosition()+"");
+                        getCurrentCustomer().setMobileOfCountry(mCountry.getSelectedItemPosition() + "");
                         getCurrentCustomer().setTeleOfHome(mHomeTel.getText().toString());
                         getCurrentCustomer().setTeleOfOffice(mOfficeTel.getText().toString());
-                        showAlertDialog(UpdateMobileActivity.this, getString(R.string.notify), "success");
+                        showAlertDialog(UpdateMobileActivity.this, getString(R.string.notify), getString(R.string.update_profile_success));
                     }
                 },
                 new VolleyErrorListener(this)
         );
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
-
         queue.addToRequestQueue(request);
     }
 }

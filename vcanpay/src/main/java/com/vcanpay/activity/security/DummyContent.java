@@ -8,7 +8,7 @@ import com.vcanpay.activity.help.FeedbackActivity;
 import com.vcanpay.activity.help.HelpActivity;
 import com.vcanpay.activity.profile.UpdateAddressActivity;
 import com.vcanpay.activity.profile.UpdateMobileActivity;
-import com.vcanpay.activity.profile.UserProfileActivity;
+import com.vcanpay.activity.profile.UpdateUserProfileActivity;
 import com.vcanpay.activity.settings.SecurityManagementActivity;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class DummyContent {
     public static List<DummyItem> SETTINGS_ITEMS = new ArrayList<>();
 
     static {
-        SETTINGS_ITEMS.add(new DummyItem("1", R.string.title_activity_user_profile, UserProfileActivity.class));
+        SETTINGS_ITEMS.add(new DummyItem("1", R.string.title_activity_user_profile, UpdateUserProfileActivity.class));
         SETTINGS_ITEMS.add(new DummyItem("2", R.string.title_activity_security_management, SecurityManagementActivity.class));
         SETTINGS_ITEMS.add(new DummyItem("3", R.string.title_activity_feed_back, FeedbackActivity.class));
         SETTINGS_ITEMS.add(new DummyItem("4", R.string.title_activity_help, HelpActivity.class));

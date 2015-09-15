@@ -3,8 +3,6 @@ package com.vcanpay.activity.recharge;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -85,37 +83,13 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_choose_region, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View v) {
 
         Intent intent = new Intent(this, ChooseBankAccountActivity.class);
-
         intent.putExtra(COUNTRY_CODE, selectCountry);
         intent.putExtra(REGION_CODE, selectRegion);
         intent.putExtra(PROVINCE_CODE, selectProvince);
         intent.putExtra(BANK_CODE, selectBank);
-
         startActivityForResult(intent, REQUEST_CODE);
     }
 
@@ -220,28 +194,5 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
         public String toString() {
             return name;
         }
-    }
-
-    public static class ContentDump {
-        public static Bank[] banks = new Bank[4];
-
-        static {
-            banks[0] = new Bank(1, "\u4e2d\u56fd\u94f6\u884c");
-            banks[1] = new Bank(2, "\u5de5\u5546\u94f6\u884c");
-            banks[2] = new Bank(3, "\u519c\u4e1a\u94f6\u884c");
-            banks[3] = new Bank(4, "\u5efa\u8bbe\u94f6\u884c");
-        }
-    }
-
-    public static class BankDump {
-        public static Bank[] banks = new Bank[4];
-
-        static {
-            banks[0] = new Bank(1, "\u4e2d\u56fd\u94f6\u884c");
-            banks[1] = new Bank(2, "\u5de5\u5546\u94f6\u884c");
-            banks[2] = new Bank(3, "\u519c\u4e1a\u94f6\u884c");
-            banks[3] = new Bank(4, "\u5efa\u8bbe\u94f6\u884c");
-        }
-
     }
 }

@@ -70,9 +70,19 @@ public class ActivateAccountRequest extends BaseJsonRequest<ActivateAccountRespo
         }
 
         if (statusCode == 203) {
-            return Response.error(new VolleyError(message));
+            return Response.error(new VerificationCodeError(message));
         }
 
         return Response.error(new VolleyError(message));
+    }
+
+    public class VerificationCodeError extends VolleyError {
+
+        public VerificationCodeError() {
+
+        }
+
+        public VerificationCodeError(String message) {
+        }
     }
 }

@@ -94,7 +94,7 @@ public class ResetPasswordActivity2 extends BaseActivity implements TextWatcher,
                 new Response.Listener<ResetPasswordResponse2>() {
                     @Override
                     public void onResponse(ResetPasswordResponse2 response) {
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, response.getMessage(), 0, 0);
+                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.reset_password_success, 0, 0);
                         dialog.setNoticeDialogListener(ResetPasswordActivity2.this);
                         dialog.show(getSupportFragmentManager(), "reset_password");
                     }

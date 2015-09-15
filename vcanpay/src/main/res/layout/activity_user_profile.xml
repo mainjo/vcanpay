@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.vcanpay.activity.profile.UserProfileActivity">
+    tools:context="com.vcanpay.activity.profile.UpdateUserProfileActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,7 +43,8 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/identification_type" />
+        android:id="@+id/identification_type"
+        android:entries="@array/identification_type"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,6 +67,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:entries="@array/sex"
         android:id="@+id/sex" />
 
     <TextView

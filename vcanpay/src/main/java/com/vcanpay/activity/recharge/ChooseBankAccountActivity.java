@@ -161,10 +161,6 @@ public class ChooseBankAccountActivity extends BaseActivity implements View.OnCl
             e.printStackTrace();
         }
 
-//        request.addParam(FIELD_BANK_NAME, 1+"");
-//        request.addParam(FIELD_PROVINCE, 7 + "");
-//        request.addParam(FIELD_REGION, 1 + "");
-
         String app_time = String.valueOf(System.currentTimeMillis() / 1000);
 
         String signString = null;

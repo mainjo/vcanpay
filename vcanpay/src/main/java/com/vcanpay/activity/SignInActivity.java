@@ -6,34 +6,30 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.TextAppearanceSpan;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.google.gson.Gson;
 import com.vcanpay.MyApplication;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.activity.help.HelpActivity;
 import com.vcanpay.activity.password.ResetPasswordActivity;
+import com.vcanpay.activity.register.ActivateAccountActivity;
 import com.vcanpay.activity.register.RegisterActivity;
+import com.vcanpay.exception.EmailNotConfirmedException;
+import com.vcanpay.exception.EmailNotExsitException;
+import com.vcanpay.exception.PasswordIncorrectException;
 import com.vcanpay.request.SignInRequest;
 import com.vcanpay.response.SignInResponse;
 import com.vcanpay.validator.EmailValidator;
@@ -57,7 +53,6 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
 
     TextView mEtAccount;
     TextView mEtPassword;
-    TextView mTvRegister;
     TextView mTvForgetPassword;
 
     Button mSignIn;
@@ -134,7 +129,45 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                         startActivity(intent);
                     }
                 },
-                new VolleyErrorListener(this));
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
+                        super.onErrorResponse(error);
+                        if (error instanceof EmailNotExsitException) {
+                            Toast.makeText(SignInActivity.this, R.string.email_not_exist, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (error instanceof EmailNotConfirmedException) {
+                            Toast.makeText(SignInActivity.this, R.string.email_not_activated, Toast.LENGTH_LONG).show();
+                            mActivity.startActivity(new Intent(SignInActivity.this, ActivateAccountActivity.class));
+                            return;
+                        }
+
+                        if (error instanceof PasswordIncorrectException) {
+                            Toast.makeText(SignInActivity.this, R.string.passwor_incorrect, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (error instanceof SignInRequest.PasswordErrorUpTo3TimesException) {
+                            Toast.makeText(SignInActivity.this, R.string.password_error_3_time, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (error instanceof SignInRequest.PasswordErrorUpTo6TimesException) {
+                            Toast.makeText(SignInActivity.this, R.string.password_error_6_time, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (error instanceof SignInRequest.PasswordErrorUpTo9TimesException) {
+                            Toast.makeText(SignInActivity.this, R.string.password_error_9_time, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        Toast.makeText(SignInActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
@@ -143,6 +176,12 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTitle(R.string.sign_in);
     }
 
     protected void showAlertDialog(Context context, String title, String message) {
@@ -171,8 +210,8 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
 
     private void initView() {
 
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
+//        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolBar);
         setTitle(R.string.sign_in);
 
         mEtAccount = (TextView) findViewById(R.id.account);
@@ -186,7 +225,8 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
         mRegister.setOnClickListener(listener);
 
 //        mTvRegister = (TextView) findViewById(R.id.tv_register);
-        mTvForgetPassword = (TextView) findViewById(R.id.tv_forget_password);
+        mTvForgetPassword = (TextView) findViewById(R.id.forget_password);
+        mTvForgetPassword.setOnClickListener(this);
 
         //语言选择
         mIvChinese = (LangFlagView) findViewById(R.id.ivChinese);
@@ -200,44 +240,6 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
 
         mUserGuide = findViewById(R.id.user_guide);
         mUserGuide.setOnClickListener(this);
-
-        String registerString = getResources().getString(R.string.register);
-        String forgetPasswordString = getResources().getString(R.string.forget_password);
-
-        SpannableString registerLink = new SpannableString(registerString);
-        SpannableString forgetPasswordLink = new SpannableString(forgetPasswordString);
-
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                int id = widget.getId();
-                Context context = SignInActivity.this;
-                switch (id) {
-//                    case R.id.tv_register:
-//                        startRegisterActivity(SignInActivity.this, RegisterActivity.class);
-//                        break;
-                    case R.id.tv_forget_password:
-                        startActivity(SignInActivity.this, ResetPasswordActivity.class);
-                }
-            }
-        };
-
-
-        ColorStateList textColorStateList = getResources().getColorStateList(R.color.text_color);
-        ColorStateList linkTextColorStateList = getResources().getColorStateList(R.color.link_text_color);
-
-
-        registerLink.setSpan(clickableSpan, 0, registerString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        registerLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), textColorStateList, textColorStateList), 0, registerLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        forgetPasswordLink.setSpan(clickableSpan, 0, forgetPasswordString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        forgetPasswordLink.setSpan(new TextAppearanceSpan("sans-serif", Typeface.NORMAL, getResources().getDimensionPixelSize(R.dimen.link_font_size), textColorStateList, linkTextColorStateList), 0, forgetPasswordLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-//        mTvRegister.setText(registerLink);
-        mTvForgetPassword.setText(forgetPasswordLink);
-
-//        mTvRegister.setMovementMethod(MyLinkMovementMethod.getInstance());
-        mTvForgetPassword.setMovementMethod(MyLinkMovementMethod.getInstance());
 
         // 设置选中的语言
         String selectedLang = getIntent().getStringExtra(Intent.EXTRA_TEXT);
@@ -371,6 +373,8 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
             case R.id.user_guide:
                 openUserGuide();
                 break;
+            case R.id.forget_password:
+                startActivity(this, ResetPasswordActivity.class);
         }
     }
 
@@ -388,15 +392,6 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
         Intent intent = new Intent(this, AgreementAndPrivacyActivity.class);
         intent.putExtra(Intent.EXTRA_TEXT, field);
         startActivity(intent);
-    }
-
-    public class MyLinkMovementMethod extends LinkMovementMethod {
-        @Override
-        public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
-            Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            return super.onTouchEvent(widget, buffer, event);
-        }
     }
 
     @Override

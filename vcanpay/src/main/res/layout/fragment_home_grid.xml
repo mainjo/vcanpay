@@ -3,20 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.vcanpay.activity.HomeFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:minHeight="?attr/actionBarSize"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="#00ffffff" />
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+        <!--android:background="#00ffffff" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +25,8 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/background">
 
         <ImageView
             android:id="@+id/imageView6"
@@ -51,24 +51,24 @@
                 android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/location_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/location"
+                android:src="@drawable/location_icon"
+                android:layout_below="@+id/email"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/location_icon" />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/welcome"
-                android:layout_centerHorizontal="true"
-                android:layout_toEndOf="@+id/imageView7"
                 android:text="广州，中国"
                 android:textColor="#FFFFFFFF"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:layout_alignBottom="@+id/location_icon"
+                android:layout_toRightOf="@+id/location_icon"
+                android:layout_toEndOf="@+id/location_icon" />
 
             <TextView
                 android:id="@+id/textView62"
@@ -80,6 +80,16 @@
                 android:text="vcp专业支付平台，为你的生活更便利。"
                 android:textColor="#FFFFFFFF"
                 android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="abc@example.com"
+                android:textColor="#FFFFFFFF"
+                android:id="@+id/email"
+                android:layout_below="@+id/welcome"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
     </LinearLayout>
 

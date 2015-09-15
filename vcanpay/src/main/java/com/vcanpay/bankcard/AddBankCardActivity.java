@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
@@ -215,6 +216,33 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
 
         String json2 = "{custBankCard:" + json1 + "}";
 
+        json2 = String.format("{\"custBankCard\":{" +
+                        "\"accountType\":\"0\"," +
+                        "\"bankArea\":\"%s\"," +
+                        "\"bankCardNo\":\"%s\"," +
+                        "\"bankName\":\"%s\"," +
+                        "\"bankProvince\":\"%s\"," +
+                        "\"branchName\":\"%s\"," +
+                        "\"haveMobileCheck\":\"0\"," +
+                        "\"mobilePhone\":\"%s\"," +
+                        "\"userName\":\"%s\"," +
+                        "\"userSex\":\"%s\"," +
+                        "\"customInfo\":" +
+                        "{" +
+                        "\"customId\":%d," +
+                        "\"email\":\"%s\"}}}",
+                custBankCard.getBankArea(),
+                custBankCard.getBankCardNo(),
+                custBankCard.getBankName(),
+                custBankCard.getBankProvince(),
+                custBankCard.getBranchName(),
+                custBankCard.getMobilePhone(),
+                custBankCard.getUserName(),
+                custBankCard.getUserSex(),
+                customer.getCustomId(),
+                customer.getEmail()
+        );
+
         String birthday = new SimpleDateFormat("yyyy-MM-dd'+'HH:mm:ss")
                 .format(custBankCard.getUserBirth() == null ? new Date(0) : custBankCard.getUserBirth());
 
@@ -230,16 +258,25 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
                         NoticeDialogFragment dialog;
 
                         if (response.getStatusCode() == 203) {
-                            dialog = NoticeDialogFragment.getInstance(0, response.getMessage(), R.string.now_to_activate, 0);
+                            dialog = NoticeDialogFragment.getInstance(0, R.string.add_bank_card_success, R.string.now_to_activate, 0);
                         } else {
-
                             dialog = NoticeDialogFragment.getInstance(0, R.string.add_bank_card_success, R.string.now_to_activate, 0);
                         }
                         dialog.setNoticeDialogListener(AddBankCardActivity.this);
                         dialog.show(getSupportFragmentManager(), "add_bank_card");
                     }
                 },
-                new VolleyErrorListener(this)
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        super.onErrorResponse(error);
+
+                        if (error instanceof BindBankCardRequest.HaveCardNotConfirmedException) {
+                            showAlertDialog(AddBankCardActivity.this, getString(R.string.notify), getString(R.string.have_card_not_confirmed));
+
+                        }
+                    }
+                }
         );
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);

@@ -1,6 +1,7 @@
 package com.vcanpay.demo;
 
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -23,6 +24,10 @@ public class Main {
         System.out.println("currency format: " + currencyFormat.format(d));
 
         System.out.println(String.format("%.2f", d));
+        System.out.println(System.currentTimeMillis());
+        System.out.println(System.currentTimeMillis() - 365 * 10 * 24 * 3600 * 1000);
+        System.out.println(365 * 10 * 24 * 3600 * 1000);
+        System.out.println(new Date(2000, 1, 1).getTime());
 
     }
 }

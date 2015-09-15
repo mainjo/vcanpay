@@ -16,6 +16,9 @@ import java.io.UnsupportedEncodingException;
  */
 public class TransferRequest extends BaseJsonRequest<TransferResponse> {
 
+    public static final String BALANCE_SUFFICIENT = "not sufficient funds";
+    public static final String ACCOUNT_NOT_EXIST = "email does not exist";
+
     public static final String endPoint = "MgrSendMoneyTransDAO/sendMoneyTrans";
 
     Context mContext;
@@ -46,9 +49,25 @@ public class TransferRequest extends BaseJsonRequest<TransferResponse> {
                     HttpHeaderParser.parseCacheHeaders(response));
         }
 
+        if (statusCode == 203) {
+            if (message.equals(BALANCE_SUFFICIENT)) {
+                return Response.error(new BalanceSufficentException());
+            }
+            if (message.equals(ACCOUNT_NOT_EXIST)) {
+                return Response.error(new AccountNotExistException());
+            }
+
+        }
+
         if (message == null) {
             message = mContext.getString(R.string.fail);
         }
         return Response.error(new VolleyError(message));
+    }
+
+    public class BalanceSufficentException extends VolleyError {
+    }
+
+    public class AccountNotExistException extends VolleyError {
     }
 }

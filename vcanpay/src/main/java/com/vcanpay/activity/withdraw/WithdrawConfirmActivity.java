@@ -3,32 +3,25 @@ package com.vcanpay.activity.withdraw;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.vcanpay.R;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 
 import org.vcanpay.eo.CustBankCard;
 import org.vcanpay.eo.CustomInfo;
 import org.vcanpay.eo.CustomerAccount;
 
-import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -110,7 +103,7 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
                 "\"customId\":%d," +
                 "\"customScore\":0," +
                 "\"loginErrTimes\":0}}",
-                object.amount,
+                new DecimalFormat("0.##").format(object.amount),
                 currentBankCard.getBankCardNo(),
                 object.getCustomInfo().getCustomId()
                 );
@@ -124,76 +117,13 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
                     @Override
                     public void onResponse(CustomerAccount response) {
                         closeProgressDialog();
-//                        showAlertDialog(WithdrawConfirmActivity.this, getString(R.string.notify), getString(R.string.withdraw_success));
-
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.withdraw_success, R.string.go_to_home, R.string.continue_withdrawing);
+                        getCurrentCustomer().setCustomAccounts(response);
+                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.withdraw_submit_success, R.string.ok, 0);
                         dialog.setNoticeDialogListener(WithdrawConfirmActivity.this);
                         dialog.show(getSupportFragmentManager(), "withdraw_success");
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        closeProgressDialog();
-
-
-
-                        if (error instanceof TimeoutError) {
-                            showAlertDialog(
-                                    WithdrawConfirmActivity.this,
-                                    getString(R.string.notify), getString(R.string.timeout));
-                            return;
-                        }
-
-                        if (error instanceof NetworkError) {
-                            showAlertDialog(
-                                    WithdrawConfirmActivity.this,
-                                    getString(R.string.notify),
-                                    getString(R.string.network_error) + getString(R.string.network_error_hint));
-                            return;
-                        }
-
-                        if (error instanceof AuthFailureError) {
-                            showAlertDialog(
-                                    WithdrawConfirmActivity.this,
-                                    getString(R.string.notify),
-                                    error.getMessage());
-                            return;
-                        }
-
-                        if (error instanceof ServerError) {
-                            NetworkResponse response = error.networkResponse;
-                            String message = null;
-                            try {
-                                message = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (TextUtils.isEmpty(message)) {
-                                message = HttpHeaderParser.parseCacheHeaders(response).etag;
-                            }
-
-                            if (TextUtils.isEmpty(message)) {
-                                message = getString(R.string.server_error);
-                            }
-
-                            showAlertDialog(
-                                    WithdrawConfirmActivity.this,
-                                    getString(R.string.notify),
-                                    message
-                            );
-
-                            return;
-                        }
-
-                        if (error != null) {
-                            showAlertDialog(
-                                    WithdrawConfirmActivity.this,
-                                    getString(R.string.notify), error.getMessage());
-                        }
-                    }
-                }
+                new VolleyErrorListener(this)
         );
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);

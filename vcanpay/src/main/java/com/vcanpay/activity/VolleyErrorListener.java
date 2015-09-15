@@ -1,6 +1,8 @@
 package com.vcanpay.activity;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -11,6 +13,11 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.vcanpay.R;
+import com.vcanpay.exception.PrepaidCardSoldOutException;
+import com.vcanpay.exception.ReduplicatedSubmitError;
+import com.vcanpay.exception.UnknownException;
+
+import org.apache.http.HttpStatus;
 
 import java.io.UnsupportedEncodingException;
 
@@ -21,8 +28,11 @@ public class VolleyErrorListener implements Response.ErrorListener {
     public static final String TAG = "VolleyErrorListener";
     BaseActivity mActivity;
 
+    Context mContext;
+
     public VolleyErrorListener(BaseActivity activity) {
         mActivity = activity;
+        mContext = activity;
     }
 
     @Override
@@ -33,28 +43,50 @@ public class VolleyErrorListener implements Response.ErrorListener {
         if (error instanceof TimeoutError) {
             mActivity.showAlertDialog(
                     mActivity,
-                    mActivity.getString(R.string.notify), mActivity.getString(R.string.timeout));
+                    getString(R.string.notify), getString(R.string.timeout_message));
             return;
         }
 
         if (error instanceof NetworkError) {
             mActivity.showAlertDialog(
                     mActivity,
-                    mActivity.getString(R.string.notify),
-                    mActivity.getString(R.string.network_error) + mActivity.getString(R.string.network_error_hint));
+                    getString(R.string.notify),
+                    getString(R.string.network_error_message));
             return;
         }
 
         if (error instanceof AuthFailureError) {
-            mActivity.showAlertDialog(
-                    mActivity,
-                    mActivity.getString(R.string.notify),
-                    error.getMessage());
+            int statusCode = error.networkResponse.statusCode;
+            switch (statusCode) {
+                case HttpStatus.SC_UNAUTHORIZED:
+                    Toast.makeText(mActivity, getString(R.string.AUTHORIZED_FAILURE_MESSAGE), Toast.LENGTH_LONG).show();
+                    return;
+                case HttpStatus.SC_FORBIDDEN:
+                    mActivity.showAlertDialog(mActivity,
+                            getString(R.string.notify), getString(R.string.FORBIDDEN_MESSAGE));
+                    Toast.makeText(mActivity, getString(R.string.VISIT_FIRBIDDEN_MESSAGE), Toast.LENGTH_LONG).show();
+                    return;
+            }
             return;
         }
 
+        // TODO 此处应该放到最后？？？
         if (error instanceof ServerError) {
             NetworkResponse response = error.networkResponse;
+
+            int statusCode = response.statusCode;
+
+            if (response.statusCode >= 500 && response.statusCode <= 509) {
+                mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.server_error_message, statusCode));
+                return;
+            }
+
+            if (statusCode == 400) {
+                mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.auth_error));
+                return;
+            }
+
+            // 以下是未知的服务器返回状态
             String message = null;
             try {
                 message = new String(response.data, "utf-8");
@@ -66,26 +98,41 @@ public class VolleyErrorListener implements Response.ErrorListener {
                 message = HttpHeaderParser.parseCacheHeaders(response).etag;
             }
 
-            if (TextUtils.isEmpty(message)) {
-                if (response.statusCode >= 500 && response.statusCode <= 509) {
-                    message = mActivity.getString(R.string.server_error);
-                } else {
-                    message = mActivity.getString(R.string.unknown_error);
-                }
-            }
-
             mActivity.showAlertDialog(
                     mActivity,
-                    mActivity.getString(R.string.notify),
-                    message == null ? mActivity.getString(R.string.server_error) : message
+                    getString(R.string.notify),
+                    message
             );
             return;
         }
 
-        if (error != null) {
+
+        // 重复提交
+        if (error instanceof ReduplicatedSubmitError) {
             mActivity.showAlertDialog(
                     mActivity,
-                    mActivity.getString(R.string.notify), error.getMessage());
+                    getString(R.string.notify),
+                    getString(R.string.reduplicate_submit_message)
+            );
+            return;
         }
+
+        if (error instanceof UnknownException) {
+            mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.unknown_error));
+        }
+
+        // 充值卡已售完
+        if (error instanceof PrepaidCardSoldOutException) {
+            mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.prepaid_card_sold_out_message));
+            return;
+        }
+
+    }
+    protected String getString(int resId) {
+        return mContext.getString(resId);
+    }
+
+    protected String getString(int resId, Object... args) {
+        return mContext.getString(resId, args);
     }
 }

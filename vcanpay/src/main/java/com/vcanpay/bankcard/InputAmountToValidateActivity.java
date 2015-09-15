@@ -77,7 +77,7 @@ public class InputAmountToValidateActivity extends BaseActivity implements TextW
                     @Override
                     public void onResponse(InputAccountToValidateResponse response) {
                         closeProgressDialog();
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, response.getMessage(), R.string.go_to_home, R.string.cancel);
+                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.add_bank_card_success, R.string.go_to_home, R.string.cancel);
                         dialog.setNoticeDialogListener(InputAmountToValidateActivity.this);
                         dialog.show(getSupportFragmentManager(), "validate bank card");
                     }

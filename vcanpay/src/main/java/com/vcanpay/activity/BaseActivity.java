@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,12 +17,13 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.example.vcanpay.R;
 import com.vcanpay.MyApplication;
+import com.vcanpay.TimePickerDialog;
 import com.vcanpay.activity.recharge.AreaContentProvider2;
 import com.vcanpay.activity.recharge.ChooseRegionActivity;
 import com.vcanpay.validator.Validator;
@@ -69,9 +69,19 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
 
-
-
         initConfig();
+//        setupToolbar();
+    }
+
+    private void setupToolbar() {
+
+
+        Toolbar toolbar = new Toolbar(this);
+        toolbar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        setSupportActionBar(toolbar);
+
+
     }
 
     public void initConfig() {
@@ -189,11 +199,17 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
 //                return new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, this, year, month, day);
-                return new DatePickerDialog(this, R.style.DatePickerDialog, this, year, month, day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DatePickerDialog, this, year, month, day);
+                DatePicker datePicker = datePickerDialog.getDatePicker();
+                datePicker.setMaxDate(System.currentTimeMillis());
+                return datePickerDialog;
             case TIME_DIALOG_ID:
                 int hour = c.get(Calendar.HOUR_OF_DAY);
                 int minute = c.get(Calendar.MINUTE);
-                return new TimePickerDialog(this, R.style.TimePickerDialog, this, hour, minute, android.text.format.DateFormat.is24HourFormat(this));
+                int second = c.get(Calendar.SECOND);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, hour, minute, second, true);
+//                TimePicker timePicker = timePickerDialog.
+                return timePickerDialog;
         }
         return null;
     }
@@ -204,8 +220,9 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
 
     }
 
+
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    public void onTimeSet(com.vcanpay.view.TimePicker view, int hourOfDay, int minute, int second) {
 
     }
 
@@ -216,4 +233,5 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
     public void setTempCalendar(Calendar tempCalendar) {
         this.tempCalendar = tempCalendar;
     }
+
 }

@@ -1,6 +1,5 @@
 package com.vcanpay.activity.recharge;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -17,20 +16,15 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
@@ -39,6 +33,7 @@ import com.google.gson.GsonBuilder;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.validator.NotEmptyValidator;
 
@@ -63,11 +58,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
     EditText mEtVcpAccount;
     EditText mEtDate;
     EditText mEtNote;
-
     Button mSubmit;
-
-    ArrayAdapter<TransferType> mAdapter;
-
 
     int rechargeType;
     String transactionNo;
@@ -83,9 +74,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fund);
-
         init();
-
     }
 
     private void init() {
@@ -114,7 +103,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onClick(View widget) {
                 int id = widget.getId();
-                Context context = AddFundActivity.this;
                 switch (id) {
                     case R.id.get_vcp:
                         Intent intent = new Intent(AddFundActivity.this, ChooseRegionActivity.class);
@@ -132,8 +120,9 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         mTvGetVcpAccount.setTextColor(Color.BLUE);
         mTvGetVcpAccount.setMovementMethod(MyLinkMovementMethod.getInstance());
 
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, TransferTypeDummp.items);
-        mSpTransferType.setAdapter(mAdapter);
+        // using android:entries="@array/transfer_type" in the layout.
+//        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, TransferTypeDummp.items);
+//        mSpTransferType.setAdapter(mAdapter);
 
         AreaContentProvider2 areaContentProvider2 = new AreaContentProvider2(this);
         Cursor c = areaContentProvider2.queryById(10);
@@ -141,17 +130,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         Log.i(TAG, c.getString(0));
         Log.i(TAG, c.getString(1));
         Log.i(TAG, c.getString(2));
-
-
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(Area.AREA_ID, 2000);
-//        contentValues.put(Area.AREA_NAME, "hello");
-//        contentValues.put(Area.PARENT_ID, "1");
-//        areaContentProvider2.insert(contentValues);
-
-//
-//        int count = c.getCount();
-//        Log.i("Test", count + "");
     }
 
     @Override
@@ -167,29 +145,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
             }
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_fund, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     public String format(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'+'hh:mm:ss");
@@ -212,13 +167,14 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        super.onTimeSet(view, hourOfDay, minute);
+    public void onTimeSet(com.vcanpay.view.TimePicker view, int hourOfDay, int minute, int second) {
+        super.onTimeSet(view, hourOfDay, minute, second);
         Calendar c = getTempCalendar();
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, second);
 
-        mEtDate.setText(new SimpleDateFormat("yyyy-MM-dd' 'HH:mm").format(c.getTime()));
+        mEtDate.setText(new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss").format(c.getTime()));
         mEtDate.setTag(c.getTime());
         dismissDialog(TIME_DIALOG_ID);
     }
@@ -245,7 +201,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
     private void makeSubmitRequest() {
         showProgressDialog(this);
 
-        rechargeType = ((TransferType) mSpTransferType.getSelectedItem()).id;
+        rechargeType = mSpTransferType.getSelectedItemPosition();
         transactionNo = mEtTransactionNo.getText().toString();
         transAmount = BigDecimal.valueOf(Float.valueOf(mEtTransAmount.getText().toString()));
         vcpAccountCardNo = mEtVcpAccount.getText().toString();
@@ -265,13 +221,11 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         bill.setCustomInfo(getCurrentCustomer());
 
         Gson gson = new GsonBuilder()
-//                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .setDateFormat("yyyy-MM-dd'+'HH:mm:ss")
                 .create();
 
         String endPoint = "MgrAddFundTransDAO/selectedRow" + "?Date=" +
                 new SimpleDateFormat("yyyy-MM-dd'+'HH:mm:ss").format((Date) mEtDate.getTag());
-//        String json1 = gson.toJson(bill);
 
 
         String json1 = String.format(
@@ -287,7 +241,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
                         "\"customName\":\"%s\"," +
                         "\"customScore\":0," +
                         "\"loginErrTimes\":0}}",
-                new DecimalFormat("0.0").format(bill.getAmount().doubleValue()),
+                new DecimalFormat("0.##").format(bill.getAmount().doubleValue()),
                 bill.getBankCardNo(),
                 bill.getNote(),
                 bill.getRechargeType(),
@@ -308,27 +262,16 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
                     public void onResponse(AddFundResponse response) {
                         closeProgressDialog();
                         getCurrentCustomer().setCustomAccounts(response.getCustomerAccount());
-
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.recharge_submit_success, 0, 0);
+                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.add_fund_submit_success, R.string.ok, 0);
                         dialog.setNoticeDialogListener(AddFundActivity.this);
                         dialog.show(getSupportFragmentManager(), "recharge");
-
                     }
                 },
-                new Response.ErrorListener() {
+                new VolleyErrorListener(this){
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        closeProgressDialog();
+                        super.onErrorResponse(error);
 
-                        if (error instanceof AuthFailureError) {
-                            showAlertDialog(AddFundActivity.this, getString(R.string.notify), error.getMessage());
-                            finish();
-                            return;
-                        }
-
-                        if (error != null) {
-                            showAlertDialog(AddFundActivity.this, getString(R.string.notify), error.getMessage());
-                        }
                     }
                 }
         );
@@ -354,7 +297,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
                 validate(mEtTransAmount, new NotEmptyValidator()) &&
                 validate(mEtVcpAccount, new NotEmptyValidator()) &&
                 validate(mEtDate, new NotEmptyValidator())) {
-
             mSubmit.setEnabled(true);
         } else {
             mSubmit.setEnabled(false);
@@ -396,15 +338,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         @Override
         public String toString() {
             return text;
-        }
-    }
-
-    public static class TransferTypeDummp {
-        public static TransferType[] items = new TransferType[2];
-
-        static {
-            items[0] = new TransferType(0, "Over the counter/ATM");
-            items[1] = new TransferType(1, "Online bank");
         }
     }
 

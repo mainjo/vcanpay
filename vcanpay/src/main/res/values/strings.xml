@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Vcanpay</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
@@ -80,7 +79,7 @@
     <string name="province_not_empty">省份不为空！</string>
     <string name="country_not_empty">国家不为空！</string>
     <string name="title_activity_request_confirm_email">激活帐号</string>
-    <string name="activate_account_hint">请检查邮箱，输入收到的激活代码来激活您的帐户：</string>
+    <string name="activate_account_hint">请检查邮箱，输入收到的激活代码来激活您的帐户。</string>
     <string name="not_empty">输入不能为空！</string>
     <string name="activation_code_incorrect">激活码错误！\\n请重新输入激活码。</string>
     <string name="new_password">新密码</string>
@@ -131,7 +130,7 @@
     <string name="withdraw_amount">提现金额</string>
     <string name="withdraw_bank">银行</string>
     <string name="cancel">返回</string>
-    <string name="withdraw_success">提现成功！</string>
+    <string name="withdraw_submit_success">提交成功，等待后台人员审核。</string>
     <string name="colon">:</string>
     <string name="taobao">淘宝网</string>
     <string name="currency_type">币种</string>
@@ -146,16 +145,15 @@
     <string name="title_activity_transfer">转账</string>
     <string name="receiver_email">接收方Email</string>
     <string name="amount">金额</string>
-    <string name="timeout">连接服务器超时。请重试。</string>
-    <string name="network_error_hint">请检查您的网络连接是否开启。</string>
-    <string name="server_error">服务器错误。请重试。</string>
+    <string name="timeout_message">连接服务器超时，请重试。</string>
+    <string name="server_error_message">服务器当前不可用，请稍后再试。状态代码%d</string>
     <string name="title_activity_phone_recharge">手机充值</string>
     <string name="cell_phone_num">手机号</string>
     <string name="choose_recharge_amount">选择充值金额</string>
     <string name="choose_an_amount">选择金额</string>
     <string name="note">备注</string>
     <string name="receiver_account">接收者账户</string>
-    <string name="forget_password">忘记密码?</string>
+    <string name="forget_password"><u>忘记密码?</u></string>
     <string name="input_your_email">输入你的邮箱</string>
     <string name="title_activity_vcan_pay_app">VcanPay</string>
     <string name="title_activity_transfer_confirm">转账确认</string>
@@ -180,7 +178,7 @@
     <string name="old_password">旧密码</string>
     <string name="passport">护照</string>
     <string name="pref_default_display_name">John Smith</string>
-    <string name="unknown_error">未知的错误</string>
+    <string name="unknown_error">程序发生了一个未知的错误。</string>
     <string name="auth_error">验证错误</string>
     <string name="security">安全</string>
     <string name="title_activity_security_manage">修改密码</string>
@@ -221,7 +219,7 @@
     <string name="title_activity_activate_account">激活</string>
     <string name="input_activate_code">输入激活代码</string>
     <string name="account_activated_hint">账户已激活。将转到登录页面。</string>
-    <string name="recharge_submit_success">充值提交成功。</string>
+    <string name="add_fund_submit_success">充值提交成功，请等待后台人员审核。</string>
     <string name="title_activity_phone_recharge_details">PhoneRechargeDetails</string>
     <string name="txt_yo_yo">some content</string>
     <string name="welcome_prefix">Welcome,</string>
@@ -236,7 +234,7 @@
     <string name="surprise">小惊喜</string>
     <string name="change_password_success">修改密码成功。</string>
     <string name="title_activity_phone_recharge_success">PhoneRechargeSuccessActivity</string>
-    <string name="get_card_success">获取充值卡成功。</string>
+    <string name="get_card_success">获取充值卡成功。同时卡号密码已发送到你邮箱。</string>
     <string name="sent_to_email_box">同时卡号密码已发送到你邮箱。</string>
     <string name="card_num">卡号</string>
     <string name="now_go_to_add_bank_card">现在去绑定银行卡账号</string>
@@ -292,7 +290,7 @@
     <string name="trade_verified_fail">交易经过审核（失败）</string>
     <string name="unknow_trade_state">未知的交易状态</string>
     <string name="bank_card_verified">已审核</string>
-    <string name="bank_card_unverified">未审核</string>
+    <string name="bank_card_unverified">未审核(点击激活)</string>
     <string name="bank_card_options">选项</string>
     <string name="title_activity_bank_card_details">BankCardDetailsActivity</string>
     <string name="created_time">创建时间</string>
@@ -303,11 +301,11 @@
     <string name="action_remove">删除</string>
     <string name="action_activate">激活</string>
     <string name="title_activity_user_guide">帮助</string>
-    <string name="agreement">《用户协议》</string>
+    <string name="agreement"><u>《用户协议》</u></string>
     <string name="and">和</string>
-    <string name="privacy">《用户隐私》</string>
+    <string name="privacy"><u>《用户隐私》</u></string>
     <string name="agree_to">同意</string>
-    <string name="user_guide">使用说明</string>
+    <string name="user_guide"><u>用户手册</u></string>
     <string name="feedback_hint">Would you like an email response?</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="feedback_title">Enter feedback details to send to us:</string>
@@ -319,4 +317,24 @@
     <string name="load_more">加载更多</string>
     <string name="change_avatar_hint">点击更换头像</string>
     <string name="profile_avatar">Avatar</string>
+    <string name="remember_email">记住账户名</string>
+    <string name="time">时间</string>
+    <string name="FORBIDDEN_MESSAGE">Access to the specified resource has been forbidden.</string>
+    <string name="AUTHORIZED_FAILURE_MESSAGE">授权失败，状态代码401</string>
+    <string name="VISIT_FIRBIDDEN_MESSAGE">你所访问的资源是被禁止的。状态代码403</string>
+    <string name="network_error_message">网络错误。请检查你的网络连接是否开启。</string>
+    <string name="reduplicate_submit_message">我们已记录您提交的信息，请不要重复提交。</string>
+    <string name="prepaid_card_sold_out_message">充值卡已售完。</string>
+    <string name="passwor_incorrect">密码错误</string>
+    <string name="email_not_activated">邮箱尚未激活，请先激活您的邮箱</string>
+    <string name="email_not_exist">邮箱不存在</string>
+    <string name="verification_code_error">激活码错误，请重新输入</string>
+    <string name="reset_password_success">重设密码成功</string>
+    <string name="balance_sufficient">您的账户余额不足</string>
+    <string name="account_not_exist">接收者账户不存在</string>
+    <string name="have_card_not_confirmed">你有一张银行卡尚未确认，请先确认</string>
+    <string name="password_error_3_time">密码错误3次，请5分钟后再试。</string>
+    <string name="password_error_6_time">密码错误6次，请10分钟后再试</string>
+    <string name="password_error_9_time">密码错误9次，请24小时后再试。</string>
+    <string name="update_profile_success">更新资料成功</string>
 </resources>

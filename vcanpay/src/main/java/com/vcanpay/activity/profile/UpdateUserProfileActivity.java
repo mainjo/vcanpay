@@ -1,14 +1,10 @@
 package com.vcanpay.activity.profile;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,6 +19,7 @@ import com.vcanpay.activity.bill.AppRequestQueue;
 
 import org.vcanpay.eo.CustomInfo;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +27,7 @@ import java.util.Date;
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class UserProfileActivity extends BaseActivity {
+public class UpdateUserProfileActivity extends BaseActivity {
     public static final int DATE_DIALOG_ID = 1;
 
     EditText mFirstName;
@@ -54,16 +51,16 @@ public class UserProfileActivity extends BaseActivity {
 
         mFirstName.setText(getCurrentCustomer().getFirstName());
         mLastName.setText(getCurrentCustomer().getLastName());
-        mSpIdentificationType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IdentificationTypeDump.ITEMS));
         mSpIdentificationType.setSelection(0);
         mEtIdCard.setText(getCurrentCustomer().getICardId());
 
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sex, android.R.layout.simple_spinner_dropdown_item);
-        mSpSex.setAdapter(adapter);
         if (!TextUtils.isEmpty(getCurrentCustomer().getSex())) {
-            mSpSex.setSelection(Integer.valueOf(getCurrentCustomer().getSex()));
+            mSpSex.setSelection(Integer.valueOf(getCurrentCustomer().getSex()) - 1);
         }
-        mEtBirthday.setText(getCurrentCustomer().getBirthDate() == null ? "" : new SimpleDateFormat(Config.DATE_FORMAT_1).format(getCurrentCustomer().getBirthDate()));
+
+//        mEtBirthday.setText(getCurrentCustomer().getBirthDate() == null ? "" : new SimpleDateFormat(Config.DATE_FORMAT_1).format(getCurrentCustomer().getBirthDate()));
+        mEtBirthday.setText(getCurrentCustomer().getBirthDate() == null ? "" : DateFormat.getDateInstance().format(getCurrentCustomer().getBirthDate()));
+
         mEtBirthday.setTag(getCurrentCustomer().getBirthDate());
 
         mEtBirthday.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +105,7 @@ public class UserProfileActivity extends BaseActivity {
         customInfo.setCustomId(getCurrentCustomer().getCustomId());
         customInfo.setFirstName(mFirstName.getText().toString());
         customInfo.setLastName(mLastName.getText().toString());
-        customInfo.setSex(mSpSex.getSelectedItemPosition() + "");
+        customInfo.setSex(mSpSex.getSelectedItemPosition() + 1 + "");
         customInfo.setBirthDate((Date) mEtBirthday.getTag());
         customInfo.setICardId(mEtIdCard.getText().toString());
 
@@ -120,7 +117,8 @@ public class UserProfileActivity extends BaseActivity {
                         "\"firstName\":\"%s\"," +
                         "\"lastName\":\"%s\"," +
                         "\"sex\":\"%s\"," +
-                        "\"loginErrTimes\":0}",
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}",
                 customInfo.getCustomId(),
                 customInfo.getFirstName(),
                 customInfo.getLastName(),
@@ -153,7 +151,8 @@ public class UserProfileActivity extends BaseActivity {
                         currentCustomer.setSex(customInfo.getSex());
                         currentCustomer.setBirthDate(customInfo.getBirthDate());
                         currentCustomer.setICardId(customInfo.getICardId());
-                        showAlertDialog(UserProfileActivity.this, getString(R.string.notify), response.getMessage());
+
+                        showAlertDialog(UpdateUserProfileActivity.this, getString(R.string.notify), getString(R.string.update_profile_success));
                     }
                 },
                 new VolleyErrorListener(this)
@@ -163,56 +162,21 @@ public class UserProfileActivity extends BaseActivity {
         queue.addToRequestQueue(request);
     }
 
-
     @Override
     public String toString() {
         return getResources().getString(R.string.title_activity_user_profile);
     }
 
-    public static class IdentificationType {
-        public int id;
-        public String text;
-
-        public IdentificationType(int id, String text) {
-            this.id = id;
-            this.text = text;
-        }
-
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
-
-    public static class IdentificationTypeDump {
-        public static IdentificationType[] ITEMS = new IdentificationType[2];
-
-        static {
-            ITEMS[0] = new IdentificationType(0, "Id Card");
-            ITEMS[1] = new IdentificationType(1, "Passport");
-        }
-    }
 
     @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                // set date picker as current date
-                Calendar calendar = Calendar.getInstance();
-                return new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, datePickerListener,
-                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        }
-        return null;
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(year, monthOfYear, dayOfMonth);
+
+        DateFormat.getDateInstance();
+
+//        mEtBirthday.setText(new SimpleDateFormat(Config.DATE_FORMAT_1).format(c.getTime()));
+        mEtBirthday.setText(DateFormat.getDateInstance().format(c.getTime()));
+        mEtBirthday.setTag(c.getTime());
     }
-
-    DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            Calendar c = Calendar.getInstance();
-            c.set(year, monthOfYear, dayOfMonth);
-
-            mEtBirthday.setText(new SimpleDateFormat(Config.DATE_FORMAT_1).format(c.getTime()));
-            mEtBirthday.setTag(c.getTime());
-        }
-    };
 }

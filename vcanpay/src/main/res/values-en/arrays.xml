@@ -19,4 +19,9 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
+
+    <string-array name="transfer_type">
+        <item>Over the counter/ATM</item>
+        <item>Online bank</item>
+    </string-array>
 </resources>

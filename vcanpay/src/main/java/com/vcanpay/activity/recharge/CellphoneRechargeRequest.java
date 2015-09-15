@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.vcanpay.Config;
 import com.vcanpay.activity.util.Utils;
+import com.vcanpay.exception.PrepaidCardSoldOutException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -53,7 +54,13 @@ public class CellphoneRechargeRequest extends BaseJsonRequest<CellphoneRechargeR
             return Response.success(new CellphoneRechargeResponse(new CellphoneRechargeResponse.PhoneCard(cardStrings[0], cardStrings[1])), entry);
         }
 
+        if (statusCode == 203) {
+
+            return Response.error(new PrepaidCardSoldOutException());
+        }
+
         return Response.error(new VolleyError(message));
+
     }
 
     @Override

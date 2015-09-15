@@ -7,10 +7,13 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.example.vcanpay.R;
@@ -22,6 +25,7 @@ import com.vcanpay.activity.bill.AppRequestQueue;
 
 public class CellphoneRechargeActivity extends BaseActivity implements TextWatcher, NoticeDialogFragment.NoticeDialogListener {
 
+    LinearLayout mContainer;
     EditText mTvPhoneNum;
     Spinner mCarriers;
     Spinner mSpAmountList;
@@ -36,6 +40,8 @@ public class CellphoneRechargeActivity extends BaseActivity implements TextWatch
     }
 
     private void initComponent() {
+        mContainer = (LinearLayout) findViewById(R.id.container);
+
         mTvPhoneNum = (EditText) findViewById(R.id.phone_num);
         mTvPhoneNum.addTextChangedListener(this);
         mSpAmountList = (Spinner) findViewById(R.id.spinner_amount_list);
@@ -68,10 +74,12 @@ public class CellphoneRechargeActivity extends BaseActivity implements TextWatch
                     @Override
                     public void onResponse(CellphoneRechargeResponse response) {
                         closeProgressDialog();
-                        String message = String.format(getString(R.string.get_card_success) + getString(R.string.card_num) + "%s," + getString(R.string.password) + "%s." + getString(R.string.sent_to_email_box), response.getPhoneCard().cardNum, response.getPhoneCard().cardSecret);
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(message);
-                        dialog.setNoticeDialogListener(CellphoneRechargeActivity.this);
-                        dialog.show(getSupportFragmentManager(), "phone_card");
+                        TextView tv;
+                        tv = new TextView(CellphoneRechargeActivity.this);
+                        tv.setText("卡号：" + response.getPhoneCard().cardNum);
+                        mContainer.addView(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        tv = new TextView(CellphoneRechargeActivity.this);
+                        tv.setText("密码：" + response.getPhoneCard().cardSecret);
                     }
                 },
                 new VolleyErrorListener(this)

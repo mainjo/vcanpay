@@ -1,6 +1,5 @@
 package com.vcanpay.activity.security;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -14,11 +13,11 @@ import com.android.volley.Response;
 import com.example.vcanpay.R;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.SignInActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.activity.password.ChangePasswordRequest;
 import com.vcanpay.activity.password.ChangePasswordResponse;
+import com.vcanpay.activity.utils.NavUtils;
 
 /**
  * Created by patrick wai on 2015/6/5.
@@ -51,9 +50,9 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Intent intent = new Intent(ChangePasswordActivity.this, SignInActivity.class);
-//                        intent.addFlags()
-        startActivity(intent);
+//        Intent intent = new Intent(ChangePasswordActivity.this, SignInActivity.class);
+//        startActivity(intent);
+        NavUtils.signIn(this);
     }
 
     @Override
@@ -155,7 +154,7 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
                     @Override
                     public void onResponse(ChangePasswordResponse response) {
                         closeProgressDialog();
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.change_password_success, 0, 0);
+                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.change_password_success, R.string.ok, 0);
                         dialog.setNoticeDialogListener(ChangePasswordActivity.this);
                         dialog.show(getSupportFragmentManager(), "change_password_dialog");
 

@@ -1,16 +1,15 @@
 package com.vcanpay.activity.profile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.BaseActivity;
+import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.activity.recharge.AreaContentProvider2;
 
@@ -99,7 +98,8 @@ public class UpdateAddressActivity extends BaseActivity {
                         "\"district\":\"%s\"," +
                         "\"postCode\":\"%s\"," +
                         "\"province\":\"%s\"," +
-                        "\"loginErrTimes\":0}",
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}",
                 customInfo.getCustomId(),
                 customInfo.getAddress(),
                 customInfo.getCity(),
@@ -118,23 +118,13 @@ public class UpdateAddressActivity extends BaseActivity {
                 new Response.Listener<UpdateAddressResponse>() {
                     @Override
                     public void onResponse(UpdateAddressResponse response) {
-                        showAlertDialog(UpdateAddressActivity.this, getString(R.string.notify), response.getMessage());
+                        showAlertDialog(UpdateAddressActivity.this, getString(R.string.notify), getString(R.string.update_profile_success));
                     }
                 },
-                new Response.ErrorListener(){
-
+                new VolleyErrorListener(this) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (error instanceof AuthFailureError) {
-                            Log.i(TAG, "author error");
-                            showAlertDialog(UpdateAddressActivity.this, getString(R.string.notify), error.getMessage());
-                            return;
-                        }
-
-                        if (error != null) {
-                            Log.i(TAG, "volley error");
-                            showAlertDialog(UpdateAddressActivity.this, getString(R.string.notify), error.getMessage());
-                        }
+                        super.onErrorResponse(error);
                     }
                 }
         );

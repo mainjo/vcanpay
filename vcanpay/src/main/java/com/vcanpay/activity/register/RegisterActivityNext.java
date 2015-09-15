@@ -20,7 +20,6 @@ import com.example.vcanpay.R;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
-import com.vcanpay.activity.profile.UpdateMobileActivity;
 import com.vcanpay.activity.recharge.AreaContentProvider2;
 import com.vcanpay.activity.recharge.ChooseRegionActivity;
 
@@ -69,11 +68,9 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
             firstName = mEtFirstName.getText().toString();
             lastName = mEtLastName.getText().toString();
             city = mEtCity.getText().toString();
-//            province = mEtProvince.getText().toString();
-//            country = mEtCountry.getText().toString();
 
             province = String.valueOf(((ChooseRegionActivity.Area) mSpProvince.getSelectedItem()).areaId);
-            country = String.valueOf(((UpdateMobileActivity.Country) mSpCountry.getSelectedItem()).id);
+            country = String.valueOf(mSpCountry.getSelectedItemPosition());
 
             idCard = mEtIdCard.getText().toString();
 
@@ -107,9 +104,6 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
         customInfo.setProvince(province);
         customInfo.setCountry(country);
 
-//        Gson gson = new Gson();
-//        String json1 = gson.toJson(customInfo);
-
         String json1 = String.format(
                 "{\"customId\":0," +
                         "\"city\":\"%s\"," +
@@ -122,7 +116,8 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
                         "\"lastName\":\"%s\"," +
                         "\"loginPwd\":\"%s\"," +
                         "\"province\":\"%s\"," +
-                        "\"loginErrTimes\":0}",
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}",
                 customInfo.getCity(),
                 customInfo.getCountry(),
                 customInfo.getCredType(),
@@ -179,14 +174,12 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
         mEtFirstName = (EditText) findViewById(R.id.first_name);
         mEtLastName = (EditText) findViewById(R.id.last_name);
         mEtCity = (EditText) findViewById(R.id.city);
-//        mEtProvince = (EditText) findViewById(R.id.province);
-//        mEtCountry = (EditText) findViewById(R.id.country);
         mSpProvince = (Spinner) findViewById(R.id.spinner_province);
         mSpCountry = (Spinner) findViewById(R.id.spinner_country);
 
 
         mSpProvince.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getAreaList(1, mDb)));
-        mSpCountry.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, UpdateMobileActivity.Country.countries));
+//        mSpCountry.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, UpdateMobileActivity.Country.countries));
 
 
 //        mIdentityType = (Spinner) findViewById(R.id.identityType);
@@ -228,26 +221,5 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
 
-    }
-
-
-    public static class IdentityType {
-        public int id;
-        public String text;
-
-        public IdentityType(int id, String text) {
-            this.id = id;
-            this.text = text;
-
-        }
-    }
-
-    public static class IdentityTypeDummp {
-        public static final IdentityType[] items = new IdentityType[2];
-
-        static {
-            items[0] = new IdentityType(1, "\u8eab\u4efd\u8bc1");
-            items[1] = new IdentityType(2, "\u62a4\u7167");
-        }
     }
 }

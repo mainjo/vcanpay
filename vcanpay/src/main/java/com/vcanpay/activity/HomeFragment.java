@@ -48,6 +48,7 @@ public class HomeFragment extends BaseFragment implements AbsListView.OnItemClic
     TextView mTvBalance;
     TextView mTvFrozenAmount;
     TextView mWelcome;
+    TextView mEmail;
     TextView mLocation;
 
     Toolbar mToolbar;
@@ -85,9 +86,10 @@ public class HomeFragment extends BaseFragment implements AbsListView.OnItemClic
         mTvFrozenAmount = (TextView) view.findViewById(R.id.frozenAmount);
         mWelcome = (TextView) view.findViewById(R.id.welcome);
         mLocation = (TextView) view.findViewById(R.id.location);
+        mEmail = (TextView) view.findViewById(R.id.email);
 
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((TabhostActivity)getActivity()).setSupportActionBar(mToolbar);
+//        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+//        ((TabhostActivity)getActivity()).setSupportActionBar(mToolbar);
 
         return view;
     }
@@ -122,6 +124,7 @@ public class HomeFragment extends BaseFragment implements AbsListView.OnItemClic
 
         mWelcome.setText(getString(R.string.welcome_prefix) + currentCustomer.getLastName());
         mLocation.setText(getCountry(getActivity(), Integer.valueOf(currentCustomer.getCountry())) + ", " + currentCustomer.getCity());
+        mEmail.setText(currentCustomer.getEmail());
 
     }
 

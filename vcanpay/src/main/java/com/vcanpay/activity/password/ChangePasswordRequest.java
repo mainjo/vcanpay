@@ -24,7 +24,6 @@ public class ChangePasswordRequest extends BaseJsonRequest<ChangePasswordRespons
         super(Method.PUT, endPoint, requestBody, signBody, listener, errorListener);
     }
 
-
     @Override
     protected Response<ChangePasswordResponse> parseNetworkResponse(NetworkResponse response) {
 

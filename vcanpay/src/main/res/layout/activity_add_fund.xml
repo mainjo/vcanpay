@@ -23,7 +23,8 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/transfer_type_spinner" />
+            android:id="@+id/transfer_type_spinner"
+            android:entries="@array/transfer_type"/>
 
         <TextView
             android:layout_width="wrap_content"

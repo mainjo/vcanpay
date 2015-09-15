@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public class BaseJsonRequest<T> extends JsonRequest<T> {
 
-    private static final String BASE_URL = "http://123.1.189.38:8080/v20150825/ws/";
-//    public static final String BASE_URL = "http://192.168.1.196:8080/vcanpayNew/ws/";
+    private static final String BASE_URL = "http://123.1.189.38:8080/v20150910/ws/";
+//    public static final String BASE_URL = "http://192.168.1.132:8080/vcanpayNew/ws/";
 
     public static final String APP_KEY = "app_key";
     public static final String APP_SECRET = "app_secret";
@@ -47,7 +47,6 @@ public class BaseJsonRequest<T> extends JsonRequest<T> {
 
         return null;
     }
-
 
     @Override
     public Response.ErrorListener getErrorListener() {

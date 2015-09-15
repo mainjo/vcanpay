@@ -133,7 +133,7 @@
                 android:value="com.vcanpay.activity.help.HelpActivity" />
         </activity>
         <activity
-            android:name="com.vcanpay.activity.profile.UserProfileActivity"
+            android:name="com.vcanpay.activity.profile.UpdateUserProfileActivity"
             android:label="@string/title_activity_user_profile"
             android:parentActivityName="com.vcanpay.activity.TabhostActivity">
             <meta-data

@@ -16,6 +16,10 @@ import java.io.UnsupportedEncodingException;
  * Created by patrick wai on 2015/6/19.
  */
 public class BindBankCardRequest extends BaseJsonRequest<BindBankCardResponse> {
+    public static final String VERIFICATION_CODE_ERROR = "Code is incorrect, please re-enter:";
+    public static final String HAVE_CARD_NOT_CONFIRMED = "You have a credit card to be confirmed, please go to confirm";
+
+
     private static final String endPoint = "MgrBindBankCardDAO/selectedRow";
 
     Context context;
@@ -38,7 +42,7 @@ public class BindBankCardRequest extends BaseJsonRequest<BindBankCardResponse> {
             e.printStackTrace();
         }
 
-        if (statusCode ==200 || statusCode == 203) {
+        if (statusCode ==200) {
 
             if (message == null) {
                 message = context.getString(R.string.success);
@@ -46,7 +50,18 @@ public class BindBankCardRequest extends BaseJsonRequest<BindBankCardResponse> {
             BindBankCardResponse bindBankCardResponse = new BindBankCardResponse(statusCode, message);
             return Response.success(bindBankCardResponse, entry);
         }
+        if (statusCode == 203) {
+            if (message != null && message.equals(HAVE_CARD_NOT_CONFIRMED)) {
+                return Response.error(new HaveCardNotConfirmedException());
+            }
+        }
 
         return Response.error(new VolleyError(message));
+    }
+
+    public class VerificationCodeError extends VolleyError {
+    }
+
+    public class HaveCardNotConfirmedException extends VolleyError {
     }
 }

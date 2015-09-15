@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +21,8 @@ public class ProfileFragment2 extends Fragment {
 
     LayoutInflater mLayoutInflater;
 
-
     int mItemDividerHeight;
     int mCategoryDividerHeight;
-
-    Toolbar mToolbar;
-
 
     public static ProfileFragment2 newInstance() {
         return new ProfileFragment2();
@@ -43,7 +38,6 @@ public class ProfileFragment2 extends Fragment {
 
         mItemDividerHeight = getResources().getDimensionPixelSize(R.dimen.profile_item_divider);
         mCategoryDividerHeight = getResources().getDimensionPixelSize(R.dimen.profile_category_divider);
-
     }
 
     @Override
@@ -52,13 +46,10 @@ public class ProfileFragment2 extends Fragment {
         mLayoutInflater = inflater;
 
         View root = inflater.inflate(R.layout.fragment_profile_fragment2, container, false);
-//        mToolbar = (Toolbar) root.findViewById(R.id.toolbar);
-//        ((TabhostActivity)getActivity()).setSupportActionBar(mToolbar);
-
         mContainer = (LinearLayout) root.findViewById(R.id.item_container);
 
         Context context = getActivity();
-        Intent intent = new Intent(context, UserProfileActivity.class);
+        Intent intent = new Intent(context, UpdateUserProfileActivity.class);
         addProfileItem(context, R.string.title_activity_change_profile, R.drawable.icon_item_address, intent);
 
         intent = new Intent(context, UpdateAddressActivity.class);
@@ -98,11 +89,6 @@ public class ProfileFragment2 extends Fragment {
                 signOut();
             }
         });
-    }
-
-
-    public View createProfileItem(Context context, int text, int icon) {
-        return createProfileItem(context, text, icon, null);
     }
 
     public View createProfileItem(Context context, int textRes, int drawableRes, final Intent intent) {

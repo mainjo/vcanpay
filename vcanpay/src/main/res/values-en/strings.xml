@@ -89,7 +89,7 @@
     <string name="cell_phone_num">Cell Phone Number</string>
     <string name="first_name">First Name</string>
     <string name="first_name_not_empty">The first name can not be empty.</string>
-    <string name="forget_password">Forgot your password?</string>
+    <string name="forget_password"><u>Forgot your password?</u></string>
     <string name="full_name">Full Name</string>
     <string name="get_account_failure">Fail to get vcp accounts. Please retry.</string>
     <string name="get_vcp"> ( Get VCP account ) </string>
@@ -147,7 +147,7 @@
     <string name="province">Province</string>
     <string name="restart_to_change_the_language">Restart to change to the selected language.
     </string>
-    <string name="server_error">Server Error.Please try again.</string>
+    <string name="server_error_message">Server Error.Please try again.</string>
     <string name="sign_in_success">Signin success</string>
     <string name="sign_out">Sign Out</string>
     <string name="simplified_chinese">简体中文</string>
@@ -155,8 +155,8 @@
     <string name="street">Street</string>
     <string name="submit">Submit</string>
     <string name="thai">ประเทศไทย</string>
-    <string name="timeout">Connecting to the server is time out. Please try again.</string>
-    <string name="withdraw_success">Withdraw success</string>
+    <string name="timeout_message">Connecting to the server is time out. Please try again.</string>
+    <string name="withdraw_submit_success">Submit success, please awaiting to verify.</string>
     <string name="choose_a_bank_card">Choose a bank card</string>
     <string name="account_type">Account Type</string>
     <string name="action_add_bank_card">Add bank card</string>
@@ -203,7 +203,7 @@
     <string name="title_activity_activate_account">Activate</string>
     <string name="title_activity_forget_password">Reset Password</string>
     <string name="balance">Balance</string>
-    <string name="recharge_submit_success">Recharge submitted successfully.</string>
+    <string name="add_fund_submit_success">Submitted successfully.Please wait for us to verify.</string>
     <string name="bank0">BANGKOK BANK PUBLIC COMPANY LIMITED</string>
     <string name="bank1">The Siam Commercial Bank Public Company Limited</string>
     <string name="bank2">Kasikorn Bank Public Company Limited</string>
@@ -211,11 +211,12 @@
     <string name="action_remove">Remove</string>
     <string name="action_activate">Activate</string>
     <string name="title_activity_user_guide">Tutorial</string>
-    <string name="agreement">《User Agreement》</string>
-    <string name="privacy">《User Privacy》</string>
+    <string name="agreement"><u>《User Agreement》</u></string>
+    <string name="privacy"><u>《User Privacy》</u></string>
     <string name="agree_to">Agree to</string>
     <string name="and">and</string>
-    <string name="user_guide">User Guide</string>
+    <string name="user_guide"><u>User Guide</u></string>
     <string name="input_verification_code">Input the Verification Code</string>
     <string name="create_account">Join Us</string>
+    <string name="prepaid_card_sold_out_message">Prepaid cards have been sold out.</string>
 </resources>

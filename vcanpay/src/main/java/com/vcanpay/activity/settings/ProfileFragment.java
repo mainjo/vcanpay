@@ -22,7 +22,7 @@ import com.vcanpay.activity.help.FeedbackActivity;
 import com.vcanpay.activity.help.HelpActivity;
 import com.vcanpay.activity.profile.UpdateAddressActivity;
 import com.vcanpay.activity.profile.UpdateMobileActivity;
-import com.vcanpay.activity.profile.UserProfileActivity;
+import com.vcanpay.activity.profile.UpdateUserProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +128,7 @@ public class ProfileFragment extends ListFragment implements View.OnClickListene
     public static List<DummyItem> PROFILE_ITEMS = new ArrayList<>();
 
     static {
-        PROFILE_ITEMS.add(new DummyItem("1", R.string.title_activity_user_profile, UserProfileActivity.class));
+        PROFILE_ITEMS.add(new DummyItem("1", R.string.title_activity_user_profile, UpdateUserProfileActivity.class));
         PROFILE_ITEMS.add(new DummyItem("2", R.string.title_activity_update_address_request, UpdateAddressActivity.class));
         PROFILE_ITEMS.add(new DummyItem("3", R.string.title_activity_update_mobile_request, UpdateMobileActivity.class));
         PROFILE_ITEMS.add(new DummyItem("4", R.string.title_activity_security_management, SecurityManagementActivity.class));

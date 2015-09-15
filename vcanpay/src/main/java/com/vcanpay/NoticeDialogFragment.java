@@ -24,16 +24,10 @@ public class NoticeDialogFragment extends DialogFragment {
 
     NoticeDialogListener mListener;
 
-    String mMessage2;
-
     int mTitle;
     int mMessage;
     int mPositiveButtonText;
     int mNegativeButtonText;
-
-    public void setMessage(String message) {
-        mMessage2 = message;
-    }
 
     public static NoticeDialogFragment getInstance(int title, int message, int positiveButtonText, int negativeButtonText) {
         NoticeDialogFragment dialog = new NoticeDialogFragment();
@@ -44,51 +38,37 @@ public class NoticeDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    public static NoticeDialogFragment getInstance(int title, String message, int positiveButtonText, int negativeButtonText) {
-        NoticeDialogFragment dialog = new NoticeDialogFragment();
-        dialog.mTitle = title;
-        dialog.mMessage2 = message;
-        dialog.mPositiveButtonText = positiveButtonText;
-        dialog.mNegativeButtonText = negativeButtonText;
-        return dialog;
-    }
-
-
-    public static NoticeDialogFragment getInstance(String message) {
-        NoticeDialogFragment dialog = new NoticeDialogFragment();
-        dialog.setMessage(message);
-        return dialog;
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        if (mMessage == 0) {
-            builder.setMessage(mMessage2);
-        } else {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle(mTitle == 0 ? R.string.notify : mTitle)
+                .setMessage(mMessage);
 
-            builder.setMessage(mMessage);
-        }
-        builder.setPositiveButton(mPositiveButtonText == 0 ? R.string.ok : mPositiveButtonText, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                if (mListener != null) {
-                    mListener.onDialogPositiveClick(NoticeDialogFragment.this);
-                }
-            }
-        })
-                .setNegativeButton(mNegativeButtonText == 0 ? R.string.cancel : mNegativeButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (mListener != null) {
-                            mListener.onDialogNegativeClick(NoticeDialogFragment.this);
-                        }
+        if (mPositiveButtonText != 0) {
+            builder.setPositiveButton(mPositiveButtonText, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (mListener != null) {
+                        mListener.onDialogPositiveClick(NoticeDialogFragment.this);
                     }
-                })
-                .setTitle(mTitle == 0 ? R.string.notify : mTitle);
-        // Create the AlertDialog object and return it
+                }
+            });
+        }
+
+        if (mNegativeButtonText != 0) {
+            builder.setNegativeButton(mNegativeButtonText, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    if (mListener != null) {
+                        mListener.onDialogNegativeClick(NoticeDialogFragment.this);
+                    }
+                }
+            });
+        }
+
         return builder.create();
     }
 

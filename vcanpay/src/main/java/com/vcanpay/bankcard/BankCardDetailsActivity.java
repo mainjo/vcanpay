@@ -3,7 +3,6 @@ package com.vcanpay.bankcard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,14 +21,17 @@ public class BankCardDetailsActivity extends BaseActivity implements View.OnClic
     TextView mCardType;
     Button mStatusIndicator;
 
+    CustBankCard mBankCard;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bank_card_details);
 
-        CustBankCard bankCard = (CustBankCard) getIntent().getExtras().getSerializable(NavUtils.BANK_CARD_KEY);
+        mBankCard = (CustBankCard) getIntent().getExtras().getSerializable(NavUtils.BANK_CARD_KEY);
 
-        init(bankCard);
+        init(mBankCard);
     }
 
     private void init(CustBankCard bankCard) {
@@ -44,7 +46,7 @@ public class BankCardDetailsActivity extends BaseActivity implements View.OnClic
         mCardOwner.setText(bankCard.getUserName());
         mCardType.setText(getAccountType(this, Integer.valueOf(bankCard.getAccountType())));
 
-        if (!TextUtils.isEmpty(bankCard.getHaveMoneyCheck()) && bankCard.getHaveMoneyCheck().equals("4")) {
+        if (bankCard.getHaveMobileCheck() != null && bankCard.getHaveMobileCheck().equals("1") && bankCard.getHaveMoneyCheck() != null && bankCard.getHaveMoneyCheck().equals("5")) {
             mStatusIndicator.setText(R.string.bank_card_verified);
             mStatusIndicator.setEnabled(false);
         } else {
@@ -112,8 +114,16 @@ public class BankCardDetailsActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(getIntent());
-        intent.setClass(this, ActivateBankCardActivity.class);
-        startActivity(intent);
+        if (mBankCard.getHaveMobileCheck() != null && mBankCard.getHaveMobileCheck().equals("1")) {
+            if (mBankCard.getHaveMoneyCheck() == null || (!mBankCard.getHaveMoneyCheck().equals("5"))) {
+                Intent intent = new Intent(getIntent());
+                intent.setClass(this, InputAmountToValidateActivity.class);
+                startActivity(intent);
+            }
+        } else {
+            Intent intent = new Intent(getIntent());
+            intent.setClass(this, ActivateBankCardActivity.class);
+            startActivity(intent);
+        }
     }
 }

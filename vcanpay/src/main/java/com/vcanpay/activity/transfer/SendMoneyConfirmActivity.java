@@ -7,11 +7,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class SendMoneyConfirmActivity extends BaseActivity {
@@ -69,7 +71,7 @@ public class SendMoneyConfirmActivity extends BaseActivity {
                 object.receiverEmail,
                 object.customer.getCustomId(),
                 object.customer.getCustomName()
-                );
+        );
 
 
         String json2 = String.format("{" +
@@ -80,7 +82,7 @@ public class SendMoneyConfirmActivity extends BaseActivity {
                         "}," +
                         "\"recipientEmail\":\"%s\"" +
                         "}",
-                object.amount,
+                new DecimalFormat("0.##").format(object.amount),
                 object.customer.getCustomId(),
                 object.customer.getCustomName(),
                 object.receiverEmail
@@ -102,7 +104,18 @@ public class SendMoneyConfirmActivity extends BaseActivity {
                         );
                     }
                 },
-                new VolleyErrorListener(this)
+                new VolleyErrorListener(this) {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        super.onErrorResponse(error);
+                        if (error instanceof TransferRequest.BalanceSufficentException) {
+                            showAlertDialog(SendMoneyConfirmActivity.this, getString(R.string.notify), getString(R.string.balance_sufficient));
+                        }
+                        if (error instanceof TransferRequest.AccountNotExistException) {
+                            showAlertDialog(SendMoneyConfirmActivity.this, getString(R.string.notify), getString(R.string.account_not_exist));
+                        }
+                    }
+                }
         );
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);

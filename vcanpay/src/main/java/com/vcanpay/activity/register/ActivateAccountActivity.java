@@ -2,7 +2,6 @@ package com.vcanpay.activity.register;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,14 +11,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
-import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.SignInActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 
-public class ActivateAccountActivity extends BaseActivity implements TextWatcher, NoticeDialogFragment.NoticeDialogListener {
+public class ActivateAccountActivity extends BaseActivity implements TextWatcher {
 
     EditText mEtActivateCode;
     Button mBtnActivate;
@@ -54,15 +53,22 @@ public class ActivateAccountActivity extends BaseActivity implements TextWatcher
                     @Override
                     public void onResponse(ActivateAccountResponse response) {
                         closeProgressDialog();
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.account_activated_hint, 0, 0);
-                        dialog.setNoticeDialogListener(ActivateAccountActivity.this);
-                        dialog.show(getSupportFragmentManager(), "activate_account");
-
-                        Toast.makeText(ActivateAccountActivity.this, R.string.activated_success, Toast.LENGTH_SHORT)
-                                .show();
+                        Toast.makeText(ActivateAccountActivity.this, R.string.activated_success, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(ActivateAccountActivity.this, SignInActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
                     }
                 },
-                new VolleyErrorListener(this));
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        super.onErrorResponse(error);
+
+                        if (error instanceof ActivateAccountRequest.VerificationCodeError) {
+                            Toast.makeText(ActivateAccountActivity.this, R.string.verification_code_error, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
@@ -85,18 +91,5 @@ public class ActivateAccountActivity extends BaseActivity implements TextWatcher
         } else {
             mBtnActivate.setEnabled(false);
         }
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, SignInActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-        startActivity(intent);
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
     }
 }
