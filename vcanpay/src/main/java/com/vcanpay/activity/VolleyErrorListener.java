@@ -1,25 +1,20 @@
 package com.vcanpay.activity;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.vcanpay.R;
 import com.vcanpay.exception.PrepaidCardSoldOutException;
 import com.vcanpay.exception.ReduplicatedSubmitError;
 import com.vcanpay.exception.UnknownException;
 
 import org.apache.http.HttpStatus;
-
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by patrick wai on 2015/7/4.
@@ -39,6 +34,9 @@ public class VolleyErrorListener implements Response.ErrorListener {
     public void onErrorResponse(VolleyError error) {
         mActivity.closeProgressDialog();
 
+
+
+        // 开始判断异常
 
         if (error instanceof TimeoutError) {
             mActivity.showAlertDialog(
@@ -72,11 +70,9 @@ public class VolleyErrorListener implements Response.ErrorListener {
 
         // TODO 此处应该放到最后？？？
         if (error instanceof ServerError) {
-            NetworkResponse response = error.networkResponse;
+            int statusCode = error.networkResponse.statusCode;
 
-            int statusCode = response.statusCode;
-
-            if (response.statusCode >= 500 && response.statusCode <= 509) {
+            if (error.networkResponse.statusCode >= 500 && error.networkResponse.statusCode <= 509) {
                 mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.server_error_message, statusCode));
                 return;
             }
@@ -86,22 +82,12 @@ public class VolleyErrorListener implements Response.ErrorListener {
                 return;
             }
 
+
             // 以下是未知的服务器返回状态
-            String message = null;
-            try {
-                message = new String(response.data, "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-            if (TextUtils.isEmpty(message)) {
-                message = HttpHeaderParser.parseCacheHeaders(response).etag;
-            }
-
             mActivity.showAlertDialog(
                     mActivity,
                     getString(R.string.notify),
-                    message
+                    getString(R.string.server_error_message, statusCode)
             );
             return;
         }
@@ -126,6 +112,9 @@ public class VolleyErrorListener implements Response.ErrorListener {
             mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.prepaid_card_sold_out_message));
             return;
         }
+
+        // 未覆盖的错误
+        mActivity.showAlertDialog(mActivity, getString(R.string.notify), error.getMessage());
 
     }
     protected String getString(int resId) {

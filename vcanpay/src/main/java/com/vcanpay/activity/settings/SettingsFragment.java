@@ -84,7 +84,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     public void showNoticeDialog() {
-        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.restart_to_change_the_language, 0, 0);
+        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.restart_to_change_the_language, R.string.ok, 0);
         dialog.setNoticeDialogListener(this);
         dialog.show(getChildFragmentManager(), "NoticeDialogFragment");
     }

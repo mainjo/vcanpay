@@ -79,25 +79,6 @@ public class ProfileFragment extends ListFragment implements View.OnClickListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-//        FragmentManager fragmentManager = getChildFragmentManager();
-//        Fragment fragment = fragmentManager.findFragmentByTag(FRAGMENT_TAG);
-//
-//        // first time;
-//        if (fragment == null) {
-//            fragment = new SettingsFragment();
-//            fragmentManager.beginTransaction()
-//                    .add(R.id.one_container, fragment, FRAGMENT_TAG)
-//                    .commit();
-//        }
-
-//        View signOutButton = getActivity().getLayoutInflater().inflate(R.layout.sign_out_button, getListView(), false);
-//        getListView().addFooterView(signOutButton);
-//        getListView().setFooterDividersEnabled(false);
-
-//        String[] items = new String[]{"\u4e2a\u4eba\u8d44\u6599", "\u8d26\u6237\u5b89\u5168", "\u8bbe\u7f6e", "\u5e2e\u52a9", "\u53cd\u9988"};
-//
-//        setListAdapter(mAdapter);
     }
 
     @Override

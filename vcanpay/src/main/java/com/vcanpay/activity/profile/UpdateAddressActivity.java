@@ -124,6 +124,7 @@ public class UpdateAddressActivity extends BaseActivity {
                 new VolleyErrorListener(this) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
                         super.onErrorResponse(error);
                     }
                 }

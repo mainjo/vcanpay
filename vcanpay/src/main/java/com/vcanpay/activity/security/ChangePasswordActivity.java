@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
@@ -157,10 +158,20 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
                         NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.change_password_success, R.string.ok, 0);
                         dialog.setNoticeDialogListener(ChangePasswordActivity.this);
                         dialog.show(getSupportFragmentManager(), "change_password_dialog");
-
                     }
                 },
-                new VolleyErrorListener(ChangePasswordActivity.this)
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
+                        if (error instanceof ChangePasswordRequest.PasswordErrorException) {
+                            showAlertDialog(ChangePasswordActivity.this, getString(R.string.notify), getString(R.string.old_password_error));
+                            return;
+                        }
+                        // 超类方法放在最后
+                        super.onErrorResponse(error);
+                    }
+                }
         );
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);

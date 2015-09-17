@@ -145,7 +145,7 @@
     <string name="receiver_account">Receiver account</string>
     <string name="receiver">Receiver</string>
     <string name="province">Province</string>
-    <string name="restart_to_change_the_language">Restart to change to the selected language.
+    <string name="restart_to_change_the_language">Restart to change to the target language.
     </string>
     <string name="server_error_message">Server Error.Please try again.</string>
     <string name="sign_in_success">Signin success</string>

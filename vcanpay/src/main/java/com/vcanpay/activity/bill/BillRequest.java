@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vcanpay.Config;
 import com.vcanpay.activity.util.Utils;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import org.vcanpay.eo.CustomTrade;
@@ -42,22 +43,19 @@ public class BillRequest extends BaseJsonRequest<CustomTrade[]> {
         Gson gson = gsonBuilder.create();
 
         String charset = HttpHeaderParser.parseCharset(response.headers);
-        String result = null;
+        String message = null;
         try {
-            result = new String(response.data, charset);
+            message = new String(response.data, charset);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
         if (statusCode == 200 || statusCode == 204) {
-
-            return Response.success(gson.fromJson(result, CustomTrade[].class), entry);
+            return Response.success(gson.fromJson(message, CustomTrade[].class), entry);
         }
         if (statusCode == 203) {
-            result = null;
-            return Response.success(gson.fromJson(result, CustomTrade[].class), entry);
+            return Response.success(gson.fromJson(message, CustomTrade[].class), entry);
         }
-        return Response.error(new VolleyError(result));
+        return Response.error(message == null ? new UnknownException() : new VolleyError(message));
     }
 
     @Override

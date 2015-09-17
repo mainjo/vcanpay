@@ -49,9 +49,7 @@ public class ManageBankCardActivity extends BaseActivity implements AdapterView.
     @Override
     protected void onStart() {
         super.onStart();
-
         makeRequest();
-
     }
 
     private void makeRequest() {

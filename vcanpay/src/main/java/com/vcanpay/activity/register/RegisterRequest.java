@@ -5,6 +5,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -13,6 +14,7 @@ import java.io.UnsupportedEncodingException;
  * Created by patrick wai on 2015/6/17.
  */
 public class RegisterRequest extends BaseJsonRequest<RegisterResponse> {
+    public static final String DUPLICATE_ID_CARD = "idCard_Input_too_much";
 
     private static final String endPoint = "RegisterDAO/insertCAccount";
 
@@ -41,6 +43,18 @@ public class RegisterRequest extends BaseJsonRequest<RegisterResponse> {
             return Response.success(registerResponse, entry);
         }
 
+        if (statusCode == 203) {
+            if (message != null) {
+                if (message.equals(DUPLICATE_ID_CARD)) {
+                    return Response.error(new DuplicateIdCardException());
+                }
+                return Response.error(new VolleyError(message));
+            }
+            return Response.error(new UnknownException());
+        }
         return Response.error(new VolleyError(message));
+    }
+
+    public class DuplicateIdCardException extends VolleyError {
     }
 }

@@ -268,12 +268,16 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
                 new VolleyErrorListener(this){
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        super.onErrorResponse(error);
-
+                        closeProgressDialog();
                         if (error instanceof BindBankCardRequest.HaveCardNotConfirmedException) {
                             showAlertDialog(AddBankCardActivity.this, getString(R.string.notify), getString(R.string.have_card_not_confirmed));
-
+                            return;
                         }
+                        if (error instanceof BindBankCardRequest.VerificationCodeError) {
+                            showAlertDialog(AddBankCardActivity.this, getString(R.string.notify), getString(R.string.verification_code_error));
+                            return;
+                        }
+                        super.onErrorResponse(error);
                     }
                 }
         );

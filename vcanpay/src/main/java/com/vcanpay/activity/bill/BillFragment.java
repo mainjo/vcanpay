@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.example.vcanpay.R;
-import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.TabHostActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.pay.BillsToBePaidActivity;
 
@@ -111,14 +111,14 @@ public class BillFragment extends Fragment implements AbsListView.OnItemClickLis
     }
 
     private void makeRequest() {
-        ((TabhostActivity) getActivity()).showProgressDialog(getActivity());
-        CustomInfo currentCustomer = ((TabhostActivity) getActivity()).getCurrentCustomer();
+        ((TabHostActivity) getActivity()).showProgressDialog(getActivity());
+        CustomInfo currentCustomer = ((TabHostActivity) getActivity()).getCurrentCustomer();
         BillRequest request = new BillRequest(
                 currentCustomer.getCustomId(),
                 new Response.Listener<CustomTrade[]>() {
                     @Override
                     public void onResponse(CustomTrade[] response) {
-                        ((TabhostActivity) getActivity()).closeProgressDialog();
+                        ((TabHostActivity) getActivity()).closeProgressDialog();
 
                         if (response != null && response.length > 0) {
                             mAdapter = new MyAdapter(getActivity(), R.layout.list_item_bill, response);
@@ -144,7 +144,7 @@ public class BillFragment extends Fragment implements AbsListView.OnItemClickLis
                         setEmptyText(R.string.no_data);
                     }
                 },
-                new VolleyErrorListener(((TabhostActivity) getActivity()))
+                new VolleyErrorListener(((TabHostActivity) getActivity()))
         );
 
         AppRequestQueue queue = AppRequestQueue.getInstance(getActivity());

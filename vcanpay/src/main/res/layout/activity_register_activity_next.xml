@@ -135,8 +135,7 @@
         <Spinner
             android:id="@+id/spinner_province"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/provinces"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"

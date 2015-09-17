@@ -138,38 +138,5 @@ public class SendMoneyActivity extends BaseActivity implements TextWatcher{
         public TransferRequestObject() {
 
         }
-
-//        public TransferRequestObject(Parcel in) {
-//            amount = in.readDouble();
-//            receiverEmail = in.readString();
-//            note = in.readString();
-//            customer = (CustomInfo) in.readSerializable();
-//        }
-//
-//
-//        @Override
-//        public int describeContents() {
-//            return 0;
-//        }
-//
-//        @Override
-//        public void writeToParcel(Parcel out, int flags) {
-//            out.writeDouble(amount);
-//            out.writeString(receiverEmail);
-//            out.writeString(note);
-//            out.writeSerializable(customer);
-//        }
-//
-//        public static Creator<TransferRequestObject> CREATOR = new Creator<TransferRequestObject>() {
-//            @Override
-//            public TransferRequestObject createFromParcel(Parcel source) {
-//                return new TransferRequestObject(source);
-//            }
-//
-//            @Override
-//            public TransferRequestObject[] newArray(int size) {
-//                return new TransferRequestObject[0];
-//            }
-//        };
     }
 }

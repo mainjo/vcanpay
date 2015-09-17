@@ -117,7 +117,7 @@ public class HomeFragment extends BaseFragment implements AbsListView.OnItemClic
         getActivity().setTitle(getString(R.string.home));
 
         NumberFormat format = NumberFormat.getCurrencyInstance();
-        CustomInfo currentCustomer = ((TabhostActivity) getActivity()).getCurrentCustomer();
+        CustomInfo currentCustomer = ((TabHostActivity) getActivity()).getCurrentCustomer();
         mTvTotalAmount.setText(format.format(currentCustomer.getCustomAccounts().getAmount()));
         mTvBalance.setText(format.format(currentCustomer.getCustomAccounts().getCashAmount()));
         mTvFrozenAmount.setText(format.format(currentCustomer.getCustomAccounts().getUncashAmount()));
@@ -159,7 +159,7 @@ public class HomeFragment extends BaseFragment implements AbsListView.OnItemClic
 
     private void refresh() {
 
-        CustomInfo currentCustomer = ((TabhostActivity) getActivity()).getCurrentCustomer();
+        CustomInfo currentCustomer = ((TabHostActivity) getActivity()).getCurrentCustomer();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(BaseActivity.CUSTOMER_INFO, Context.MODE_PRIVATE);
         String email = sharedPreferences.getString(BaseActivity.CUSTOMER_EMAIL, "");

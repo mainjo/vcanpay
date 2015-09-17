@@ -1,5 +1,7 @@
 package com.vcanpay.bankcard;
 
+import android.text.TextUtils;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
@@ -8,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.vcanpay.Config;
 import com.vcanpay.activity.util.Utils;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -17,6 +20,8 @@ import java.util.Map;
  * Created by patrick wai on 2015/7/22.
  */
 public class ActivateBankCardRequest extends BaseJsonRequest<ActivateBankCardResponse> {
+    public static final String VERIFICATION_CODE_ERROR = "Code is incorrect, please re-enter:";
+
     public static final String endPoint = "MgrBindBankCardDAO/bankCardByEmailValidate";
 
     int customerId;
@@ -48,7 +53,16 @@ public class ActivateBankCardRequest extends BaseJsonRequest<ActivateBankCardRes
             return Response.success(new ActivateBankCardResponse(statusCode, message), entry);
         }
 
-        return Response.error(new VolleyError(message));
+        if (statusCode == 203) {
+            if (!TextUtils.isEmpty(message)) {
+                if (message.equals(VERIFICATION_CODE_ERROR)) {
+                    return Response.error(new VerificationCodeError());
+                }
+                return Response.error(new VolleyError(message));
+            }
+            return Response.error(new UnknownException());
+        }
+        return Response.error(message == null ? new UnknownException() : new VolleyError(message));
     }
 
     @Override
@@ -66,4 +80,6 @@ public class ActivateBankCardRequest extends BaseJsonRequest<ActivateBankCardRes
         return headers;
     }
 
+    public class VerificationCodeError extends VolleyError {
+    }
 }

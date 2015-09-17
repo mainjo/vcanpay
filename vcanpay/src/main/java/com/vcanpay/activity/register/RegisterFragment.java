@@ -86,32 +86,22 @@ public class RegisterFragment extends Fragment implements TextWatcher, View.OnCl
                     @Override
                     public void onResponse(ValidEmailResponse response) {
                         closeProgressDialog();
-
-                        String message = response.getMessage();
-                        if ("true".equals(message)) {
-                            Intent intent = new Intent(getActivity(), RegisterActivityNext.class);
-                            intent.putExtra("email", email);
-                            startActivity(intent);
-                            return;
-                        }
-                        if ("false".equals(message)) {
-                            showAlertDialog(getActivity(),
-                                    getString(R.string.notify),
-                                    getString(R.string.email_has_been_registered)
-                                    );
-                        }
-
+                        Intent intent = new Intent(getActivity(), RegisterActivityNext.class);
+                        intent.putExtra("email", email);
+                        startActivity(intent);
                     }
                 },
                 new VolleyErrorListener((BaseActivity)getActivity()){
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
+                        if (error instanceof ValidEmailRequest.EmailHasBeenExsitException) {
+                            showAlertDialog(getActivity(), getString(R.string.notify), getString(R.string.email_has_been_registered));
+                            return;
+                        }
                         super.onErrorResponse(error);
-
                     }
                 });
-
         AppRequestQueue queue = AppRequestQueue.getInstance(getActivity());
         queue.addToRequestQueue(request);
     }

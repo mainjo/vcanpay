@@ -49,13 +49,10 @@
     </string-array>
 
     <string-array name="transfer_type">
-        <item>Over the counter/ATM</item>
-        <item>Online bank</item>
+        <item>柜台/ATM</item>
+        <item>在线银行</item>
     </string-array>
-    <string-array name="provinces" >
-        <item>aaa</item>
-        <item>bbb</item>
-    </string-array>
+
     <string-array name="identification_type" >
         <item>Id Card</item>
         <item>Passport</item>

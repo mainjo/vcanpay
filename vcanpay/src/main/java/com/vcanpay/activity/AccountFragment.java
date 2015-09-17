@@ -74,7 +74,7 @@ public class AccountFragment extends Fragment implements AbsListView.OnItemClick
 
         String[] items = new String[]{getString(R.string.my_bank_card)};
 
-        mAdapter = new ArrayAdapter<String>(getActivity(),
+        mAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, items);
     }
 
@@ -85,7 +85,7 @@ public class AccountFragment extends Fragment implements AbsListView.OnItemClick
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);

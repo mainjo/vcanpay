@@ -62,11 +62,12 @@ public class ActivateAccountActivity extends BaseActivity implements TextWatcher
                 new VolleyErrorListener(this){
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        super.onErrorResponse(error);
-
+                        closeProgressDialog();
                         if (error instanceof ActivateAccountRequest.VerificationCodeError) {
                             Toast.makeText(ActivateAccountActivity.this, R.string.verification_code_error, Toast.LENGTH_LONG).show();
+                            return;
                         }
+                        super.onErrorResponse(error);
                     }
                 });
 

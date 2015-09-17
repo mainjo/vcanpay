@@ -108,13 +108,17 @@ public class SendMoneyConfirmActivity extends BaseActivity {
                 new VolleyErrorListener(this) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        super.onErrorResponse(error);
+                        closeProgressDialog();
                         if (error instanceof TransferRequest.BalanceSufficentException) {
                             showAlertDialog(SendMoneyConfirmActivity.this, getString(R.string.notify), getString(R.string.balance_sufficient));
+                            return;
                         }
                         if (error instanceof TransferRequest.AccountNotExistException) {
                             showAlertDialog(SendMoneyConfirmActivity.this, getString(R.string.notify), getString(R.string.account_not_exist));
+                            return;
                         }
+
+                        super.onErrorResponse(error);
                     }
                 }
         );

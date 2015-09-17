@@ -10,10 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.TabHostActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 
@@ -84,9 +85,8 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
         showProgressDialog(this);
 
         SubmitObject object = new SubmitObject();
-        object.setAmount((double)mTvAmount.getTag());
+        object.setAmount((double) mTvAmount.getTag());
         object.setCustomInfo(getCurrentCustomer());
-
 
 
 //        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'+'hh:mm:ss")
@@ -95,18 +95,19 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
 //        String json1 = gson.toJson(object);
 
         String json1 = String.format("{" +
-                "\"custWithdrawId\":0," +
-                "\"amount\":%s," +
-                "\"bankCardNo\":\"%s\","+
-                "\"adminId\":0," +
-                "\"customInfo\":{" +
-                "\"customId\":%d," +
-                "\"customScore\":0," +
-                "\"loginErrTimes\":0}}",
+                        "\"custWithdrawId\":0," +
+                        "\"amount\":%s," +
+                        "\"bankCardNo\":\"%s\"," +
+                        "\"adminId\":0," +
+                        "\"customInfo\":{" +
+                        "\"customId\":%d," +
+                        "\"customScore\":0," +
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}}",
                 new DecimalFormat("0.##").format(object.amount),
                 currentBankCard.getBankCardNo(),
                 object.getCustomInfo().getCustomId()
-                );
+        );
         String json2 = "{withdrawBill: " + json1 + "}";
 
 
@@ -123,16 +124,21 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
                         dialog.show(getSupportFragmentManager(), "withdraw_success");
                     }
                 },
-                new VolleyErrorListener(this)
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
+                        super.onErrorResponse(error);
+                    }
+                }
         );
-
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
     }
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, TabhostActivity.class);
+        Intent intent = new Intent(this, TabHostActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

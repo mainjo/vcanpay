@@ -124,7 +124,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                         saveSignInStatus(false);
                         saveCustomer(mEtAccount.getText().toString(), mEtPassword.getText().toString());
 //                        saveCustomer(customInfo);
-                        Intent intent = new Intent(SignInActivity.this, TabhostActivity.class);
+                        Intent intent = new Intent(SignInActivity.this, TabHostActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
@@ -133,7 +133,6 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         closeProgressDialog();
-                        super.onErrorResponse(error);
                         if (error instanceof EmailNotExsitException) {
                             Toast.makeText(SignInActivity.this, R.string.email_not_exist, Toast.LENGTH_LONG).show();
                             return;
@@ -164,8 +163,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                             Toast.makeText(SignInActivity.this, R.string.password_error_9_time, Toast.LENGTH_LONG).show();
                             return;
                         }
-
-                        Toast.makeText(SignInActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        super.onErrorResponse(error);
                     }
                 });
 

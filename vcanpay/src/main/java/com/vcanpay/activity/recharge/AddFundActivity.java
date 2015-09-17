@@ -16,7 +16,6 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.TextAppearanceSpan;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.TabHostActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.validator.NotEmptyValidator;
@@ -51,7 +50,7 @@ import java.util.Date;
 public class AddFundActivity extends BaseActivity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener, TextWatcher, NoticeDialogFragment.NoticeDialogListener {
 
-    public static final String TAG = "RechargeInputActivity";
+    public static final String TAG = "AddFunActivity";
     TextView mTvGetVcpAccount;
     Spinner mSpTransferType;
     EditText mEtTransactionNo;
@@ -125,9 +124,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         AreaContentProvider2 areaContentProvider2 = new AreaContentProvider2(this);
         Cursor c = areaContentProvider2.queryById(10);
         c.moveToNext();
-        Log.i(TAG, c.getString(0));
-        Log.i(TAG, c.getString(1));
-        Log.i(TAG, c.getString(2));
     }
 
     @Override
@@ -264,6 +260,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
                 new VolleyErrorListener(this){
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
                         super.onErrorResponse(error);
 
                     }
@@ -310,7 +307,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, TabhostActivity.class);
+        Intent intent = new Intent(this, TabHostActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

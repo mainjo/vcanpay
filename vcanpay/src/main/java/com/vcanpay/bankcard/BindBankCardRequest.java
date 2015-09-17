@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.vcanpay.R;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -42,7 +43,7 @@ public class BindBankCardRequest extends BaseJsonRequest<BindBankCardResponse> {
             e.printStackTrace();
         }
 
-        if (statusCode ==200) {
+        if (statusCode == 200) {
 
             if (message == null) {
                 message = context.getString(R.string.success);
@@ -51,12 +52,18 @@ public class BindBankCardRequest extends BaseJsonRequest<BindBankCardResponse> {
             return Response.success(bindBankCardResponse, entry);
         }
         if (statusCode == 203) {
-            if (message != null && message.equals(HAVE_CARD_NOT_CONFIRMED)) {
-                return Response.error(new HaveCardNotConfirmedException());
+            if (message != null) {
+                if (message.equals(HAVE_CARD_NOT_CONFIRMED)) {
+                    return Response.error(new HaveCardNotConfirmedException());
+                }
+                if (message.equals(VERIFICATION_CODE_ERROR)) {
+                    return Response.error(new VerificationCodeError());
+                }
+                return Response.error(new VolleyError(message));
             }
+            return Response.error(new UnknownException());
         }
-
-        return Response.error(new VolleyError(message));
+        return Response.error(message == null ? new UnknownException() : new VolleyError(message));
     }
 
     public class VerificationCodeError extends VolleyError {

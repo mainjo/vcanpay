@@ -6,7 +6,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.example.vcanpay.R;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -22,6 +22,7 @@ public class TransferRequest extends BaseJsonRequest<TransferResponse> {
     public static final String endPoint = "MgrSendMoneyTransDAO/sendMoneyTrans";
 
     Context mContext;
+
     public TransferRequest(Context context, String requestBody, String signBody, Response.Listener<TransferResponse> listener, Response.ErrorListener errorListener) {
         super(Method.PUT, endPoint, requestBody, signBody, listener, errorListener);
         mContext = context;
@@ -42,27 +43,26 @@ public class TransferRequest extends BaseJsonRequest<TransferResponse> {
         }
 
         if (statusCode == 200) {
-            if (message == null) {
-                message = mContext.getString(R.string.success);
-            }
-            return Response.success(new TransferResponse(statusCode, message),
-                    HttpHeaderParser.parseCacheHeaders(response));
+            return Response.success(
+                    new TransferResponse(statusCode, message),
+                    HttpHeaderParser.parseCacheHeaders(response)
+            );
         }
 
         if (statusCode == 203) {
-            if (message.equals(BALANCE_SUFFICIENT)) {
-                return Response.error(new BalanceSufficentException());
+            if (message != null) {
+                if (message.equals(BALANCE_SUFFICIENT)) {
+                    return Response.error(new BalanceSufficentException());
+                }
+                if (message.equals(ACCOUNT_NOT_EXIST)) {
+                    return Response.error(new AccountNotExistException());
+                }
+                return Response.error(new VolleyError(message));
             }
-            if (message.equals(ACCOUNT_NOT_EXIST)) {
-                return Response.error(new AccountNotExistException());
-            }
-
+            return Response.error(new UnknownException());
         }
 
-        if (message == null) {
-            message = mContext.getString(R.string.fail);
-        }
-        return Response.error(new VolleyError(message));
+        return Response.error(message == null ? new UnknownException() : new VolleyError(message));
     }
 
     public class BalanceSufficentException extends VolleyError {

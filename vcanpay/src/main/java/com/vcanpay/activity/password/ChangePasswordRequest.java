@@ -5,6 +5,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -13,6 +14,7 @@ import java.io.UnsupportedEncodingException;
  * Created by patrick wai on 2015/6/19.
  */
 public class ChangePasswordRequest extends BaseJsonRequest<ChangePasswordResponse> {
+    public static final String PASSWORD_ERROR = "OldPassWord Error";
 
     private static final String endPoint = "FindPassword/updateBypassWord";
 
@@ -41,6 +43,21 @@ public class ChangePasswordRequest extends BaseJsonRequest<ChangePasswordRespons
             return Response.success(new ChangePasswordResponse(statusCode, message), entry);
         }
 
-        return Response.error(new VolleyError(message));
+        if (statusCode == 203) {
+            if (message != null) {
+                if (message.equals(PASSWORD_ERROR)) {
+                    return Response.error(new PasswordErrorException());
+                }
+
+                return Response.error(new VolleyError(message));
+            }
+
+            return Response.error(new UnknownException());
+        }
+
+        return Response.error(message == null ? new UnknownException() : new VolleyError(message));
+    }
+
+    public class PasswordErrorException extends VolleyError {
     }
 }

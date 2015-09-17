@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.vcanpay.activity.SignInActivity;
-import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.TabHostActivity;
 import com.vcanpay.bankcard.ActivateBankCardActivity;
 import com.vcanpay.bankcard.BankCardDetailsActivity;
 
@@ -43,7 +43,7 @@ public class NavUtils {
     }
 
     public static void goHome(Context context) {
-        Intent intent = new Intent(context, TabhostActivity.class);
+        Intent intent = new Intent(context, TabHostActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }

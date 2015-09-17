@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.vcanpay.Config;
 import com.vcanpay.activity.util.Utils;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -19,6 +20,10 @@ import java.util.Map;
  * Created by patrick wai on 2015/7/17.
  */
 public class ActivateAccountRequest extends BaseJsonRequest<ActivateAccountResponse> {
+
+    public static final String VERFICATION_CODE_ERROR = "Incorrect verification code";
+
+
     public static final String endPoint = "RegisterDAO/emailConfirm";
 
 //    public Map<String, String> headers = new HashMap<>();
@@ -53,27 +58,29 @@ public class ActivateAccountRequest extends BaseJsonRequest<ActivateAccountRespo
 
     @Override
     protected Response<ActivateAccountResponse> parseNetworkResponse(NetworkResponse response) {
-
         int statusCode = response.statusCode;
         Cache.Entry entry = HttpHeaderParser.parseCacheHeaders(response);
         String message = null;
-
         try {
             message = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
         if (statusCode == 200) {
             ActivateAccountResponse activateAccountResponse = new ActivateAccountResponse(statusCode, message);
             return Response.success(activateAccountResponse, entry);
         }
 
         if (statusCode == 203) {
-            return Response.error(new VerificationCodeError(message));
+            if (message != null) {
+                if (message.equals(VERFICATION_CODE_ERROR)) {
+                    return Response.error(new VerificationCodeError(message));
+                }
+                return Response.error(new VolleyError(message));
+            }
+            return Response.error(new UnknownException());
         }
-
-        return Response.error(new VolleyError(message));
+        return Response.error(message == null ? new UnknownException() : new VolleyError(message));
     }
 
     public class VerificationCodeError extends VolleyError {

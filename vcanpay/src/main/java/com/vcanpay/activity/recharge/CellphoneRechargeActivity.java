@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.example.vcanpay.R;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.TabHostActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 
@@ -110,7 +110,7 @@ public class CellphoneRechargeActivity extends BaseActivity implements TextWatch
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, TabhostActivity.class);
+        Intent intent = new Intent(this, TabHostActivity.class);
         startActivity(intent);
     }
 

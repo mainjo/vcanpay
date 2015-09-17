@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.VolleyErrorListener;
@@ -24,6 +25,9 @@ import com.vcanpay.activity.recharge.AreaContentProvider2;
 import com.vcanpay.activity.recharge.ChooseRegionActivity;
 
 import org.vcanpay.eo.CustomInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivityNext extends BaseActivity implements TextWatcher {
 
@@ -148,7 +152,17 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
                         startActivity(intent);
                     }
                 },
-                new VolleyErrorListener(this));
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
+                        if (error instanceof RegisterRequest.DuplicateIdCardException) {
+                            showAlertDialog(RegisterActivityNext.this, getString(R.string.notify), getString(R.string.reduplicate_id_card));
+                            return;
+                        }
+                        super.onErrorResponse(error);
+                    }
+                });
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
@@ -177,8 +191,14 @@ public class RegisterActivityNext extends BaseActivity implements TextWatcher {
         mSpProvince = (Spinner) findViewById(R.id.spinner_province);
         mSpCountry = (Spinner) findViewById(R.id.spinner_country);
 
+        ArrayAdapter<ChooseRegionActivity.Area> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<ChooseRegionActivity.Area>());
+        List<ChooseRegionActivity.Area> regions = getAreaList(0, mDb);
 
-        mSpProvince.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getAreaList(1, mDb)));
+        for (ChooseRegionActivity.Area region : regions) {
+            adapter.addAll(getAreaList(region.areaId, mDb));
+        }
+
+        mSpProvince.setAdapter(adapter);
 //        mSpCountry.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, UpdateMobileActivity.Country.countries));
 
 

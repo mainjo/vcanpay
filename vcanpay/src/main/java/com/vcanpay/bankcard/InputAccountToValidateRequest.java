@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.vcanpay.Config;
 import com.vcanpay.activity.util.Utils;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -24,6 +25,7 @@ public class InputAccountToValidateRequest extends BaseJsonRequest<InputAccountT
 
     int customerId;
     BigDecimal remitMoney;
+
     public InputAccountToValidateRequest(int customerId, BigDecimal remitMoney, Response.Listener<InputAccountToValidateResponse> listener, Response.ErrorListener errorListener) {
         super(Method.GET, endPoint + String.format("?customId=%d&remitMoney=%s", customerId, remitMoney), null, null, listener, errorListener);
         this.customerId = customerId;
@@ -51,7 +53,7 @@ public class InputAccountToValidateRequest extends BaseJsonRequest<InputAccountT
             return Response.success(new InputAccountToValidateResponse(statusCode, message), entry);
         }
 
-        return Response.error(new VolleyError(message));
+        return Response.error(TextUtils.isEmpty(message) ? new UnknownException() : new VolleyError(message));
 
     }
 

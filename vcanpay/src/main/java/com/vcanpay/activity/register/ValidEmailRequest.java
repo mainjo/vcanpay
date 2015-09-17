@@ -20,6 +20,8 @@ import java.util.Map;
  * Created by patrick wai on 2015/6/17.
  */
 public class ValidEmailRequest extends BaseJsonRequest<ValidEmailResponse> {
+    public static final String EMAIL_EXSITS = "false";
+
     private static final String endPoint = "RegisterDAO/validateEmailJj";
 
     private Map<String, String> headers = new HashMap<>();
@@ -50,18 +52,23 @@ public class ValidEmailRequest extends BaseJsonRequest<ValidEmailResponse> {
         }
 
         if (statusCode == 200) {
-            ValidEmailResponse validEmailResponse = new ValidEmailResponse();
-            validEmailResponse.setStatusCode(statusCode);
-            validEmailResponse.setMessage(message);
-            return Response.success(validEmailResponse, entry);
+            if (message != null) {
+                if (message.equals("true")) {
+                    ValidEmailResponse validEmailResponse = new ValidEmailResponse();
+                    validEmailResponse.setStatusCode(statusCode);
+                    validEmailResponse.setMessage(message);
+                    return Response.success(validEmailResponse, entry);
+                }
+
+                if (message.equals(EMAIL_EXSITS)) {
+                    return Response.error(new EmailHasBeenExsitException());
+                }
+
+                return Response.error(new VolleyError(message));
+            }
+            return Response.error(new UnknownException());
         }
-
-        if (message != null) {
-
-            return Response.error(new VolleyError(message));
-        }
-
-        return Response.error(new UnknownException());
+        return Response.error(message == null ? new UnknownException() : new VolleyError(message));
     }
 
     @Override
@@ -86,5 +93,8 @@ public class ValidEmailRequest extends BaseJsonRequest<ValidEmailResponse> {
 
 
         return headers;
+    }
+
+    public class EmailHasBeenExsitException extends VolleyError {
     }
 }

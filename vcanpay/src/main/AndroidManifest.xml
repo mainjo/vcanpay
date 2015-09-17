@@ -28,26 +28,19 @@
             android:name="com.vcanpay.activity.StartActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.vcanpay.activity.TabhostActivity"
+            android:name="com.vcanpay.activity.TabHostActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_tabhost" />
         <activity
-            android:name="com.vcanpay.activity.PicsShowAcitivity"
-            android:label="@string/title_activity_show_acitivity" />
-        <activity
-            android:name="com.vcanpay.activity.ActionBarTabsActivity"
-            android:label="@string/title_activity_action_bar_tabs" />
+            android:name="com.vcanpay.activity.PicsShowActivity"
+            android:label="@string/title_activity_show_activity" />
+
         <activity
             android:name="com.vcanpay.activity.SignInActivity"
             android:label="@string/sign_in" />
         <activity
             android:name="com.vcanpay.activity.register.RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:parentActivityName="com.vcanpay.activity.SignInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.SignInActivity" />
-        </activity>
+            android:label="@string/title_activity_register"/>
         <activity
             android:name="com.vcanpay.activity.MainActivity"
             android:label="@string/title_activity_main" />
@@ -56,114 +49,48 @@
             android:label="@string/title_activity_transferring_history" />
         <activity
             android:name="com.vcanpay.activity.TransferMoneyActivity"
-            android:label="@string/title_activity_transfer_money"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.settings.SecurityManagementActivity" />
-        </activity>
+            android:label="@string/title_activity_transfer_money"/>
         <activity
             android:name="com.vcanpay.bankcard.AddBankCardActivity"
-            android:label="@string/title_activity_add_bank_card"
-            android:parentActivityName="com.vcanpay.bankcard.ManageBankCardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.bankcard.ManageBankCardActivity" />
-        </activity>
+            android:label="@string/title_activity_add_bank_card"/>
         <activity
             android:name="com.vcanpay.activity.bill.BillDetailsActivity"
-            android:label="@string/title_activity_bill_details"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_bill_details"/>
         <activity
             android:name="com.vcanpay.activity.settings.SecurityManagementActivity"
-            android:label="@string/title_activity_security_management"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_security_management"/>
         <activity
             android:name="com.vcanpay.activity.security.ChangePasswordActivity"
-            android:label="@string/title_activity_change_password"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_change_password" />
         <activity
             android:name="com.vcanpay.activity.security.ChangePaymentPasswordActivity"
-            android:label="@string/title_activity_change_payment_password"
-            android:parentActivityName="com.vcanpay.activity.settings.SecurityManagementActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.settings.SecurityManagementActivity" />
-        </activity>
+            android:label="@string/title_activity_change_payment_password" />
         <activity
             android:name="com.vcanpay.activity.security.FindPaymentPasswordActivity"
-            android:label="@string/title_activity_find_payment_password"
-            android:parentActivityName="com.vcanpay.activity.settings.SecurityManagementActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.settings.SecurityManagementActivity" />
-        </activity>
-
+            android:label="@string/title_activity_find_payment_password"/>
         <activity
             android:name="com.vcanpay.activity.help.HelpActivity"
-            android:label="@string/title_activity_help"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
+            android:label="@string/title_activity_help">
             <intent-filter>
                 <action android:name="com.vcanpay.activity.HELP_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
         </activity>
-
         <activity
             android:name="com.vcanpay.activity.help.FeedbackActivity"
-            android:label="@string/title_activity_feed_back"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.help.HelpActivity" />
-        </activity>
+            android:label="@string/title_activity_feed_back" />
         <activity
             android:name="com.vcanpay.activity.profile.UpdateUserProfileActivity"
-            android:label="@string/title_activity_user_profile"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_user_profile" />
         <activity
             android:name="com.vcanpay.activity.recharge.RechargeActivity"
-            android:label="@string/title_activity_recharge"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_recharge" />
         <activity
             android:name="com.vcanpay.activity.TransferPaymentActivity"
-            android:label="@string/title_activity_transfer_payment"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_transfer_payment" />
         <activity
             android:name="com.vcanpay.activity.withdraw.WithdrawActivity"
-            android:label="@string/title_activity_withdraw"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_withdraw" />
         <activity
             android:name="com.vcanpay.activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -177,201 +104,86 @@
             android:label="@string/title_activity_activity_with_fragment" />
         <activity
             android:name="com.vcanpay.activity.register.RegisterActivityNext"
-            android:label="@string/title_activity_register_activity_next"
-            android:parentActivityName="com.vcanpay.activity.register.RegisterActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.register.RegisterActivity" />
-        </activity>
+            android:label="@string/title_activity_register_activity_next" />
         <activity
             android:name="com.vcanpay.activity.register.RequestConfirmEmailActivity"
             android:label="@string/title_activity_request_confirm_email" />
         <activity
             android:name="com.vcanpay.bankcard.ManageBankCardActivity"
-            android:label="@string/title_activity_manage_bank_card"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_manage_bank_card" />
         <activity
             android:name="com.vcanpay.activity.recharge.AddFundActivity"
             android:label="@string/title_activity_recharge_input"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name="com.vcanpay.activity.recharge.PrepaidCardRechargeActivity"
             android:label="@string/title_activity_prepaid_card_recharge" />
         <activity
             android:name="com.vcanpay.activity.recharge.ChooseRegionActivity"
-            android:label="@string/title_activity_choose_region"
-            android:parentActivityName="com.vcanpay.activity.recharge.AddFundActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.recharge.AddFundActivity" />
-        </activity>
+            android:label="@string/title_activity_choose_region" />
         <activity
             android:name="com.vcanpay.activity.recharge.ChooseVcpAccountActivity"
-            android:label="@string/title_activity_choose_bank_account"
-            android:parentActivityName="com.vcanpay.activity.recharge.ChooseRegionActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.recharge.ChooseRegionActivity" />
-        </activity>
+            android:label="@string/title_activity_choose_bank_account" />
         <activity
             android:name="com.vcanpay.activity.withdraw.WithdrawConfirmActivity"
-            android:label="@string/title_activity_withdraw_confirm"
-            android:parentActivityName="com.vcanpay.activity.withdraw.WithdrawActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.withdraw.WithdrawActivity" />
-        </activity>
+            android:label="@string/title_activity_withdraw_confirm" />
         <activity
             android:name="com.vcanpay.activity.bill.PayActivity"
             android:label="@string/title_activity_pay" />
         <activity
             android:name="com.vcanpay.activity.pay.BillsToBePaidActivity"
-            android:label="@string/title_activity_bills_to_be_paid"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_bills_to_be_paid" />
         <activity
             android:name="com.vcanpay.activity.transfer.SendMoneyActivity"
-            android:label="@string/title_activity_transfer"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_transfer" />
         <activity
             android:name="com.vcanpay.activity.recharge.CellphoneRechargeActivity"
-            android:label="@string/title_activity_phone_recharge"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_phone_recharge" />
         <activity
             android:name="com.vcanpay.activity.transfer.SendMoneyConfirmActivity"
-            android:label="@string/title_activity_transfer_confirm"
-            android:parentActivityName="com.vcanpay.activity.transfer.SendMoneyActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.transfer.SendMoneyActivity" />
-        </activity>
-
+            android:label="@string/title_activity_transfer_confirm" />
         <activity
             android:name="com.vcanpay.activity.profile.UpdateAddressActivity"
-            android:label="@string/title_activity_update_address_request"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_update_address_request" />
         <activity
             android:name="com.vcanpay.activity.profile.UpdateMobileActivity"
-            android:label="@string/title_activity_update_mobile_request"
-            android:parentActivityName="com.vcanpay.activity.TabhostActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.TabhostActivity" />
-        </activity>
+            android:label="@string/title_activity_update_mobile_request" />
         <activity
             android:name="com.vcanpay.activity.settings.SecurityManageActivity"
             android:label="@string/title_activity_security_manage" />
         <activity
             android:name="com.vcanpay.activity.withdraw.InputAmountActivity"
-            android:label="@string/title_activity_input_amount"
-            android:parentActivityName="com.vcanpay.activity.withdraw.WithdrawActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.withdraw.WithdrawActivity" />
-        </activity>
+            android:label="@string/title_activity_input_amount" />
         <activity
             android:name="com.vcanpay.activity.password.ResetPasswordActivity"
-            android:label="@string/title_activity_forget_password"
-            android:parentActivityName="com.vcanpay.activity.SignInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.SignInActivity" />
-        </activity>
+            android:label="@string/title_activity_forget_password" />
         <activity
             android:name="com.vcanpay.activity.register.ActivateAccountActivity"
-            android:label="@string/title_activity_activate_account"
-            android:parentActivityName="com.vcanpay.activity.register.RegisterActivityNext">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.register.RegisterActivityNext" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_activate_account" />
         <activity
             android:name="com.vcanpay.activity.recharge.PhoneRechargeDetails"
-            android:label="@string/title_activity_phone_recharge_details"
-            android:parentActivityName="com.vcanpay.activity.recharge.CellphoneRechargeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.recharge.CellphoneRechargeActivity" />
-        </activity>
+            android:label="@string/title_activity_phone_recharge_details" />
         <activity
             android:name="com.vcanpay.activity.recharge.PhoneRechargeSuccessActivity"
             android:label="@string/title_activity_phone_recharge_success" />
         <activity
             android:name="com.vcanpay.bankcard.ActivateBankCardActivity"
-            android:label="@string/title_activity_activate_bank_card"
-            android:parentActivityName="com.vcanpay.bankcard.ManageBankCardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.bankcard.ManageBankCardActivity" />
-        </activity>
+            android:label="@string/title_activity_activate_bank_card" />
         <activity
             android:name="com.vcanpay.bankcard.InputAmountToValidateActivity"
-            android:label="@string/title_activity_input_amount_to_validate"
-            android:parentActivityName="com.vcanpay.bankcard.ActivateBankCardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.bankcard.ActivateBankCardActivity" />
-        </activity>
+            android:label="@string/title_activity_input_amount_to_validate" />
         <activity
             android:name="com.vcanpay.activity.password.ResetPasswordActivity2"
             android:label="@string/title_activity_reset_password_activity2" />
         <activity
             android:name="com.vcanpay.bankcard.BankCardDetailsActivity"
-            android:label="@string/title_activity_bank_card_details"
-            android:parentActivityName="com.vcanpay.bankcard.ManageBankCardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.bankcard.ManageBankCardActivity" />
-        </activity>
+            android:label="@string/title_activity_bank_card_details" />
         <activity
             android:name="com.vcanpay.activity.pay.BillDetailsActivity"
-            android:label="@string/pay"
-            android:parentActivityName="com.vcanpay.activity.pay.BillsToBePaidActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.pay.BillsToBePaidActivity" />
-        </activity>
-
-
+            android:label="@string/pay" />
         <activity
             android:name="com.vcanpay.activity.AgreementAndPrivacyActivity"
-            android:label="@string/agreement"
-            android:parentActivityName="com.vcanpay.activity.SignInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vcanpay.activity.SignInActivity" />
-        </activity>
-
+            android:label="@string/agreement" />
         <meta-data
             android:name="com.vcanpay.glide.GlideConfiguration"
             android:value="GlideModule" />

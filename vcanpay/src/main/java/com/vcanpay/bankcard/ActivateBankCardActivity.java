@@ -11,10 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.NoticeDialogFragment;
 import com.vcanpay.activity.BaseActivity;
-import com.vcanpay.activity.TabhostActivity;
+import com.vcanpay.activity.TabHostActivity;
 import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 
@@ -80,15 +81,21 @@ public class ActivateBankCardActivity extends BaseActivity implements TextWatche
                     @Override
                     public void onResponse(ActivateBankCardResponse response) {
                         closeProgressDialog();
-//                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, response.getMessage(), R.string.input_the_amount_you_get, R.string.go_to_home);
-//                        dialog.setNoticeDialogListener(ActivateBankCardActivity.this);
-//                        dialog.show(getSupportFragmentManager(), "input amount");
-
                         Intent intent = new Intent(ActivateBankCardActivity.this, InputAmountToValidateActivity.class);
                         startActivity(intent);
                     }
                 },
-                new VolleyErrorListener(this)
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
+                        if (error instanceof ActivateBankCardRequest.VerificationCodeError) {
+                            showAlertDialog(ActivateBankCardActivity.this, getString(R.string.notify), getString(R.string.verification_code_error));
+                            return;
+                        }
+                        super.onErrorResponse(error);
+                    }
+                }
         );
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
@@ -102,7 +109,7 @@ public class ActivateBankCardActivity extends BaseActivity implements TextWatche
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, TabhostActivity.class);
+        Intent intent = new Intent(this, TabHostActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

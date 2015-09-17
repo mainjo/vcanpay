@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.BaseActivity;
 import com.vcanpay.activity.VolleyErrorListener;
@@ -36,22 +37,14 @@ public class WithdrawActivity extends BaseActivity implements AdapterView.OnItem
     public static final String BANK_ID = "bank_id";
     public static final String BANK_NAME = "bank_name";
     public static final String AMOUNT = "amount";
-
     public static final String BANK_CARD_KEY = "bank_card_key";
-
-
 //    EditText mEtAmount;
     TextView mTvListHeader;
     ListView mLvBankCards;
     Button mBtnSubmit;
-
     ArrayAdapter<CustBankCard> mAdapter;
-
-
     // hidden
     Button mBtnAddBankCard;
-
-
     CustBankCard currentSelectedBankCard;
 
     private void startConfirm(Double amount, ChooseRegionActivity.Bank bank) {
@@ -119,7 +112,13 @@ public class WithdrawActivity extends BaseActivity implements AdapterView.OnItem
                         setEmptyText(R.string.no_data);
                     }
                 },
-                new VolleyErrorListener(this)
+                new VolleyErrorListener(this){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        closeProgressDialog();
+                        super.onErrorResponse(error);
+                    }
+                }
         );
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
