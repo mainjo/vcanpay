@@ -201,7 +201,8 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
                         "\"customId\":%d," +
                         "\"customScore\":0," +
                         "\"email\":\"%s\"," +
-                        "\"loginErrTimes\":0}}",
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}}",
                 custBankCard.getBankArea(),
                 custBankCard.getBankCardNo(),
                 custBankCard.getBankName(),
@@ -214,9 +215,7 @@ public class AddBankCardActivity extends BaseActivity implements AdapterView.OnI
                 customer.getEmail()
         );
 
-        String json2 = "{custBankCard:" + json1 + "}";
-
-        json2 = String.format("{\"custBankCard\":{" +
+        String json2 = String.format("{\"custBankCard\":{" +
                         "\"accountType\":\"0\"," +
                         "\"bankArea\":\"%s\"," +
                         "\"bankCardNo\":\"%s\"," +

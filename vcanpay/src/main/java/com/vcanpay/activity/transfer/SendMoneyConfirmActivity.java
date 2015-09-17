@@ -66,7 +66,8 @@ public class SendMoneyConfirmActivity extends BaseActivity {
                         "\"customId\":%d," +
                         "\"customName\":\"%s\"," +
                         "\"customScore\":0," +
-                        "\"loginErrTimes\":0}}",
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}}",
                 object.amount,
                 object.receiverEmail,
                 object.customer.getCustomId(),

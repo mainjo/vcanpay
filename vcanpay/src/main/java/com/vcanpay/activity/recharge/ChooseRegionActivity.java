@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import com.example.vcanpay.R;
 import com.vcanpay.activity.BaseActivity;
@@ -25,19 +24,16 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
     Button mBtnNextStep;
 
     static AreaContentProvider2 mDb;
-    static List<Area> regions;
-    static List<Area> provinces;
 
+    ArrayAdapter mCountryAdapter;
+    ArrayAdapter<Area> mRegionAdapter;
+    ArrayAdapter<Area> mProvinceAdapter;
+    ArrayAdapter mBankAdapter;
 
-    SpinnerAdapter countryAdapter;
-    SpinnerAdapter regionAdapter;
-    SpinnerAdapter provinceAdapter;
-    SpinnerAdapter bankAdapter;
-
-    int selectCountry;
-    int selectRegion;
-    int selectProvince;
-    int selectBank;
+    int mSelectedCountry;
+    int mSelectedRegion;
+    int mSelectedProvince;
+    int mSelectedBank;
 
     public static final String COUNTRY_CODE = "country";
     public static final String REGION_CODE = "region";
@@ -64,19 +60,20 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
         mSpinnerProvince = (Spinner) findViewById(R.id.spinner_province);
         mSpinnerBank = (Spinner) findViewById(R.id.spinner_bank);
 
-        countryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{getString(R.string.thailand)});
-        regionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getRegionList(0, mDb));
-        provinceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getAreaList(1, mDb));
-        bankAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.bank_names));
+        mCountryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{getString(R.string.thailand)});
+        mRegionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getRegionList(0));
+        mProvinceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<Area>());
+        mBankAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.bank_names));
 
-        mSpinnerCountry.setAdapter(countryAdapter);
-        mSpinnerProvince.setAdapter(provinceAdapter);
-        mSpinnerRegion.setAdapter(regionAdapter);
-        mSpinnerBank.setAdapter(bankAdapter);
+        mSpinnerCountry.setAdapter(mCountryAdapter);
+        mSpinnerProvince.setAdapter(mProvinceAdapter);
+        mSpinnerRegion.setAdapter(mRegionAdapter);
+        mSpinnerBank.setAdapter(mBankAdapter);
 
         mSpinnerCountry.setOnItemSelectedListener(this);
         mSpinnerRegion.setOnItemSelectedListener(this);
         mSpinnerProvince.setOnItemSelectedListener(this);
+        mSpinnerBank.setOnItemSelectedListener(this);
 
         mBtnNextStep = (Button) findViewById(R.id.next_step);
         mBtnNextStep.setOnClickListener(this);
@@ -85,47 +82,30 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(this, ChooseBankAccountActivity.class);
-        intent.putExtra(COUNTRY_CODE, selectCountry);
-        intent.putExtra(REGION_CODE, selectRegion);
-        intent.putExtra(PROVINCE_CODE, selectProvince);
-        intent.putExtra(BANK_CODE, selectBank);
+        Intent intent = new Intent(this, ChooseVcpAccountActivity.class);
+        intent.putExtra(COUNTRY_CODE, mSpinnerCountry.getSelectedItemPosition());
+        intent.putExtra(REGION_CODE, ((Area)mSpinnerRegion.getSelectedItem()).areaId);
+        intent.putExtra(PROVINCE_CODE, ((Area)mSpinnerProvince.getSelectedItem()).areaId);
+        intent.putExtra(BANK_CODE, mSpinnerBank.getSelectedItemPosition() + 1);
         startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE) {
-            setResult(resultCode, data);
-            finish();
-        }
-    }
-
-    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        int viewId = view.getId();
-//        if (viewId == R.id.spinner_country) {
-//            selectCountry = 0;
-//        }
-//
-//        if (viewId == R.id.spinner_region) {
-//            Area area = (Area) (regionAdapter.getItem(position));
-//            selectRegion = area.areaId;
-//        }
-//
-//        if (viewId == R.id.spinner_province) {
-//            Area area = (Area) (provinceAdapter.getItem(position));
-//            selectProvince = area.areaId;
-//        }
-//
-//        if (viewId == R.id.spinner_bank) {
-//            Bank bank = (Bank) bankAdapter.getItem(position);
-//            selectBank = bank.id;
-//        }
+        int parentId = parent.getId();
 
-
+        switch (parentId) {
+            case R.id.spinner_region:
+                int newRegionId = mRegionAdapter.getItem(position).areaId;
+                if (mSelectedRegion != newRegionId) {
+                    mSelectedRegion = mRegionAdapter.getItem(position).areaId;
+                    mProvinceAdapter.clear();
+                    mProvinceAdapter.addAll(getProvinces(mSelectedRegion));
+                }
+                break;
+            case R.id.spinner_province:
+                break;
+        }
     }
 
     @Override
@@ -133,8 +113,8 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    public static List<Area> getAreaList(int parentId, AreaContentProvider2 db) {
-        Cursor c = db.queryByParentId(parentId);
+    private static List<Area> getAreaList(int parentId) {
+        Cursor c = mDb.queryByParentId(parentId);
 
         List<Area> result = new ArrayList<>();
         Area area;
@@ -142,27 +122,17 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
             area = new Area(c.getInt(0), c.getString(1), c.getInt(2));
             result.add(area);
         }
-
         return result;
     }
 
 
-    public static List<Area> getRegionList(int parentId, AreaContentProvider2 db) {
-        if (regions == null) {
-            regions = getAreaList(parentId, db);
-        }
-
-        return regions;
+    public static List<Area> getRegionList(int parentId) {
+        return getAreaList(parentId);
     }
 
-    public static List<Area> getProvinces(int parentId, AreaContentProvider2 db) {
-        if (provinces == null) {
-            provinces = getAreaList(parentId, db);
-        }
-
-        return provinces;
+    public static List<Area> getProvinces(int parentId) {
+        return getAreaList(parentId);
     }
-
 
     public static class Area {
         public int areaId;

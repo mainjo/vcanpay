@@ -39,7 +39,7 @@ import java.util.Locale;
 /**
  * Created by patrick wai on 2015/6/19.
  */
-public class BaseActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+public class BaseActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, DialogInterface.OnClickListener{
 
     public static final String CUSTOMER_INFO = "custom_info";
     public static final String CUSTOMER_ID = "customer_id";
@@ -127,12 +127,7 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(getString(R.string.action_ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
+                .setPositiveButton(getString(R.string.action_ok), BaseActivity.this)
                 .create()
                 .show();
     }
@@ -162,9 +157,8 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
 
 
     protected boolean validate(TextView textView, Validator validator) {
-        boolean result = validator.validate(textView.getText().toString());
 
-        return result;
+        return validator.validate(textView.getText().toString());
     }
 
     public static List<ChooseRegionActivity.Area> getAreaList(int parentId, AreaContentProvider2 db) {
@@ -207,9 +201,7 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
                 int hour = c.get(Calendar.HOUR_OF_DAY);
                 int minute = c.get(Calendar.MINUTE);
                 int second = c.get(Calendar.SECOND);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, hour, minute, second, true);
-//                TimePicker timePicker = timePickerDialog.
-                return timePickerDialog;
+                return new TimePickerDialog(this, this, hour, minute, second, true);
         }
         return null;
     }
@@ -234,4 +226,8 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
         this.tempCalendar = tempCalendar;
     }
 
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
 }

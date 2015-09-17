@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.vcanpay.Config;
 import com.vcanpay.activity.util.Utils;
+import com.vcanpay.exception.UnknownException;
 import com.vcanpay.request.BaseJsonRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -54,7 +55,13 @@ public class ValidEmailRequest extends BaseJsonRequest<ValidEmailResponse> {
             validEmailResponse.setMessage(message);
             return Response.success(validEmailResponse, entry);
         }
-        return Response.error(new VolleyError(message));
+
+        if (message != null) {
+
+            return Response.error(new VolleyError(message));
+        }
+
+        return Response.error(new UnknownException());
     }
 
     @Override

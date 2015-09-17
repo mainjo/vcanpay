@@ -22,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.vcanpay.R;
 import com.vcanpay.activity.AgreementAndPrivacyActivity;
+import com.vcanpay.activity.BaseActivity;
+import com.vcanpay.activity.VolleyErrorListener;
 import com.vcanpay.activity.bill.AppRequestQueue;
 import com.vcanpay.validator.EmailValidator;
 import com.vcanpay.validator.Validator;
@@ -90,17 +92,23 @@ public class RegisterFragment extends Fragment implements TextWatcher, View.OnCl
                             Intent intent = new Intent(getActivity(), RegisterActivityNext.class);
                             intent.putExtra("email", email);
                             startActivity(intent);
-                        } else {
-                            showAlertDialog(getActivity(), getString(R.string.notify), response.getMessage());
+                            return;
+                        }
+                        if ("false".equals(message)) {
+                            showAlertDialog(getActivity(),
+                                    getString(R.string.notify),
+                                    getString(R.string.email_has_been_registered)
+                                    );
                         }
 
                     }
                 },
-                new Response.ErrorListener() {
+                new VolleyErrorListener((BaseActivity)getActivity()){
+
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        closeProgressDialog();
-                        showAlertDialog(getActivity(), getString(R.string.notify), getString(R.string.network_error));
+                        super.onErrorResponse(error);
+
                     }
                 });
 
@@ -192,7 +200,7 @@ public class RegisterFragment extends Fragment implements TextWatcher, View.OnCl
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Uri uri);
     }
 
     protected void showAlertDialog(Context context, String title, String message) {

@@ -18,9 +18,9 @@ public class SettingsActivity extends BaseActivity {
 
         setContentView(R.layout.activity_settings);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        setSupportActionBar(mToolbar);
+//        setSupportActionBar(mToolbar);
 
         setTitle(R.string.title_activity_settings);
         getSupportFragmentManager().beginTransaction().

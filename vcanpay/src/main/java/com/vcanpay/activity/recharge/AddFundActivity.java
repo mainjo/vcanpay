@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.Spannable;
@@ -74,6 +75,7 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fund);
+
         init();
     }
 
@@ -120,10 +122,6 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
         mTvGetVcpAccount.setTextColor(Color.BLUE);
         mTvGetVcpAccount.setMovementMethod(MyLinkMovementMethod.getInstance());
 
-        // using android:entries="@array/transfer_type" in the layout.
-//        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, TransferTypeDummp.items);
-//        mSpTransferType.setAdapter(mAdapter);
-
         AreaContentProvider2 areaContentProvider2 = new AreaContentProvider2(this);
         Cursor c = areaContentProvider2.queryById(10);
         c.moveToNext();
@@ -133,17 +131,12 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == ChooseBankAccountActivity.SUCCESS_CODE) {
-                VcanpayBankAccount vcpAccount = data.getParcelableExtra(ChooseBankAccountActivity.VCP_ACCOUNT_KEY);
-                mEtVcpAccount.setTag(vcpAccount);
-                mEtVcpAccount.setText(vcpAccount.getBankCardNo());
-                mEtVcpAccount.setEnabled(false);
-            }
-        }
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        VcanpayBankAccount vcpAccount = intent.getParcelableExtra(ChooseVcpAccountActivity.VCP_ACCOUNT_KEY);
+        mEtVcpAccount.setTag(vcpAccount);
+        mEtVcpAccount.setText(vcpAccount.getBankCardNo());
+        mEtVcpAccount.setEnabled(false);
     }
 
     public String format(Date date) {
@@ -240,7 +233,8 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
                         "{\"customId\":%d," +
                         "\"customName\":\"%s\"," +
                         "\"customScore\":0," +
-                        "\"loginErrTimes\":0}}",
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}}",
                 new DecimalFormat("0.##").format(bill.getAmount().doubleValue()),
                 bill.getBankCardNo(),
                 bill.getNote(),
@@ -326,24 +320,9 @@ public class AddFundActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    public static class TransferType {
-        int id;
-        String text;
-
-        public TransferType(int id, String text) {
-            this.id = id;
-            this.text = text;
-        }
-
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
-
     public class MyLinkMovementMethod extends LinkMovementMethod {
         @Override
-        public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
+        public boolean onTouchEvent(@NonNull TextView widget, @NonNull Spannable buffer, @NonNull MotionEvent event) {
             Intent intent = new Intent(AddFundActivity.this, ChooseRegionActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             return super.onTouchEvent(widget, buffer, event);

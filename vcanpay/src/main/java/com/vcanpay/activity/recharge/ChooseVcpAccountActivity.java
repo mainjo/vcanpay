@@ -1,9 +1,8 @@
 package com.vcanpay.activity.recharge;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +27,7 @@ import org.vcanpay.eo.VcanpayBankAccount;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
-public class ChooseBankAccountActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class ChooseVcpAccountActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "ChooseBankAccountActivity";
     public static final String VCP_ACCOUNT_KEY = "vcp_account";
@@ -47,12 +46,20 @@ public class ChooseBankAccountActivity extends BaseActivity implements View.OnCl
     int accountId;
     String accountName;
 
+
+    int mBankId;
+    int mRegionId;
+    int mProvinceId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_bank_account);
 
         Intent intent = getIntent();
+        mBankId = intent.getIntExtra(ChooseRegionActivity.BANK_CODE, 1);
+        mRegionId = intent.getIntExtra(ChooseRegionActivity.REGION_CODE, 1);
+        mProvinceId = intent.getIntExtra(ChooseRegionActivity.PROVINCE_CODE, 7);
 
         mSpinnerAccounts = (Spinner) findViewById(R.id.spinner_account_list);
         mSpinnerAccounts.setOnItemSelectedListener(this);
@@ -70,39 +77,17 @@ public class ChooseBankAccountActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_choose_bank_account, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View v) {
 
         VcanpayBankAccount selectedAccount = (VcanpayBankAccount) mSpinnerAccounts.getSelectedItem();
 
         if (selectedAccount != null) {
-            Intent intent = new Intent();
+            Intent intent = new Intent(this, AddFundActivity.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable(VCP_ACCOUNT_KEY, selectedAccount);
             intent.putExtras(bundle);
-            setResult(SUCCESS_CODE, intent);
-            finish();
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
         } else {
             showAlertDialog(this, getString(R.string.notify), getString(R.string.get_account_failure));
         }
@@ -110,9 +95,9 @@ public class ChooseBankAccountActivity extends BaseActivity implements View.OnCl
 
     private void makeRequest() {
 
-        String params = FIELD_BANK_NAME + "=" + 1 + "&" +
-                FIELD_PROVINCE + "=" + 7 + "&" +
-                FIELD_REGION + "=" + 1;
+        String params = FIELD_BANK_NAME + "=" + mBankId + "&" +
+                FIELD_PROVINCE + "=" + mProvinceId + "&" +
+                FIELD_REGION + "=" + mRegionId;
 
         GetVcpAccountsRequest request = new GetVcpAccountsRequest(
                 params,
@@ -120,70 +105,45 @@ public class ChooseBankAccountActivity extends BaseActivity implements View.OnCl
                     @Override
                     public void onResponse(NetworkResponse response) {
                         closeProgressDialog();
-
-                        if (response.statusCode == 200) {
-                            try {
-                                String json = new String(response.data, "utf-8");
-                                Gson gson = new GsonBuilder()
-                                        .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
-                                        .create();
-
-                                VcanpayBankAccount[] accounts = gson.fromJson(json, VcanpayBankAccount[].class);
-
-                                if (accounts.length != 0) {
-
-                                    mAccountAdapter = new ArrayAdapter<>(
-                                            ChooseBankAccountActivity.this,
-                                            android.R.layout.simple_spinner_item,
-                                            accounts
-                                    );
-                                } else {
-                                    //TODO 当json数组长度是0时候
-                                }
-
+                        try {
+                            String json = new String(response.data, "utf-8");
+                            Gson gson = new GsonBuilder()
+                                    .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
+                                    .create();
+                            VcanpayBankAccount[] accounts = gson.fromJson(json, VcanpayBankAccount[].class);
+                            if (accounts != null && accounts.length != 0) {
+                                mAccountAdapter = new ArrayAdapter<>(
+                                        ChooseVcpAccountActivity.this,
+                                        android.R.layout.simple_spinner_item,
+                                        accounts
+                                );
                                 mSpinnerAccounts.setAdapter(mAccountAdapter);
-
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
+                            } else {
+                                showAlertDialog(ChooseVcpAccountActivity.this,
+                                        getString(R.string.notify), getString(R.string.no_records));
                             }
-                        } else {
-                            showAlertDialog(ChooseBankAccountActivity.this,
-                                    getString(R.string.notify), getString(R.string.can_not_get_records));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
                         }
                     }
                 },
                 new VolleyErrorListener(this)
         );
 
+
         try {
-            request.addHeader("app_sign", Utils.MD5("1" + "7" + "1"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            String app_time = String.valueOf(System.currentTimeMillis() / 1000);
+            String signString = Config.app_key + Utils.MD5(Config.app_secret) + app_time + mBankId + mProvinceId + mRegionId;
+            String app_sign = Utils.MD5(signString);
 
-        String app_time = String.valueOf(System.currentTimeMillis() / 1000);
-
-        String signString = null;
-        String app_sign = null;
-        try {
-            signString = Config.app_key + Utils.MD5(Config.app_secret) + app_time + "1" + "7" + "1";
-
-            app_sign = Utils.MD5(signString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-        request.addHeader("app_key", Config.app_key);
-        try {
+            request.addHeader("app_key", Config.app_key);
             request.addHeader("app_secret", Utils.MD5(Config.app_secret));
+            request.addHeader("app_time", app_time);
+            request.addHeader("app_sign", app_sign);
+            request.addHeader("sign_string", signString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        request.addHeader("sign_string", signString);
-        request.addHeader("app_sign", app_sign);
-        request.addHeader("app_time", app_time);
 
         AppRequestQueue queue = AppRequestQueue.getInstance(this);
         queue.addToRequestQueue(request);
@@ -197,5 +157,10 @@ public class ChooseBankAccountActivity extends BaseActivity implements View.OnCl
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        finish();
     }
 }

@@ -56,7 +56,7 @@
     <string name="bill">Bills</string>
     <string name="bill_details">Bill Details</string>
     <string name="birthday">Birthday</string>
-    <string name="can_not_get_records">no records</string>
+    <string name="no_records">no records</string>
     <string name="cancel">Back</string>
     <string name="cell_phone">Cell Phone Number</string>
     <string name="change_language">Change Language</string>
