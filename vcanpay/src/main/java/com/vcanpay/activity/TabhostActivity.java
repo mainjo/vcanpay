@@ -20,7 +20,7 @@ import com.vcanpay.activity.bill.BillFragment;
 /**
  * Created by patrick wai on 2015/6/5.
  */
-public class TabhostActivity extends BaseActivity implements OnFragmentInteractionListener {
+public class TabHostActivity extends BaseActivity implements OnFragmentInteractionListener {
 
     FragmentTabHost mTabHost;
     TabWidget mTabWidget;
