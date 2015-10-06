@@ -154,7 +154,7 @@ public class HurlStack implements HttpStack {
     protected HttpURLConnection createConnection(URL url) throws IOException {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("192.168.1.251", 8888));
 
-        return (HttpURLConnection) url.openConnection();
+        return (HttpURLConnection) url.openConnection(proxy);
     }
 
     /**

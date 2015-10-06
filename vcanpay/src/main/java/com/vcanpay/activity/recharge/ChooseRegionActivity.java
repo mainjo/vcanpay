@@ -36,8 +36,8 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
     int mSelectedBank;
 
     public static final String COUNTRY_CODE = "country";
-    public static final String REGION_CODE = "region";
-    public static final String PROVINCE_CODE = "province";
+    public static final String REGION = "region";
+    public static final String PROVINCE = "province";
     public static final String BANK_CODE = "bank";
 
     private static final int REQUEST_CODE = 100;
@@ -84,8 +84,9 @@ public class ChooseRegionActivity extends BaseActivity implements View.OnClickLi
 
         Intent intent = new Intent(this, ChooseVcpAccountActivity.class);
         intent.putExtra(COUNTRY_CODE, mSpinnerCountry.getSelectedItemPosition());
-        intent.putExtra(REGION_CODE, ((Area)mSpinnerRegion.getSelectedItem()).areaId);
-        intent.putExtra(PROVINCE_CODE, ((Area)mSpinnerProvince.getSelectedItem()).areaId);
+        intent.putExtra(REGION, ((Area)mSpinnerRegion.getSelectedItem()).areaName);
+        intent.putExtra(PROVINCE, ((Area)mSpinnerProvince.getSelectedItem()).areaName);
+
         intent.putExtra(BANK_CODE, mSpinnerBank.getSelectedItemPosition() + 1);
         startActivityForResult(intent, REQUEST_CODE);
     }

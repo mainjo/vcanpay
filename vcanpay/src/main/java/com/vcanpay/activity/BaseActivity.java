@@ -112,7 +112,7 @@ public class BaseActivity extends AppCompatActivity implements DatePickerDialog.
 
         if (language.equals(TH)) {
 
-            config.locale = Locale.SIMPLIFIED_CHINESE;
+            config.locale = new Locale("th");
         }
 
         resources.updateConfiguration(config, dm);

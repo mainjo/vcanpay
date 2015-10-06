@@ -113,7 +113,7 @@
             android:label="@string/title_activity_manage_bank_card" />
         <activity
             android:name="com.vcanpay.activity.recharge.AddFundActivity"
-            android:label="@string/title_activity_recharge_input"
+            android:label="@string/title_activity_add_fund"
             android:launchMode="singleTop" />
         <activity
             android:name="com.vcanpay.activity.recharge.PrepaidCardRechargeActivity"

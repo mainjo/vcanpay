@@ -4,86 +4,80 @@ insert into thai_area (areaId,areaName,parentId) values(3,'ภาคกลาง
 insert into thai_area (areaId,areaName,parentId) values(4,'ตะวันออก',0);
 insert into thai_area (areaId,areaName,parentId) values(5,'ตะวันตก',0);
 insert into thai_area (areaId,areaName,parentId) values(6,'ภาคใต้',0);
-
-insert into thai_area (areaId,areaName,parentId) values(7,'จังหวัดเชียงราย',1);
-insert into thai_area (areaId,areaName,parentId) values(8,'จังหวัดเชียงใหม่',1);
-insert into thai_area (areaId,areaName,parentId) values(9,'จังหวัดน่าน',1);
-insert into thai_area (areaId,areaName,parentId) values(10,'จังหวัดพะเยา',1);
-insert into thai_area (areaId,areaName,parentId) values(11,'จังหวัดแพร่',1);
-insert into thai_area (areaId,areaName,parentId) values(12,'จังหวัดแม่ฮ่องสอน',1);
-insert into thai_area (areaId,areaName,parentId) values(13,'จังหวัดลำปาง',1);
-insert into thai_area (areaId,areaName,parentId) values(14,'จังหวัดลำพูน',1);
-insert into thai_area (areaId,areaName,parentId) values(15,'จังหวัดอุตรดิตถ์',1);
-
-insert into thai_area (areaId,areaName,parentId) values(16,'จังหวัดกาฬสินธุ์',2);
-insert into thai_area (areaId,areaName,parentId) values(17,'จังหวัดขอนแก่น',2);
-insert into thai_area (areaId,areaName,parentId) values(18,'จังหวัดชัยภูมิ',2);
-insert into thai_area (areaId,areaName,parentId) values(19,'จังหวัดนครพนม',2);
-insert into thai_area (areaId,areaName,parentId) values(20,'จังหวัดนครราชสีมา',2);
-insert into thai_area (areaId,areaName,parentId) values(21,'จังหวัดบึงกาฬ',2);
-insert into thai_area (areaId,areaName,parentId) values(22,'จังหวัดบุรีรัมย์',2);
-insert into thai_area (areaId,areaName,parentId) values(23,'จังหวัดมหาสารคาม',2);
-insert into thai_area (areaId,areaName,parentId) values(24,'จังหวัดมุกดาหาร',2);
-insert into thai_area (areaId,areaName,parentId) values(25,'จังหวัดยโสธร',2);
-insert into thai_area (areaId,areaName,parentId) values(26,'จังหวัดร้อยเอ็ด',2);
-insert into thai_area (areaId,areaName,parentId) values(27,'จังหวัดเลย',2);
-insert into thai_area (areaId,areaName,parentId) values(28,'จังหวัดสกลนคร',2);
-insert into thai_area (areaId,areaName,parentId) values(29,'จังหวัดสุรินทร์',2);
-insert into thai_area (areaId,areaName,parentId) values(30,'จังหวัดศรีสะเกษ',2);
-insert into thai_area (areaId,areaName,parentId) values(31,'จังหวัดหนองคาย',2);
-insert into thai_area (areaId,areaName,parentId) values(32,'จังหวัดหนองบัวลำภู',2);
-insert into thai_area (areaId,areaName,parentId) values(33,'จังหวัดอุดรธานี',2);
-insert into thai_area (areaId,areaName,parentId) values(34,'จังหวัดอุบลราชธานี',2);
-insert into thai_area (areaId,areaName,parentId) values(35,'จังหวัดอำนาจเจริญ',2);
-
-insert into thai_area (areaId,areaName,parentId) values(36,'กรุงเทพมหานคร',3);
-insert into thai_area (areaId,areaName,parentId) values(37,'จังหวัดกำแพงเพชร',3);
-insert into thai_area (areaId,areaName,parentId) values(38,'จังหวัดชัยนาท',3);
-insert into thai_area (areaId,areaName,parentId) values(39,'จังหวัดนครนายก',3);
-insert into thai_area (areaId,areaName,parentId) values(40,'จังหวัดนครปฐม',3);
-insert into thai_area (areaId,areaName,parentId) values(41,'จังหวัดนครสวรรค์',3);
-insert into thai_area (areaId,areaName,parentId) values(42,'จังหวัดนนทบุรี',3);
-insert into thai_area (areaId,areaName,parentId) values(43,'จังหวัดปทุมธานี',3);
-insert into thai_area (areaId,areaName,parentId) values(44,'จังหวัดพระนครศรีอยุธยา',3);
-insert into thai_area (areaId,areaName,parentId) values(45,'จังหวัดพิจิตร',3);
-insert into thai_area (areaId,areaName,parentId) values(46,'จังหวัดพิษณุโลก',3);
-insert into thai_area (areaId,areaName,parentId) values(47,'จังหวัดเพชรบูรณ์',3);
-insert into thai_area (areaId,areaName,parentId) values(48,'จังหวัดลพบุรี',3);
-insert into thai_area (areaId,areaName,parentId) values(49,'จังหวัดสมุทรปราการ',3);
-insert into thai_area (areaId,areaName,parentId) values(50,'จังหวัดสมุทรสงคราม',3);
-insert into thai_area (areaId,areaName,parentId) values(51,'จังหวัดสมุทรสาคร',3);
-insert into thai_area (areaId,areaName,parentId) values(52,'จังหวัดสิงห์บุรี',3);
-insert into thai_area (areaId,areaName,parentId) values(53,'จังหวัดสุโขทัย',3);
-insert into thai_area (areaId,areaName,parentId) values(54,'จังหวัดสุพรรณบุรี',3);
-insert into thai_area (areaId,areaName,parentId) values(55,'จังหวัดสระบุรี',3);
-insert into thai_area (areaId,areaName,parentId) values(56,'จังหวัดอ่างทอง',3);
-insert into thai_area (areaId,areaName,parentId) values(57,'จังหวัดอุทัยธานี',3);
-
-insert into thai_area (areaId,areaName,parentId) values(58,'จังหวัดจันทบุรี',4);
-insert into thai_area (areaId,areaName,parentId) values(59,'จังหวัดฉะเชิงเทรา',4);
-insert into thai_area (areaId,areaName,parentId) values(60,'จังหวัดชลบุรี',4);
-insert into thai_area (areaId,areaName,parentId) values(61,'จังหวัดตราด',4);
-insert into thai_area (areaId,areaName,parentId) values(62,'จังหวัดปราจีนบุรี',4);
-insert into thai_area (areaId,areaName,parentId) values(63,'จังหวัดระยอง',4);
-insert into thai_area (areaId,areaName,parentId) values(64,'จังหวัดสระแก้ว',4);
-
-insert into thai_area (areaId,areaName,parentId) values(65,'จังหวัดกาญจนบุรี',5);
-insert into thai_area (areaId,areaName,parentId) values(66,'จังหวัดตาก',5);
-insert into thai_area (areaId,areaName,parentId) values(67,'จังหวัดประจวบคีรีขันธ์',5);
-insert into thai_area (areaId,areaName,parentId) values(68,'จังหวัดเพชรบุรี',5);
-insert into thai_area (areaId,areaName,parentId) values(69,'จังหวัดราชบุรี',5);
-
-insert into thai_area (areaId,areaName,parentId) values(70,'จังหวัดกระบี่',6);
-insert into thai_area (areaId,areaName,parentId) values(71,'จังหวัดชุมพร',6);
-insert into thai_area (areaId,areaName,parentId) values(72,'จังหวัดตรัง',6);
-insert into thai_area (areaId,areaName,parentId) values(73,'จังหวัดนครศรีธรรมราช',6);
-insert into thai_area (areaId,areaName,parentId) values(74,'จังหวัดนราธิวาส',6);
-insert into thai_area (areaId,areaName,parentId) values(75,'จังหวัดปัตตานี',6);
-insert into thai_area (areaId,areaName,parentId) values(76,'จังหวัดพังงา',6);
-insert into thai_area (areaId,areaName,parentId) values(77,'จังหวัดพัทลุง',6);
-insert into thai_area (areaId,areaName,parentId) values(78,'จังหวัดภูเก็ต',6);
-insert into thai_area (areaId,areaName,parentId) values(79,'จังหวัดระนอง',6);
-insert into thai_area (areaId,areaName,parentId) values(80,'จังหวัดสตูล',6);
-insert into thai_area (areaId,areaName,parentId) values(81,'จังหวัดสงขลา',6);
-insert into thai_area (areaId,areaName,parentId) values(82,'จังหวัดสุราษฎร์ธานี',6);
-insert into thai_area (areaId,areaName,parentId) values(83,'จังหวัดยะลา',6);
+insert into thai_area (areaId,areaName,parentId) values(7, 'กรุงเทพมหานคร', 3)
+insert into thai_area (areaId,areaName,parentId) values(8, 'กระบี่', 6)
+insert into thai_area (areaId,areaName,parentId) values(9, 'กาญจนบุรี', 5)
+insert into thai_area (areaId,areaName,parentId) values(10, 'กาฬสินธุ์', 2)
+insert into thai_area (areaId,areaName,parentId) values(11, 'กำแพงเพชร', 3)
+insert into thai_area (areaId,areaName,parentId) values(12, 'ขอนแก่น', 2)
+insert into thai_area (areaId,areaName,parentId) values(13, 'จันทบุรี', 4)
+insert into thai_area (areaId,areaName,parentId) values(14, 'ฉะเชิงเทรา', 4)
+insert into thai_area (areaId,areaName,parentId) values(15, 'ชลบุรี', 4)
+insert into thai_area (areaId,areaName,parentId) values(16, 'ชัยนาท', 3)
+insert into thai_area (areaId,areaName,parentId) values(17, 'ชัยภูมิ', 2)
+insert into thai_area (areaId,areaName,parentId) values(18, 'ชุมพร ', 6)
+insert into thai_area (areaId,areaName,parentId) values(19, 'เชียงราย', 1)
+insert into thai_area (areaId,areaName,parentId) values(20, 'เชียงใหม่', 1)
+insert into thai_area (areaId,areaName,parentId) values(21, 'ตรัง', 6)
+insert into thai_area (areaId,areaName,parentId) values(22, 'ตราด', 4)
+insert into thai_area (areaId,areaName,parentId) values(23, 'ตาก', 5)
+insert into thai_area (areaId,areaName,parentId) values(24, 'นครนายก', 3)
+insert into thai_area (areaId,areaName,parentId) values(25, 'นครปฐม', 3)
+insert into thai_area (areaId,areaName,parentId) values(26, 'นครพนม ', 2)
+insert into thai_area (areaId,areaName,parentId) values(27, 'นครราชสีมา', 2)
+insert into thai_area (areaId,areaName,parentId) values(28, 'นครศรีธรรมราช', 6)
+insert into thai_area (areaId,areaName,parentId) values(29, 'นครสวรรค์ ', 3)
+insert into thai_area (areaId,areaName,parentId) values(30, 'นราธิวาส', 6)
+insert into thai_area (areaId,areaName,parentId) values(31, 'น่าน', 1)
+insert into thai_area (areaId,areaName,parentId) values(32, 'บุรีรัมย์', 2)
+insert into thai_area (areaId,areaName,parentId) values(33, 'ปทุมธานี ', 3)
+insert into thai_area (areaId,areaName,parentId) values(34, 'ประจวบคีรีขันธ์ ', 5)
+insert into thai_area (areaId,areaName,parentId) values(35, 'ปราจีนบุรี', 4)
+insert into thai_area (areaId,areaName,parentId) values(36, 'ปัตตานี', 6)
+insert into thai_area (areaId,areaName,parentId) values(37, 'พระนครศรีอยุธยา', 3)
+insert into thai_area (areaId,areaName,parentId) values(38, 'พังงา', 6)
+insert into thai_area (areaId,areaName,parentId) values(39, 'พัทลุง', 6)
+insert into thai_area (areaId,areaName,parentId) values(40, 'พิจิตร', 3)
+insert into thai_area (areaId,areaName,parentId) values(41, 'พิษณุโลก', 3)
+insert into thai_area (areaId,areaName,parentId) values(42, 'เพชรบุรี', 5)
+insert into thai_area (areaId,areaName,parentId) values(43, 'เพชรบูรณ์', 3)
+insert into thai_area (areaId,areaName,parentId) values(44, 'แพร่', 1)
+insert into thai_area (areaId,areaName,parentId) values(45, 'พะเยา ', 1)
+insert into thai_area (areaId,areaName,parentId) values(46, 'ภูเก็ต ', 6)
+insert into thai_area (areaId,areaName,parentId) values(47, 'มหาสารคาม', 2)
+insert into thai_area (areaId,areaName,parentId) values(48, 'มุกดาหาร ', 2)
+insert into thai_area (areaId,areaName,parentId) values(49, 'แม่ฮ่องสอน', 1)
+insert into thai_area (areaId,areaName,parentId) values(50, 'ยะลา', 6)
+insert into thai_area (areaId,areaName,parentId) values(51, 'ยโสธร', 2)
+insert into thai_area (areaId,areaName,parentId) values(52, 'ร้อยเอ็ด ', 2)
+insert into thai_area (areaId,areaName,parentId) values(53, 'ระนอง', 6)
+insert into thai_area (areaId,areaName,parentId) values(54, 'ระยอง', 4)
+insert into thai_area (areaId,areaName,parentId) values(55, 'ราชบุรี', 5)
+insert into thai_area (areaId,areaName,parentId) values(56, 'ลพบุรี', 3)
+insert into thai_area (areaId,areaName,parentId) values(57, 'ลำปาง', 1)
+insert into thai_area (areaId,areaName,parentId) values(58, 'ลำพูน', 1)
+insert into thai_area (areaId,areaName,parentId) values(59, 'เลย', 2)
+insert into thai_area (areaId,areaName,parentId) values(60, 'ศรีสะเกษ', 2)
+insert into thai_area (areaId,areaName,parentId) values(61, 'สกลนคร', 2)
+insert into thai_area (areaId,areaName,parentId) values(62, 'สงขลา', 6)
+insert into thai_area (areaId,areaName,parentId) values(63, 'สตูล', 6)
+insert into thai_area (areaId,areaName,parentId) values(64, 'สมุทรปราการ', 3)
+insert into thai_area (areaId,areaName,parentId) values(65, 'สมุทรสงคราม', 3)
+insert into thai_area (areaId,areaName,parentId) values(66, 'สระแก้ว ', 4)
+insert into thai_area (areaId,areaName,parentId) values(67, 'สระบุรี', 3)
+insert into thai_area (areaId,areaName,parentId) values(68, 'สิงห์บุรี', 3)
+insert into thai_area (areaId,areaName,parentId) values(69, 'สุโขทัย', 3)
+insert into thai_area (areaId,areaName,parentId) values(70, 'สุพรรณบุรี ', 3)
+insert into thai_area (areaId,areaName,parentId) values(71, 'สุราษฎร์ธานี', 6)
+insert into thai_area (areaId,areaName,parentId) values(72, 'สุรินทร์', 2)
+insert into thai_area (areaId,areaName,parentId) values(73, 'หนองคาย ', 2)
+insert into thai_area (areaId,areaName,parentId) values(74, 'หนองบัวลำภู', 2)
+insert into thai_area (areaId,areaName,parentId) values(75, 'อ่างทอง', 3)
+insert into thai_area (areaId,areaName,parentId) values(76, 'อุดรธานี', 2)
+insert into thai_area (areaId,areaName,parentId) values(77, 'อุทัยธานี ', 3)
+insert into thai_area (areaId,areaName,parentId) values(78, 'อุตรดิตถ์', 1)
+insert into thai_area (areaId,areaName,parentId) values(79, 'อุบลราชธานี', 2)
+insert into thai_area (areaId,areaName,parentId) values(80, 'อำนาจเจริญ', 2)
+insert into thai_area (areaId,areaName,parentId) values(81, 'สมุทรสาคร', 3)
+insert into thai_area (areaId,areaName,parentId) values(82, 'นนทบุรี ', 3)
+insert into thai_area (areaId,areaName,parentId) values(83, 'บึงกาฬ ', 2)"

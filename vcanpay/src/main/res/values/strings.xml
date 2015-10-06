@@ -29,7 +29,7 @@
     <string name="title_activity_find_payment_password">找回支付密码</string>
     <string name="title_activity_help">帮助</string>
     <string name="title_activity_feed_back">反馈</string>
-    <string name="title_activity_user_profile">个人资料</string>
+    <string name="title_activity_user_profile">编辑个人资料</string>
     <string name="title_activity_recharge">充值</string>
     <string name="title_activity_transfer_payment">转账</string>
     <string name="title_activity_withdraw">提现</string>
@@ -49,8 +49,6 @@
     <string name="title_activity_start">开始</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="action_ok">确定</string>
     <string name="notify">通知</string>
     <string name="account_or_password_not_empty">用户名密码不能为空</string>
@@ -91,11 +89,10 @@
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="other">其他</string>
-    <string name="account_no">帐户号</string>
-    <string name="full_name">姓名</string>
+    <string name="bank_account_no">帐户号</string>
+    <string name="user_name">姓名</string>
     <string name="account_type">帐户类型</string>
-    <string name="bank_name">银行名称</string>
-    <string name="bank_branch">银行分行</string>
+    <string name="bank_branch">银行支行</string>
     <string name="cell_phone">手机号</string>
     <string name="birthday">出生日期</string>
     <string name="sex">性别</string>
@@ -104,7 +101,7 @@
     <string name="choose_a_city">选择城市</string>
     <string name="choose_an_account_type">选择帐户类型</string>
 
-    <string name="title_activity_recharge_input">充值登记</string>
+    <string name="title_activity_add_fund">充值</string>
     <string name="title_activity_prepaid_card_recharge">充值卡充值</string>
     <string name="email_format_err">邮箱格式错误！</string>
     <string name="get_vcp">（获取账号）</string>
@@ -124,7 +121,6 @@
     <string name="thai_sign">￥</string>
     <string name="get_account_failure">获取账户失败，请返回重试！</string>
     <string name="error">有错误</string>
-    <string name="adding_fund_success">充值成功。服务器没有返回信息描述</string>
     <string name="title_activity_withdraw_confirm">提现确认</string>
     <string name="withdraw_amount">提现金额</string>
     <string name="withdraw_bank">银行</string>
@@ -134,7 +130,6 @@
     <string name="taobao">淘宝网</string>
     <string name="currency_type">币种</string>
     <string name="title_activity_pay">付款</string>
-    <string name="action_add_bank_card">添加银行卡</string>
     <string name="choose_a_sex">选择性别</string>
     <string name="sex_other">其他</string>
     <string name="bank_card_suffix">尾号</string>
@@ -157,7 +152,7 @@
     <string name="title_activity_vcan_pay_app">VcanPay</string>
     <string name="title_activity_transfer_confirm">转账确认</string>
     <string name="receiver">接收者</string>
-    <string name="title_activity_change_profile">更新个人资料</string>
+    <string name="title_activity_edit_user_profile">编辑个人资料</string>
     <string name="save">保存</string>
     <string name="title_activity_update_address_request">更新地址</string>
     <string name="street">街道</string>
@@ -185,12 +180,6 @@
     <string name="no_data">没有数据</string>
     <string name="success">成功</string>
     <string name="fail">Fail</string>
-    <string name="bank_one">中国银行</string>
-    <string name="bank_two">招商银行</string>
-    <string name="bank_three">工商银行</string>
-    <string name="bank_four">建设银行</string>
-    <string name="bank_five">农业银行</string>
-    <string name="bank_card_id_out_of_range">银行卡id在0-5内</string>
     <string name="title_activity_input_amount">提现</string>
     <string name="input_withdraw_amount">输入提现金额</string>
     <string name="choose_a_bank_card">选择银行卡</string>
@@ -221,7 +210,7 @@
     <string name="add_fund_submit_success">充值提交成功，请等待后台人员审核。</string>
     <string name="title_activity_phone_recharge_details">PhoneRechargeDetails</string>
     <string name="txt_yo_yo">some content</string>
-    <string name="welcome_prefix">Welcome,</string>
+    <string name="welcome_prefix">欢迎，</string>
     <string name="home">主页</string>
     <string name="add_fund">充值</string>
     <string name="pay">付款</string>
@@ -231,7 +220,7 @@
     <string name="envelop">红包</string>
     <string name="guide">指南</string>
     <string name="surprise">小惊喜</string>
-    <string name="change_password_success">修改密码成功。</string>
+    <string name="change_password_success">修改密码成功</string>
     <string name="title_activity_phone_recharge_success">PhoneRechargeSuccessActivity</string>
     <string name="get_card_success">获取充值卡成功。同时卡号密码已发送到你邮箱。</string>
     <string name="sent_to_email_box">同时卡号密码已发送到你邮箱。</string>
@@ -240,7 +229,7 @@
     <string name="activated_success">激活成功</string>
     <string name="title_activity_activate_bank_card">激活</string>
     <string name="input_verification_code">输入验证码</string>
-    <string name="activated">Activated</string>
+    <string name="activated">已激活</string>
     <string name="add_bank_card_success">添加银行卡成功</string>
     <string name="now_to_activate">现在去激活</string>
     <string name="go_to_home">返回主页</string>
@@ -292,7 +281,6 @@
     <string name="title_activity_bank_card_details">BankCardDetailsActivity</string>
     <string name="created_time">创建时间</string>
     <string name="bank_card_num">银行卡号</string>
-    <string name="china">China</string>
     <string name="activate_bank_card">现在去激活</string>
     <string name="go_to_verify">去激活</string>
     <string name="action_remove">删除</string>
@@ -306,9 +294,9 @@
     <string name="feedback_hint">Would you like an email response?</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="feedback_title">Enter feedback details to send to us:</string>
-    <string name="your_name">Your Name</string>
-    <string name="your_email">Your Email</string>
-    <string name="your_content">Problem Description</string>
+    <string name="your_name">您的名字</string>
+    <string name="your_email">您的邮箱</string>
+    <string name="your_content">问题描述</string>
     <string name="create_account">创建账户</string>
     <string name="resend_verification_code">重新发送验证码</string>
     <string name="load_more">加载更多</string>
@@ -316,25 +304,31 @@
     <string name="profile_avatar">Avatar</string>
     <string name="remember_email">记住账户名</string>
     <string name="time">时间</string>
-    <string name="FORBIDDEN_MESSAGE">Access to the specified resource has been forbidden.</string>
+    <string name="FORBIDDEN_MESSAGE">你所访问的资源是被禁止的。状态代码403</string>
     <string name="AUTHORIZED_FAILURE_MESSAGE">授权失败，状态代码401</string>
     <string name="VISIT_FIRBIDDEN_MESSAGE">你所访问的资源是被禁止的。状态代码403</string>
     <string name="network_error_message">网络错误。请检查你的网络连接是否开启。</string>
     <string name="reduplicate_submit_message">我们已记录您提交的信息，请不要重复提交。</string>
-    <string name="prepaid_card_sold_out_message">充值卡已售完。</string>
-    <string name="passwor_incorrect">密码错误</string>
+    <string name="prepaid_card_sold_out">充值卡已售完。</string>
+    <string name="password_incorrect">密码错误</string>
     <string name="email_not_activated">邮箱尚未激活，请先激活您的邮箱</string>
     <string name="email_not_exist">邮箱不存在</string>
     <string name="verification_code_error">激活码错误，请重新输入</string>
     <string name="reset_password_success">重设密码成功</string>
-    <string name="balance_sufficient">您的账户余额不足</string>
+    <string name="balance_sufficient">您的账户余额不足!</string>
     <string name="account_not_exist">接收者账户不存在</string>
     <string name="have_card_not_confirmed">你有一张银行卡尚未确认，请先确认</string>
     <string name="password_error_3_time">密码错误3次，请5分钟后再试。</string>
-    <string name="password_error_6_time">密码错误6次，请10分钟后再试</string>
+    <string name="password_error_6_time">密码错误6次，请10分钟后再试。</string>
     <string name="password_error_9_time">密码错误9次，请24小时后再试。</string>
     <string name="update_profile_success">更新资料成功</string>
     <string name="email_has_been_registered">此邮箱已被注册</string>
     <string name="reduplicate_id_card">身份证号码已被占用。</string>
     <string name="old_password_error">密码错误</string>
+    <string name="bank_name">银行名</string>
+    <string name="china">China</string>
+    <string name="no_bank_card_hint">当前没有绑定的银行卡，需要先绑定银行卡来完成提现。您可以点击一下按钮快速绑定银行卡。</string>
+    <string name="settings">设置</string>
+    <string name="office_phone">工作电话</string>
+    <string name="home_phone">住宅电话</string>
 </resources>

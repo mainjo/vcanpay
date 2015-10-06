@@ -149,7 +149,10 @@ public class ManageBankCardActivity extends BaseActivity implements AdapterView.
         // Inflate our menu resource into the PopupMenu's Menu
         popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
 
-        if (item.getHaveMobileCheck() != null && item.getHaveMobileCheck().equals(HAVE_MOBILE_CHECKED) && item.getHaveMoneyCheck() != null && item.getHaveMoneyCheck().equals(HAVE_MONEY_CHECKED)) {
+        if (item.getHaveMobileCheck() != null
+                && item.getHaveMobileCheck().equals(HAVE_MOBILE_CHECKED)
+                && item.getHaveMoneyCheck() != null
+                && item.getHaveMoneyCheck().equals(HAVE_MONEY_CHECKED)) {
             popup.getMenu().getItem(1).setEnabled(false);
         }
 

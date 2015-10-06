@@ -48,7 +48,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/action_ok"
+        android:text="@string/submit"
         android:id="@+id/action_ok"
         android:enabled="false"
         android:layout_gravity="center_horizontal"

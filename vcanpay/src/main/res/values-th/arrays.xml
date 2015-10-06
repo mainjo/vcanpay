@@ -7,4 +7,21 @@
         <item>ธนาคารกสิกรไทย</item>
         <item>ธนาคารกรุงไทย</item>
     </string-array>
+
+    <string-array name="account_type">
+        <item>บัตรบัญชีเงินฝาก</item>
+        <item>บัตรเครดิต</item>
+        <item>อื่นๆ</item>
+    </string-array>
+
+    <string-array name="transfer_type">
+        <item>เงินสด/ATM</item>
+        <item>ออนไลน์</item>
+    </string-array>
+
+    <string-array name="sex">
+        <item>ชาย</item>
+        <item>หญิง</item>
+        <item>อื่นๆ</item>
+    </string-array>
 </resources>

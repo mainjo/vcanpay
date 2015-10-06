@@ -145,7 +145,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                         }
 
                         if (error instanceof PasswordIncorrectException) {
-                            Toast.makeText(SignInActivity.this, R.string.passwor_incorrect, Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignInActivity.this, R.string.password_incorrect, Toast.LENGTH_LONG).show();
                             return;
                         }
 

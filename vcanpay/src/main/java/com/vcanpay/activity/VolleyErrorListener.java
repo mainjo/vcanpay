@@ -109,7 +109,7 @@ public class VolleyErrorListener implements Response.ErrorListener {
 
         // 充值卡已售完
         if (error instanceof PrepaidCardSoldOutException) {
-            mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.prepaid_card_sold_out_message));
+            mActivity.showAlertDialog(mActivity, getString(R.string.notify), getString(R.string.prepaid_card_sold_out));
             return;
         }
 

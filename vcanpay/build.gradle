@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
+        config {
+            keyAlias 'the answer to life the universe and everything'
+            keyPassword 'the answer to life the universe and everything'
+
+        }
     }
     compileSdkVersion 22
     buildToolsVersion '22.0.1'
@@ -14,7 +19,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,4 +32,5 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
 }

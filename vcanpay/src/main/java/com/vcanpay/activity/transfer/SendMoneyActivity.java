@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.vcanpay.R;
-import com.google.gson.Gson;
 import com.vcanpay.activity.BaseActivity;
 
 import org.vcanpay.eo.CustomInfo;
@@ -33,7 +30,7 @@ public class SendMoneyActivity extends BaseActivity implements TextWatcher{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transfer);
+        setContentView(R.layout.activity_send_money);
 
         mEtEmail = (EditText) findViewById(R.id.email);
         mEtAmount = (EditText) findViewById(R.id.amount);
@@ -65,44 +62,6 @@ public class SendMoneyActivity extends BaseActivity implements TextWatcher{
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_transfer, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if (id == R.id.action_ok) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void makeRequest() {
-
-        TransferRequestObject object = new TransferRequestObject();
-        object.amount = new BigDecimal(mEtAmount.getText().toString());
-        object.receiverEmail = mEtEmail.getText().toString();
-
-        Gson gson = new Gson();
-
-        String json1 = gson.toJson(object);
-
     }
 
     @Override

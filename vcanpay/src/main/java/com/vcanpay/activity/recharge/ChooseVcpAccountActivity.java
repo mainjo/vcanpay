@@ -3,6 +3,7 @@ package com.vcanpay.activity.recharge;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import com.vcanpay.request.GetVcpAccountsRequest;
 import org.vcanpay.eo.VcanpayBankAccount;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 
 public class ChooseVcpAccountActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -40,16 +42,10 @@ public class ChooseVcpAccountActivity extends BaseActivity implements View.OnCli
     public static final String FIELD_PROVINCE = "inputProvince";
     public static final String FIELD_REGION = "region";
 
-    public static final int SUCCESS_CODE = 200;
-    public static final int FAILURE_CODE = 300;
-
-    int accountId;
-    String accountName;
-
-
     int mBankId;
-    int mRegionId;
-    int mProvinceId;
+
+    String regionName;
+    String provinceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +54,8 @@ public class ChooseVcpAccountActivity extends BaseActivity implements View.OnCli
 
         Intent intent = getIntent();
         mBankId = intent.getIntExtra(ChooseRegionActivity.BANK_CODE, 1);
-        mRegionId = intent.getIntExtra(ChooseRegionActivity.REGION_CODE, 1);
-        mProvinceId = intent.getIntExtra(ChooseRegionActivity.PROVINCE_CODE, 7);
+        regionName = intent.getStringExtra(ChooseRegionActivity.REGION);
+        provinceName = intent.getStringExtra(ChooseRegionActivity.PROVINCE);
 
         mSpinnerAccounts = (Spinner) findViewById(R.id.spinner_account_list);
         mSpinnerAccounts.setOnItemSelectedListener(this);
@@ -86,7 +82,7 @@ public class ChooseVcpAccountActivity extends BaseActivity implements View.OnCli
             Bundle bundle = new Bundle();
             bundle.putParcelable(VCP_ACCOUNT_KEY, selectedAccount);
             intent.putExtras(bundle);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         } else {
             showAlertDialog(this, getString(R.string.notify), getString(R.string.get_account_failure));
@@ -95,9 +91,20 @@ public class ChooseVcpAccountActivity extends BaseActivity implements View.OnCli
 
     private void makeRequest() {
 
+        String provinceName2 = null;
+        String regionName2 = null;
+        try {
+            provinceName2 = URLEncoder.encode(provinceName, "utf-8");
+            regionName2 = URLEncoder.encode(regionName, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         String params = FIELD_BANK_NAME + "=" + mBankId + "&" +
-                FIELD_PROVINCE + "=" + mProvinceId + "&" +
-                FIELD_REGION + "=" + mRegionId;
+                FIELD_PROVINCE + "=" + provinceName2 + "&" +
+                FIELD_REGION + "=" + regionName2;
+
+        Log.d("MYTAG", params);
 
         GetVcpAccountsRequest request = new GetVcpAccountsRequest(
                 params,
@@ -133,7 +140,8 @@ public class ChooseVcpAccountActivity extends BaseActivity implements View.OnCli
 
         try {
             String app_time = String.valueOf(System.currentTimeMillis() / 1000);
-            String signString = Config.app_key + Utils.MD5(Config.app_secret) + app_time + mBankId + mProvinceId + mRegionId;
+            String signString = Config.app_key + Utils.MD5(Config.app_secret) + app_time + regionName + provinceName + mBankId;
+
             String app_sign = Utils.MD5(signString);
 
             request.addHeader("app_key", Config.app_key);

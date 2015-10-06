@@ -109,7 +109,7 @@ public class WithdrawActivity extends BaseActivity implements AdapterView.OnItem
                         mBtnSubmit.setVisibility(View.GONE);
                         mBtnAddBankCard.setVisibility(View.VISIBLE);
                         mBtnAddBankCard.setOnClickListener(WithdrawActivity.this);
-                        setEmptyText(R.string.no_data);
+                        setEmptyText(R.string.no_bank_card_hint);
                     }
                 },
                 new VolleyErrorListener(this){

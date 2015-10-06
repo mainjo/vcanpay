@@ -50,7 +50,7 @@ public class ProfileFragment2 extends Fragment {
 
         Context context = getActivity();
         Intent intent = new Intent(context, UpdateUserProfileActivity.class);
-        addProfileItem(context, R.string.title_activity_change_profile, R.drawable.icon_item_address, intent);
+        addProfileItem(context, R.string.title_activity_edit_user_profile, R.drawable.icon_item_address, intent);
 
         intent = new Intent(context, UpdateAddressActivity.class);
         addProfileItem(context, R.string.title_activity_update_address_request, R.drawable.icon_item_address, intent);

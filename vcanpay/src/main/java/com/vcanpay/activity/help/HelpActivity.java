@@ -43,7 +43,7 @@ public class HelpActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("http://192.168.1.251/help-150828/");
+        webView.loadUrl("http://192.168.1.141:8080/help-0921/index090501.html");
     }
 
     @Override
