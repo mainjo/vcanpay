@@ -67,7 +67,7 @@ public class ResetPasswordActivity2 extends BaseActivity implements TextWatcher,
     public void onClick(View v) {
 
         if (!mNewPassword.getText().toString().equals(mConfirmPassword.getText().toString())) {
-            showAlertDialog(this, getString(R.string.notify), getString(R.string.password_not_samne));
+            showAlertDialog(this, getString(R.string.notify), getString(R.string.password_not_same));
             return;
         }
 
@@ -94,8 +94,9 @@ public class ResetPasswordActivity2 extends BaseActivity implements TextWatcher,
                 new Response.Listener<ResetPasswordResponse2>() {
                     @Override
                     public void onResponse(ResetPasswordResponse2 response) {
-                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.reset_password_success, 0, 0);
+                        NoticeDialogFragment dialog = NoticeDialogFragment.getInstance(0, R.string.reset_password_success, R.string.ok, 0);
                         dialog.setNoticeDialogListener(ResetPasswordActivity2.this);
+                        dialog.setCancelable(false);
                         dialog.show(getSupportFragmentManager(), "reset_password");
                     }
                 },

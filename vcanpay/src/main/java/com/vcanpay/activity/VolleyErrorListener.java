@@ -62,7 +62,7 @@ public class VolleyErrorListener implements Response.ErrorListener {
                 case HttpStatus.SC_FORBIDDEN:
                     mActivity.showAlertDialog(mActivity,
                             getString(R.string.notify), getString(R.string.FORBIDDEN_MESSAGE));
-                    Toast.makeText(mActivity, getString(R.string.VISIT_FIRBIDDEN_MESSAGE), Toast.LENGTH_LONG).show();
+                    Toast.makeText(mActivity, getString(R.string.VISIT_FORBIDDEN_MESSAGE), Toast.LENGTH_LONG).show();
                     return;
             }
             return;

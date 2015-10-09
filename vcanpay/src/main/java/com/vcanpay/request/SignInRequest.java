@@ -98,15 +98,15 @@ public class SignInRequest extends BaseJsonRequest<SignInResponse> {
             }
 
             if (message != null && message.equals(PASSWORD_ERROR_UP_TO_3_TIMES)) {
-                return Response.error(new PasswordErrorUpTo3TimesException());
+                return Response.error(new PasswordErrorException(3, 5));
             }
 
             if (message != null && message.equals(PASSWORD_ERROR_UP_TO_6_TIMES)) {
-                return Response.error(new PasswordErrorUpTo6TimesException());
+                return Response.error(new PasswordErrorException(6, 10));
             }
 
             if (message != null && message.equals(PASSWORD_ERROR_UP_TO_9_TIMES)) {
-                return Response.error(new PasswordErrorUpTo9TimesException());
+                return Response.error(new PasswordErrorException(9, 0));
             }
 
             return Response.error(message == null ? new UnknownException() : new VolleyError(message));
@@ -136,12 +136,12 @@ public class SignInRequest extends BaseJsonRequest<SignInResponse> {
         super.deliverError(error);
     }
 
-    public class PasswordErrorUpTo3TimesException extends VolleyError {
-    }
-
-    public class PasswordErrorUpTo6TimesException extends VolleyError {
-    }
-
-    public class PasswordErrorUpTo9TimesException extends VolleyError {
+    public class PasswordErrorException extends VolleyError{
+        public int count;  // 密码错误次数
+        public int time;
+        public PasswordErrorException(int count, int time) {
+            this.count = count;
+            this.time = time;
+        }
     }
 }

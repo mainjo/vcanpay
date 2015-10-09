@@ -182,7 +182,7 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
                 return getString(R.string.bank3);
         }
 
-        return getString(R.string.unkown_bank);
+        return getString(R.string.unknown_bank);
     }
 
     public String getActivationStatus(int code) {
@@ -199,15 +199,15 @@ public class WithdrawConfirmActivity extends BaseActivity implements View.OnClic
     public String getMoneyCheckStatus(int code) {
         switch (code) {
             case 1:
-                return getString(R.string.money_check_staus_1);
+                return getString(R.string.money_check_status_1);
             case 2:
-                return getString(R.string.money_check_staus_2);
+                return getString(R.string.money_check_status_2);
             case 3:
-                return getString(R.string.money_check_staus_3);
+                return getString(R.string.money_check_status_3);
             case 4:
-                return getString(R.string.money_check_staus_4);
+                return getString(R.string.money_check_status_4);
             case 5:
-                return getString(R.string.money_check_staus_5);
+                return getString(R.string.money_check_status_5);
         }
 
         return getString(R.string.unknown_status);

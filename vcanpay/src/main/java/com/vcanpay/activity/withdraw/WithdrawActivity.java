@@ -275,7 +275,7 @@ public class WithdrawActivity extends BaseActivity implements AdapterView.OnItem
                     return mContext.getString(R.string.bank3);
             }
 
-            return mContext.getString(R.string.unkown_bank);
+            return mContext.getString(R.string.unknown_bank);
         }
 
         public String getActivationStatus(int code) {
@@ -292,15 +292,15 @@ public class WithdrawActivity extends BaseActivity implements AdapterView.OnItem
         public String getMoneyCheckStatus(int code) {
             switch (code) {
                 case 1:
-                    return mContext.getString(R.string.money_check_staus_1);
+                    return mContext.getString(R.string.money_check_status_1);
                 case 2:
-                    return mContext.getString(R.string.money_check_staus_2);
+                    return mContext.getString(R.string.money_check_status_2);
                 case 3:
-                    return mContext.getString(R.string.money_check_staus_3);
+                    return mContext.getString(R.string.money_check_status_3);
                 case 4:
-                    return mContext.getString(R.string.money_check_staus_4);
+                    return mContext.getString(R.string.money_check_status_4);
                 case 5:
-                    return mContext.getString(R.string.money_check_staus_5);
+                    return mContext.getString(R.string.money_check_status_5);
             }
 
             return mContext.getString(R.string.unknown_status);

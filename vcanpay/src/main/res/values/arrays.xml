@@ -40,12 +40,12 @@
     </string-array>
     <string-array name="bank_card_options" />
     <string-array name="countries">
-        <item>Thailand</item>
-        <item>China</item>
+        <item>泰国</item>
+        <item>中国</item>
     </string-array>
     <string-array name="ampam">
-        <item>Am</item>
-        <item>Pm</item>
+        <item>上午</item>
+        <item>下午</item>
     </string-array>
 
     <string-array name="transfer_type">
@@ -54,7 +54,7 @@
     </string-array>
 
     <string-array name="identification_type" >
-        <item>Id Card</item>
-        <item>Passport</item>
+        <item>身份证</item>
+        <item>护照</item>
     </string-array>
 </resources>

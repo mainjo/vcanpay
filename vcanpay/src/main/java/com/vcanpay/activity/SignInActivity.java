@@ -119,7 +119,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                         CustomInfo customInfo = response.getCustomInfo();
 
                         // 保存当前登录的用户
-                        ((MyApplication)getApplication()).setCustomInfo(customInfo);
+                        ((MyApplication) getApplication()).setCustomInfo(customInfo);
 
                         saveSignInStatus(false);
                         saveCustomer(mEtAccount.getText().toString(), mEtPassword.getText().toString());
@@ -129,7 +129,7 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                         startActivity(intent);
                     }
                 },
-                new VolleyErrorListener(this){
+                new VolleyErrorListener(this) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         closeProgressDialog();
@@ -149,18 +149,12 @@ public class SignInActivity extends BaseActivity implements TextWatcher, View.On
                             return;
                         }
 
-                        if (error instanceof SignInRequest.PasswordErrorUpTo3TimesException) {
-                            Toast.makeText(SignInActivity.this, R.string.password_error_3_time, Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        if (error instanceof SignInRequest.PasswordErrorUpTo6TimesException) {
-                            Toast.makeText(SignInActivity.this, R.string.password_error_6_time, Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        if (error instanceof SignInRequest.PasswordErrorUpTo9TimesException) {
-                            Toast.makeText(SignInActivity.this, R.string.password_error_9_time, Toast.LENGTH_LONG).show();
+                        if (error instanceof SignInRequest.PasswordErrorException) {
+                            SignInRequest.PasswordErrorException passwordErrorException = ((SignInRequest.PasswordErrorException) error);
+                            Toast.makeText(
+                                    SignInActivity.this,
+                                    getString(R.string.password_error_with_count, passwordErrorException.count, passwordErrorException.time),
+                                    Toast.LENGTH_LONG).show();
                             return;
                         }
                         super.onErrorResponse(error);

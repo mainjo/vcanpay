@@ -17,7 +17,7 @@
     <string name="title_activity_transfer_money">转账</string>
     <string name="title_activity_add_bank_card">添加银行卡</string>
     <string name="title_activity_bill_details">账单明细</string>
-    <string name="title_activity_tabhost">主页</string>
+    <string name="title_activity_tab_host">主页</string>
     <string name="menu_refresh">刷新</string>
     <string name="menu_location">位置</string>
     <string name="menu_settings">设置</string>
@@ -36,7 +36,6 @@
     <string name="title_activity_tutorial">使用指南</string>
     <string name="notification_push">推送通知</string>
     <string name="title_activity_show_activity">Pic Show</string>
-
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recent_records">最近记录</string>
@@ -47,7 +46,6 @@
     <string name="recharge_bills">充值</string>
     <string name="payment_bills">付款</string>
     <string name="title_activity_start">开始</string>
-
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="action_ok">确定</string>
     <string name="notify">通知</string>
@@ -80,7 +78,7 @@
     <string name="not_empty">输入不能为空！</string>
     <string name="activation_code_incorrect">激活码错误！\\n请重新输入激活码。</string>
     <string name="new_password">新密码</string>
-    <string name="password_not_samne">密码不一致，请重新输入。</string>
+    <string name="password_not_same">密码不一致，请重新输入。</string>
     <string name="my_bank_card">我的银行卡</string>
     <string name="title_activity_manage_bank_card">我的银行卡</string>
     <string name="credit_card">信用卡</string>
@@ -100,7 +98,6 @@
     <string name="choose_a_province">选择省份</string>
     <string name="choose_a_city">选择城市</string>
     <string name="choose_an_account_type">选择帐户类型</string>
-
     <string name="title_activity_add_fund">充值</string>
     <string name="title_activity_prepaid_card_recharge">充值卡充值</string>
     <string name="email_format_err">邮箱格式错误！</string>
@@ -109,7 +106,7 @@
     <string name="choose_a_region">选择区域</string>
     <string name="next_step">下一步</string>
     <string name="region">区域</string>
-    <string name="thailand">ประเทศไทย</string>
+    <string name="thailand" translatable="false">ประเทศไทย</string>
     <string name="bank">银行</string>
     <string name="title_activity_choose_bank_account">选取VCP账号</string>
     <string name="vcp_account">VCP ACCOUNT</string>
@@ -149,7 +146,7 @@
     <string name="receiver_account">接收者账户</string>
     <string name="forget_password"><u>忘记密码?</u></string>
     <string name="input_your_email">输入你的邮箱</string>
-    <string name="title_activity_vcan_pay_app">VcanPay</string>
+    <string name="title_activity_vcanpay_app" translatable="false">VcanPay</string>
     <string name="title_activity_transfer_confirm">转账确认</string>
     <string name="receiver">接收者</string>
     <string name="title_activity_edit_user_profile">编辑个人资料</string>
@@ -240,31 +237,30 @@
     <string name="unactivated">未激活</string>
     <string name="continue_withdrawing">继续提现</string>
     <string name="refresh">刷新</string>
-
     <string name="bank0">曼谷银行</string>
     <string name="bank1">汇商银行</string>
     <string name="bank2">华泰农业银行</string>
     <string name="bank3">泰京银行</string>
-    <string name="unkown_bank">未知的银行</string>
+    <string name="unknown_bank">未知的银行</string>
     <string name="status_unactivated">未激活</string>
     <string name="status_activated">已激活</string>
     <string name="debit_card">借记卡</string>
     <string name="bank_card_other">其他</string>
-    <string name="money_check_staus_1">生成汇款金额，等待汇款</string>
-    <string name="money_check_staus_2">汇款办理中</string>
-    <string name="money_check_staus_3">汇款成功，等待客户核对</string>
-    <string name="money_check_staus_4">客户核对成功</string>
-    <string name="money_check_staus_5">已确认</string>
+    <string name="money_check_status_1">生成汇款金额，等待汇款</string>
+    <string name="money_check_status_2">汇款办理中</string>
+    <string name="money_check_status_3">汇款成功，等待客户核对</string>
+    <string name="money_check_status_4">客户核对成功</string>
+    <string name="money_check_status_5">已确认</string>
     <string name="unknown_status">未知的状态</string>
     <string name="title_activity_reset_password_activity2">重设密码</string>
     <string name="reset_password">重设密码</string>
     <string name="random_number">随机码</string>
     <string name="carriers">电信公司</string>
     <string name="shopping">购买商品</string>
-    <string name="water_eletric">水电费</string>
-    <string name="unknow_fee">未知的费用</string>
+    <string name="water_electricity">水电费</string>
+    <string name="unknown_fee">未知的费用</string>
     <string name="chase_money">追款</string>
-    <string name="water_and_electronice_fee">水电费</string>
+    <string name="water_and_electricity_fee">水电费</string>
     <string name="pay_for_others">找人代付</string>
     <string name="loan">贷款</string>
     <string name="send_envelop">发红包</string>
@@ -274,7 +270,7 @@
     <string name="trade_not_verified">交易未经审核</string>
     <string name="trade_verified_success">交易经过审核（成功）</string>
     <string name="trade_verified_fail">交易经过审核（失败）</string>
-    <string name="unknow_trade_state">未知的交易状态</string>
+    <string name="unknown_trade_state">未知的交易状态</string>
     <string name="bank_card_verified">已审核</string>
     <string name="bank_card_unverified">未审核(点击激活)</string>
     <string name="bank_card_options">选项</string>
@@ -292,13 +288,13 @@
     <string name="agree_to">同意</string>
     <string name="user_guide"><u>用户手册</u></string>
     <string name="feedback_hint">Would you like an email response?</string>
-    <string name="send_feedback">Send Feedback</string>
+    <string name="send_feedback">发送反馈</string>
     <string name="feedback_title">Enter feedback details to send to us:</string>
     <string name="your_name">您的名字</string>
     <string name="your_email">您的邮箱</string>
     <string name="your_content">问题描述</string>
     <string name="create_account">创建账户</string>
-    <string name="resend_verification_code">重新发送验证码</string>
+    <string name="resend_verification_code">重新发送</string>
     <string name="load_more">加载更多</string>
     <string name="change_avatar_hint">点击更换头像</string>
     <string name="profile_avatar">Avatar</string>
@@ -306,7 +302,7 @@
     <string name="time">时间</string>
     <string name="FORBIDDEN_MESSAGE">你所访问的资源是被禁止的。状态代码403</string>
     <string name="AUTHORIZED_FAILURE_MESSAGE">授权失败，状态代码401</string>
-    <string name="VISIT_FIRBIDDEN_MESSAGE">你所访问的资源是被禁止的。状态代码403</string>
+    <string name="VISIT_FORBIDDEN_MESSAGE">你所访问的资源是被禁止的。状态代码403</string>
     <string name="network_error_message">网络错误。请检查你的网络连接是否开启。</string>
     <string name="reduplicate_submit_message">我们已记录您提交的信息，请不要重复提交。</string>
     <string name="prepaid_card_sold_out">充值卡已售完。</string>
@@ -314,7 +310,7 @@
     <string name="email_not_activated">邮箱尚未激活，请先激活您的邮箱</string>
     <string name="email_not_exist">邮箱不存在</string>
     <string name="verification_code_error">激活码错误，请重新输入</string>
-    <string name="reset_password_success">重设密码成功</string>
+    <string name="reset_password_success">重设密码成功，你需要重新登录。</string>
     <string name="balance_sufficient">您的账户余额不足!</string>
     <string name="account_not_exist">接收者账户不存在</string>
     <string name="have_card_not_confirmed">你有一张银行卡尚未确认，请先确认</string>
@@ -331,4 +327,6 @@
     <string name="settings">设置</string>
     <string name="office_phone">工作电话</string>
     <string name="home_phone">住宅电话</string>
+    <string name="dummy_button">dummy button</string>
+    <string name="password_error_with_count">密码错误%1$d次，请%2$d分钟后再试。</string>
 </resources>

@@ -82,7 +82,7 @@ public class BankCardDetailsActivity extends BaseActivity implements View.OnClic
                 return context.getString(R.string.bank3);
         }
 
-        return context.getString(R.string.unkown_bank);
+        return context.getString(R.string.unknown_bank);
     }
 
     public String getActivationStatus(Context context, int code) {
@@ -99,15 +99,15 @@ public class BankCardDetailsActivity extends BaseActivity implements View.OnClic
     public String getMoneyCheckStatus(Context context, int code) {
         switch (code) {
             case 1:
-                return context.getString(R.string.money_check_staus_1);
+                return context.getString(R.string.money_check_status_1);
             case 2:
-                return context.getString(R.string.money_check_staus_2);
+                return context.getString(R.string.money_check_status_2);
             case 3:
-                return context.getString(R.string.money_check_staus_3);
+                return context.getString(R.string.money_check_status_3);
             case 4:
-                return context.getString(R.string.money_check_staus_4);
+                return context.getString(R.string.money_check_status_4);
             case 5:
-                return context.getString(R.string.money_check_staus_5);
+                return context.getString(R.string.money_check_status_5);
         }
         return context.getString(R.string.unknown_status);
     }

@@ -144,10 +144,10 @@ public class BillDetailsActivity extends BaseActivity {
             case 2:
                 return context.getString(R.string.shopping);
             case 3:
-                return context.getString(R.string.water_eletric);
+                return context.getString(R.string.water_electricity);
         }
 
-        return context.getString(R.string.unknow_fee);
+        return context.getString(R.string.unknown_fee);
     }
 
     public String getTradeType(Context context, int code) {
@@ -163,7 +163,7 @@ public class BillDetailsActivity extends BaseActivity {
             case 5:
                 return context.getString(R.string.cellphone_recharge);
             case 6:
-                return context.getString(R.string.water_and_electronice_fee);
+                return context.getString(R.string.water_and_electricity_fee);
             case 7:
                 return context.getString(R.string.pay_for_others);
             case 8:
@@ -187,6 +187,6 @@ public class BillDetailsActivity extends BaseActivity {
                 return context.getString(R.string.trade_verified_fail);
         }
 
-        return context.getString(R.string.unknow_trade_state);
+        return context.getString(R.string.unknown_trade_state);
     }
 }

@@ -53,7 +53,8 @@ public class ResetPasswordActivity extends BaseActivity implements TextWatcher {
                         "\"customScore\":0," +
                         "\"email\":\"%s\"," +
                         "\"ICardId\":\"%s\"," +
-                        "\"loginErrTimes\":0}",
+                        "\"loginErrTimes\":0," +
+                        "\"registerFlag\":0}",
                 email,
                 idCard
         );

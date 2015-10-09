@@ -41,7 +41,7 @@ public class ChangePasswordActivity extends BaseActivity implements NoticeDialog
             String confirmPassword = mEtConfirmPassword.getText().toString();
 
             if (!newPassword.equals(confirmPassword)) {
-                showAlertDialog(ChangePasswordActivity.this, getString(R.string.notify), getString(R.string.password_not_samne));
+                showAlertDialog(ChangePasswordActivity.this, getString(R.string.notify), getString(R.string.password_not_same));
                 return;
             }
             String email = getCurrentCustomer().getEmail();

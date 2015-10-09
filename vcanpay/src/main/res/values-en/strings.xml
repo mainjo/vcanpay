@@ -10,7 +10,7 @@
     <string name="action_pay">Pay</string>
     <string name="amount">Amount</string>
     <string name="balance_demo_string">Balance $5000</string>
-    <string name="title_activity_tabhost">Home</string>
+    <string name="title_activity_tab_host">Home</string>
     <string name="title_activity_add_bank_card">Add Bank Card</string>
     <string name="title_activity_bill_details">Bills</string>
     <string name="title_activity_bills_to_be_paid">Bills To Be Paid</string>
@@ -115,14 +115,14 @@
     <string name="notification_push">Push Notification</string>
     <string name="notify">Notification</string>
     <string name="often_used_func">Recently Used</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="other">Other</string>
     <string name="old_password">Old Password</string>
     <string name="online_bank">Online Bank</string>
     <string name="passport">Passport</string>
     <string name="password">Password</string>
     <string name="password_not_empty">The password can not be empty.</string>
-    <string name="password_not_samne">Passwords is not the same.</string>
+    <string name="password_not_same">Passwords is not the same.</string>
     <string name="payment_bills">Bills</string>
     <string name="post_code">Post Code</string>
     <string name="pref_default_display_name">John Smith</string>
@@ -222,7 +222,7 @@
     <string name="welcome_prefix">Welcome,</string>
     <string name="vcp_account">VCP ACCOUNT</string>
     <string name="account_not_exist">The target account does not exist.</string>
-    <string name="VISIT_FIRBIDDEN_MESSAGE">Access to the specified resource has been forbidden.</string>
+    <string name="VISIT_FORBIDDEN_MESSAGE">Access to the specified resource has been forbidden.</string>
     <string name="FORBIDDEN_MESSAGE">Access to the specified resource has been forbidden.</string>
     <string name="your_name">Your Name</string>
     <string name="your_content">Problem Description</string>
@@ -233,7 +233,6 @@
     <string name="activated_success">Activatation Success</string>
     <string name="activation_code_incorrect">Verify code error! Please input again.</string>
     <string name="add_bank_card_success">Adding Bank Card Success</string>
-    <string name="adding_fund_success"></string>
     <string name="app_name">Vcanpay</string>
     <string name="auth_error">Authorized Fail</string>
     <string name="balance_sufficient">There is no sufficient funds in your account!</string>
@@ -246,11 +245,8 @@
     <string name="carriers">Telecom</string>
     <string name="change_avatar_hint">Click to change the avatar</string>
     <string name="change_password_success">Changing Password Success</string>
-    <string name="chase_money"></string>
-    <string name="continue_to_add_bank_card"></string>
     <string name="created_time">Created</string>
     <string name="debit_card">Debit Card</string>
-    <string name="dummy_button"></string>
     <string name="continue_withdrawing">Withdraw Again</string>
     <string name="old_password_error">Old password error</string>
     <string name="password_incorrect">Password Incorrect</string>
@@ -262,4 +258,22 @@
     <string name="home_phone">Home Phone</string>
     <string name="office_phone">Office Phone</string>
     <string name="input_the_amount_you_get">Input the amount you got</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_password_hint">Please check your email box to find the verification code.</string>
+    <string name="reset_password_success">Your password has been reset. You will be take to the sign-in page.</string>
+    <string name="remember_email">Remember account</string>
+    <string name="resend_verification_code">Resend</string>
+    <string name="refresh">Refresh</string>
+    <string name="reduplicate_id_card">The id card you input is occupied.</string>
+    <string name="reduplicate_submit_message">Your information is saved. You need not submit it repeatly.</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="sent_to_email_box">the card number and password has been sent to your email box.</string>
+    <string name="shopping">Shopping</string>
+    <string name="status_activated">Activated</string>
+    <string name="status_unactivated">Unactivated</string>
+    <string name="taobao">淘宝网</string>
+    <string name="time">Time</string>
+    <string name="title_activity_activate_bank_card">Activate</string>
+    <string name="title_activity_input_amount_to_validate">Activate</string>
+    <string name="title_activity_pay">Pay</string>
 </resources>

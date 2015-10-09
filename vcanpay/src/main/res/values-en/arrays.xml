@@ -24,4 +24,14 @@
         <item>Over the counter/ATM</item>
         <item>Online bank</item>
     </string-array>
+
+    <string-array name="ampam">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
+
+    <string-array name="countries">
+        <item>Thailand</item>
+        <item>China</item>
+    </string-array>
 </resources>

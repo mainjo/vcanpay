@@ -24,4 +24,14 @@
         <item>หญิง</item>
         <item>อื่นๆ</item>
     </string-array>
+
+    <string-array name="ampam">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
+
+    <string-array name="countries">
+        <item>ประเทศไทย</item>
+        <item>China</item>
+    </string-array>
 </resources>

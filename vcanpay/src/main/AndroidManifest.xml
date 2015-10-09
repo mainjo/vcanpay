@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.vcanpay.activity.VcanPayApp"
-            android:label="@string/title_activity_vcan_pay_app"
+            android:label="@string/title_activity_vcanpay_app"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
         <activity
             android:name="com.vcanpay.activity.TabHostActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/title_activity_tabhost" />
+            android:label="@string/title_activity_tab_host" />
         <activity
             android:name="com.vcanpay.activity.PicsShowActivity"
             android:label="@string/title_activity_show_activity" />
